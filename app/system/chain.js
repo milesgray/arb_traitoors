@@ -38,7 +38,7 @@ export function getContract(provider) {
 
 export async function doMint(signer, contract) {
     contract = contract ? contract : getContract();
-    const price = await contract.OPEN_MINT_PRICE();
+    const price = await contract.price();
     const tx = {
         gasLimit: '0x55555',
         to: ethers.utils.getAddress(contract.address),
@@ -92,7 +92,7 @@ export async function getTokensOfOwner(account, contract) {
         contract = contract ? contract : getContract();
         const tokens = await contract.tokensOfOwner(account);
         const result = {
-            minterNumMinted: tokens.length,
+            minterNumMinted: tokens?.length ? tokens.length : 0,
             tokenIds: tokens,
         };
         console.log(`[chain] [getTokensOfOwner] result: `, result);
