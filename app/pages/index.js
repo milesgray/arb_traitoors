@@ -60,7 +60,7 @@ export default function Index() {
       <section className="header mt-6 items-center flex ">
         <div className="container mx-auto items-center flex flex-wrap  z-4">
           <div className="w-full z-2 mt-10 mb-20 bg-gray-900 bg-opacity-90 shadow-red-500 glow-sm rounded-sm md:w-8/12 lg:w-6/12 xl:w-6/12 px-4 m-0">
-            <div className="py-0 mt-4 sm:pt-0 lg:pt-0 lg:-mt-2">
+            <div className="py-0 mt-4 sm:pt-0 lg:pt-0 lg:-mt-2 shadow-inner shadow-zinc-900">
               <h2 className="font-semibold text-4xl lg:text-max pointer-events-none lg:relative lg:-top-4 lg:-left-10">
                 <Logo weight={500} />
               </h2>
