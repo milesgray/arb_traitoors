@@ -43,7 +43,7 @@ export default function Navbar({ data, remaining }) {
               <li className="flex items-center">
                 <a
                   className="hover:text-red-500 text-slate-300 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                  href={`https://goerli.arbiscan.io/address/0xA49c87366488B7B50184AF595a8Bdd75b07c4d0e`}
+                  href={`https://arbiscan.io/address/0x4EEFeFD5fF983C85D5DDDc398366b6Db2fa466F1`}
                   target="_blank"
                 >
                   <i className="text-indigo-600 fa fa-gears text-lg leading-lg pb-1 mr-1" />

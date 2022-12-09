@@ -45,13 +45,13 @@ const theme = merge(darkTheme(), {
 
 const { chains, provider } = configureChains(
   [
-    arbitrumGoerli,
+    arbitrum,
   ],
   [
-    alchemyProvider({ apiKey: "uVgLp0nJH7g0wqesb6N0MGPRFDVl6z-1" }),
+    alchemyProvider({ apiKey: "44wMYVLkygXznIGHzFN8fF8JoPVx1ykc" }),
     jsonRpcProvider({
       rpc: (chain) => ({
-        http: `https://arb-goerli.g.alchemy.com/v2/uVgLp0nJH7g0wqesb6N0MGPRFDVl6z-1`
+        http: `https://arb-mainnet.g.alchemy.com/v2/44wMYVLkygXznIGHzFN8fF8JoPVx1ykc`
       }),
     }),
     publicProvider(),
