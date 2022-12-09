@@ -1,0 +1,9 @@
+export const CHAIN_ID = 421613;
+export const CHAIN_NAME = "arb";
+export const NETWORK_NAME = "goerli";
+export const ERC721_ADDRESS = "0xA49c87366488B7B50184AF595a8Bdd75b07c4d0e";
+export const ALCHEMY_API_KEY = 'uVgLp0nJH7g0wqesb6N0MGPRFDVl6z-1';
+export const INFURA_API_KEY = 'bc6d57d2b47547a48d9f8beca108150d';
+export const POCKET_API_KEY = '2be8b369a428501faa1c0b0271d5f9f7116e29e04e3f178358312605cd7fb9fa';
+export const ETHERSCAN_API_KEY = 'Q7RF8KID4A91F8VBXPH8T1HSHD6FASFURQ';
+export const PRICE_ETH = 0.005
