@@ -23,7 +23,7 @@ const fetcher = (library, abi) => (...args) => {
 }
 
 export function getProvider() {
-    const provider = new ethers.providers.AlchemyProvider(421613, ALCHEMY_API_KEY);
+    const provider = new ethers.providers.AlchemyProvider(42161, ALCHEMY_API_KEY);
     return provider;
 }
 
