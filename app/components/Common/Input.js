@@ -13,7 +13,7 @@ export default function StyledInput({ children, ...props }) {
                 'bg-slate-800',
                 'border-transparent',
                 'focus:border-gray-500',
-                'focus:bg-slate-700',
+                'focus:bg-zinc-800',
                 'focus:ring-0'
             ])}>
             {children}

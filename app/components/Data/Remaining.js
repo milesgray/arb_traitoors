@@ -33,8 +33,8 @@ export default function Remaining() {
     }, [isDisconnected]);   
     
     if (!remaining) {
-        return <span className="blur text-red-600 font-bold">?????</span>
+        return <span className="blur text-gray-600 font-bold">?????</span>
     }
     console.log(`[Remaining] `, remaining);
-    return <span className="text-red-600 font-bold">{remaining}</span>           
+    return <span className="text-gray-600 font-bold">{remaining}</span>           
 }

@@ -80,7 +80,7 @@ export default function PurchaseModal({
                                     <p className={clsx([
                                         'relative', 
                                         'top-6',
-                                        'text-red-400',
+                                        'text-yellow-400',
                                         'w-8/12', 
                                         'block'
                                     ])}>

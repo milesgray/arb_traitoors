@@ -19,7 +19,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body className="text-red-500 antialiased bg-zinc-900">
+        <body className="text-slate-300 antialiased bg-black">
           <div id="page-transition"></div>
           <Main />
           <NextScript />

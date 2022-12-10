@@ -18,7 +18,7 @@ import teaser13Pic from '../public/img/brand/14.png';
 import teaser14Pic from '../public/img/brand/15.png';
 import teaser15Pic from '../public/img/brand/16.png';
 import { useAccount, useProvider, isAddress } from 'wagmi';
-
+import { Transition } from '@headlessui/react';
 import { MintButton } from "../components/MintButton";
 import { Remaining, Balance } from "../components/Data";
 import IndexNavbar from "../components/Navbars/IndexNavbar.js";
@@ -41,7 +41,7 @@ const contextClass = {
 };
 
 export default function Index() {
-  const [STATIC_DATA, setSTATIC_DATA] = useState();
+  const [staticData, setStaticData] = useState();
   const { isConnected } = useAccountModal();
   const provider = useProvider();
   const contract = getContract(provider);
@@ -49,44 +49,44 @@ export default function Index() {
   useEffect(() => {
     if (!contract) return;
     getStaticData(contract).then((data) => {
-      setSTATIC_DATA(data);
+      setStaticData(data);
     });
   }, [isConnected]);
   
   
   return (
     <>
-      <IndexNavbar fixed data={STATIC_DATA} />
+      <IndexNavbar fixed data={staticData} />
       <section className="header mt-6 items-center flex ">
         <div className="container mx-auto items-center flex flex-wrap  z-4">
-          <div className="w-full z-2 mt-10 mb-20 bg-gray-900 bg-opacity-90 shadow-red-500 glow-sm rounded-sm md:w-8/12 lg:w-6/12 xl:w-6/12 px-4 m-0">
-            <div className="py-0 mt-4 sm:pt-0 lg:pt-0 lg:-mt-2 shadow-inner shadow-zinc-900">
-              <h2 className="font-semibold text-4xl lg:text-max pointer-events-none lg:relative lg:-top-4 lg:-left-10">
+          <div className="w-full z-2 mt-10 mb-20 bg-black bg-opacity-90 shadow-gray-500 glow-sm rounded-sm md:w-8/12 lg:w-6/12 xl:w-6/12 p-0 m-0">
+            <div className="p-2 shadow-inner shadow-gray-900">
+              <h2 className="font-semibold text-4xl lg:text-max pointer-events-none">
                 <Logo weight={500} />
               </h2>
-              <h3 className="text-lg font-semibold font-mono text-slate-600 uppercase">
-                join the movement
+              <h3 className="text-lg font-semibold font-mono text-zinc-600 uppercase">
+                join the rebellion
               </h3>
-              <p className="mt-4 text-xl leading-relaxed font-mono text-slate-300">
+              <p className="mt-4 text-xl leading-relaxed font-mono text-zinc-100">
                 In a dark and desolate world, where the skies are choked with smog and the streets are ruled by violence and fear, a group of rebels has arisen. These rebels are known as the <Logo weight={500} />, and they are united by their rejection of the oppressive regime that holds sway over their land.
               </p>
-              <p className="mt-4 text-xl leading-relaxed font-mono text-slate-300">
+              <p className="mt-4 text-xl leading-relaxed font-mono text-zinc-100">
                 Now, the <Logo weight={500} /> have decided to share their masks with the world, and they are offering them as non-fungible tokens on the Arbitrum platform. Each mask is a one-of-a-kind piece of digital art, representing the soul of the <Logo weight={500} /> who created it.
               </p>
-              <p className="mt-4 text-xl leading-relaxed font-mono text-slate-300">
+              <p className="mt-4 text-xl leading-relaxed font-mono text-zinc-100">
                 Join the rebellion and claim your own <Logo weight={500} /> demon mask today. Show the world that you stand with the <Logo weight={500} /> in their fight for freedom and justice.
               </p>
-              <p className="mt-2 lg:mt-4 text-lg leading-relaxed text-slate-300">
+              <p className="mt-2 lg:mt-4 text-lg leading-relaxed text-zinc-100">
                 <Remaining /> available, <Balance /> owned
               </p>              
               <div className="ml-6 mt-4 pb-4">
-                <MintButton data={STATIC_DATA} />
+                <MintButton data={staticData} />
               </div>
             </div>
           </div>
           <div className="w-full lg:w-4/12 pt-4 pb-2 mb-12 mr-auto ml-auto z-10">
             <div className="z-10 relative flex flex-row min-w-0 w-full mb-2 mt-4">
-              <div className="flex-col  shadow-red-900 glow-md">
+              <div className="flex-col  shadow-zinc-900 glow-md">
                 <Image
                   alt="A Demon Mask"
                   palceholder="empty"
@@ -118,7 +118,7 @@ export default function Index() {
                   className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
                 />
               </div>
-              <div className="flex-col  shadow-red-900 glow-md">
+              <div className="flex-col  shadow-zinc-900 glow-md">
                 <Image
                   alt="A Demon Mask"
                   palceholder="empty"
@@ -156,13 +156,13 @@ export default function Index() {
         
       </section>
 
-      <section className="flex mt-8 lg:mt-48 md:mt-40 lg:pb-40 relative bg-slate-800">
+      <section className="flex mt-8 lg:mt-48 md:mt-40 lg:pb-40 relative bg-zinc-800">
         <div
           className="-mt-20 top-0 bottom-auto left-0 right-0 w-full absolute h-20"
-          style={{ transform: "translateZ(0)" }}
+          style={{ transform: "tranzincZ(0)" }}
         >
           <svg
-            className="absolute bottom-0 overflow-hidden text-slate-800"
+            className="absolute bottom-0 overflow-hidden text-zinc-800"
             xmlns="http://www.w3.org/2000/svg"
             preserveAspectRatio="none"
             version="1.1"
@@ -182,40 +182,40 @@ export default function Index() {
           <div className="flex flex-wrap items-center">
             <div className="w-full md:w-4/12 px-4 lg:px-12 md:px-4 mb-10 ml-auto mr-auto lg:mt-48">
               <div className="pt-5 flex flex-row">
-                <div className="text-red-600 mr-2 text-center inline-flex items-center justify-center w-16 h-16 mb-6 border-red-500 border-2 shadow-rose-400 rounded-full bg-slate-600 glow-lg">
-                  <div className="shadow-inner shadow-slate-900 rounded-full p-5 ">
+                <div className="text-zinc-600 mr-2 text-center inline-flex items-center justify-center w-16 h-16 mb-6 border-gray-500 border-2 shadow-slate-400 rounded-full bg-black glow-lg">
+                  <div className="shadow-inner shadow-zinc-900 rounded-full p-5 ">
                     <i className="fas fa-wand-sparkles text-xl"></i>                
                   </div>                  
                   
                 </div>
-                <span className="text-red-500 text-4xl mt-2 font-bold font-merriweather leading-normal">
+                <span className="text-zinc-500 text-4xl mt-2 font-bold font-merriweather leading-normal">
                   Traits
                 </span>
               </div>
               <div className="px-0">
-                <p className="text-xl leading-relaxed mt-0 mb-4 text-slate-300">
-                  Each <Logo weight={500} /> has their own unique demon mask, crafted with care and infused with their own style and vision. Some are sleek and elegant, while others are grotesque and terrifying. But all of them are powerful symbols of the ArbTraitors' rebellion against the forces of oppression.
+                <p className="text-xl leading-relaxed mt-0 mb-4 text-zinc-300">
+                  Each <Logo weight={500} /> has their own unique demon mask, crafted with care and infused with their own style and vision. Some are sleek and elegant, while others are grotesque and terrifying. But all of them are powerful symbols of the <Logo weight={500} />' rebellion against the forces of oppression.
                 </p>
                 <div className="block pb-6">
-                  <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-red-500 bg-gray-800 uppercase last:mr-0 mr-2 mt-2">
+                  <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-white bg-gray-800 uppercase last:mr-0 mr-2 mt-2">
                     Species
                   </span>
-                  <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-red-500 bg-gray-800 uppercase last:mr-0 mr-2 mt-2">
+                  <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-white bg-gray-800 uppercase last:mr-0 mr-2 mt-2">
                     Power
                   </span>
-                  <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-red-500 bg-gray-800 uppercase last:mr-0 mr-2 mt-2">
+                  <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-white bg-gray-800 uppercase last:mr-0 mr-2 mt-2">
                     Age
                   </span>
-                  <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-red-500 bg-gray-800 uppercase last:mr-0 mr-2 mt-2">
+                  <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-white bg-gray-800 uppercase last:mr-0 mr-2 mt-2">
                     Shape
                   </span>
-                  <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-red-500 bg-gray-800 uppercase last:mr-0 mr-2 mt-2">
+                  <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-white bg-gray-800 uppercase last:mr-0 mr-2 mt-2">
                     Season
                   </span>
-                  <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-red-500 bg-gray-800 uppercase last:mr-0 mr-2 mt-2">
+                  <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-white bg-gray-800 uppercase last:mr-0 mr-2 mt-2">
                     Style
                   </span>
-                  <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-red-500 bg-gray-800 uppercase last:mr-0 mr-2 mt-2">
+                  <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-white bg-gray-800 uppercase last:mr-0 mr-2 mt-2">
                     Flavor
                   </span>
                 </div>
@@ -224,7 +224,7 @@ export default function Index() {
 
             <div className="md:hidden lg:block xl:block w-full lg:w-4/12 pt-4 pb-2 mb-12 mr-auto ml-auto z-10">
               <div className="z-10 relative flex flex-row min-w-0 w-full mb-2 mt-4">
-                <div className="flex-col  shadow-red-900 glow-md">
+                <div className="flex-col  shadow-zinc-900 glow-md">
                   <Image
                     alt="A Demon Mask"
                     palceholder="empty"
@@ -244,7 +244,7 @@ export default function Index() {
                     className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
                   />                  
                 </div>
-                <div className="flex-col  shadow-red-900 glow-md">
+                <div className="flex-col  shadow-zinc-900 glow-md">
                   <Image
                     alt="A Demon Mask"
                     palceholder="empty"
@@ -307,23 +307,23 @@ export default function Index() {
                 />
               </div>
             </div>
-            <div className="w-full md:w-4/12 ml-auto mr-auto lg:mt-48 bg-zinc-700 drop-shadow-sm glow-sm shadow-red-600 border-1 border-rose-600">
+            <div className="w-full md:w-4/12 ml-auto mr-auto lg:mt-48 bg-black drop-shadow-sm glow-sm shadow-zinc-600 border-1 border-zinc-600">
               <div className="px-4 md:px-6 lg:px-12  shadow-inner shadow-zinc-900">
               
-                <p className="pt-4 text-xl leading-relaxed font-mono text-slate-400">
+                <p className="pt-4 text-xl leading-relaxed font-mono text-zinc-400">
                   <Logo weight={500} /> masks are more than just decorative - they are a sign of their power, and a warning to those who would dare to stand in their way.
                 </p>
-                <p className="mt-4 text-xl leading-relaxed font-mono text-slate-300">
+                <p className="mt-4 text-xl leading-relaxed font-mono text-zinc-300">
                   The screams of the fallen echoed through the city, a grim testament to the <Logo weight={500} />' ruthless efficiency. But for those who survived, the fear of the demon masks would be etched into their minds forever...
                 </p>
-                <p className="mt-4 text-2xl leading-relaxed font-merriweather text-slate-200">
+                <p className="mt-4 text-2xl leading-relaxed font-merriweather text-zinc-200">
                   And for those who collected the masks, the true power of the <Logo weight={500} /> would be theirs to wield.
                 </p>
-                <p className="mt-2 lg:mt-4 text-lg leading-relaxed text-slate-100">
+                <p className="mt-2 lg:mt-4 text-lg leading-relaxed text-zinc-100">
                   <Remaining /> available, <Balance /> owned
                 </p>
                 <div className="ml-6 mt-4 pb-4">
-                  <MintButton data={STATIC_DATA} />
+                  <MintButton data={staticData} />
                 </div>
               </div>
               
@@ -332,10 +332,10 @@ export default function Index() {
         </div>
       </section>
       
-      <section className="pb-16 bg-slate-700 relative pt-2">
+      <section className="pb-16 bg-zinc-700 relative pt-2">
         <div
           className="-mt-20 top-0 bottom-auto left-0 right-0 w-full absolute h-20"
-          style={{ transform: "translateZ(0)" }}
+          style={{ transform: "tranzincZ(0)" }}
         >
           <svg
             className="absolute bottom-0 overflow-hidden"
@@ -347,7 +347,7 @@ export default function Index() {
             y="0"
           >
             <polygon
-              className="text-slate-700 fill-current"
+              className="text-zinc-700 fill-current"
               points="2560 0 2560 200 0 200"
             ></polygon>
           </svg>

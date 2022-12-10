@@ -21,8 +21,8 @@ export default function Balance() {
     //const { isEnabled, setEnabledState } = useOnTransfer({ onTransfer, delay });
     
     if (!balance) {
-        return <span className="blur text-red-600 font-bold">?????</span>
+        return <span className="blur text-gray-600 font-bold">?????</span>
     }
     console.log(`[Balance] `, balance);
-    return <span className="text-red-600 font-bold">{balance}</span>
+    return <span className="text-gray-600 font-bold">{balance}</span>
 }
