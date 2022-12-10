@@ -49,7 +49,7 @@ export default function Navbar({ data, remaining }) {
               </li>
             </ul>
           </div>
-          <div>
+          <div className="flex">
             <ul className="flex flex-row list-none lg:ml-auto">
               <li className="flex items-center">
                 <ConnectButton />
