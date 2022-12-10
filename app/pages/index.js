@@ -86,68 +86,68 @@ export default function Index() {
           </div>
           <div className="w-full lg:w-4/12 pt-4 pb-2 mb-12 mr-auto ml-auto z-10">
             <div className="z-10 relative flex flex-row min-w-0 w-full mb-2 mt-4">
-              <div className="flex-col">
+              <div className="flex-col  shadow-red-900 glow-md">
                 <Image
                   alt="A Demon Mask"
                   palceholder="empty"
                   src={teaser6Pic}
-                  className="w-full align-middle rounded shadow-lg max-w-[200px]"
+                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
                 />
                 <Image
                   alt="A Demon Mask"
                   palceholder="empty"
                   src={teaser7Pic}
-                  className="w-full align-middle rounded shadow-lg max-w-[200px]"
+                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
                 />
                 <Image
                   alt="A Demon Mask"
                   palceholder="empty"
                   src={teaser8Pic}
-                  className="w-full align-middle rounded shadow-lg max-w-[200px]"
+                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
                 />
                 <Image
                   alt="A Demon Mask"
                   palceholder="empty"
                   src={teaser1Pic}
-                  className="w-full align-middle rounded shadow-lg max-w-[200px]"
+                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
                 />
                 <Image
                   alt="A Demon Mask"
                   palceholder="empty"
                   src={teaser13Pic}
-                  className="w-full align-middle rounded shadow-lg max-w-[200px]"
+                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
                 />
               </div>
-              <div className="flex-col">
+              <div className="flex-col  shadow-red-900 glow-md">
                 <Image
                   alt="A Demon Mask"
                   palceholder="empty"
                   src={teaser9Pic}
-                  className="w-full align-middle rounded shadow-lg max-w-[200px]"
+                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
                 />
                 <Image
                   alt="A Demon Mask"
                   palceholder="empty"
                   src={teaser11Pic}
-                  className="w-full align-middle rounded shadow-lg max-w-[200px]"
+                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
                 />
                 <Image
                   alt="A Demon Mask"
                   palceholder="empty"
                   src={teaser12Pic}
-                  className="w-full align-middle rounded shadow-lg max-w-[200px] left-[420px] top-[200px]"
+                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
                 />
                 <Image
                   alt="A Demon Mask"
                   palceholder="empty"
                   src={teaser14Pic}
-                  className="w-full align-middle rounded shadow-lg max-w-[200px]"
+                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
                 />
                 <Image
                   alt="A Demon Mask"
                   palceholder="empty"
                   src={teaser15Pic}
-                  className="w-full align-middle rounded shadow-lg max-w-[200px] left-[420px] top-[200px]"
+                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
                 />
               </div>
             </div>
@@ -224,44 +224,44 @@ export default function Index() {
 
             <div className="md:hidden lg:block xl:block w-full lg:w-4/12 pt-4 pb-2 mb-12 mr-auto ml-auto z-10">
               <div className="z-10 relative flex flex-row min-w-0 w-full mb-2 mt-4">
-                <div className="flex-col">
+                <div className="flex-col  shadow-red-900 glow-md">
                   <Image
                     alt="A Demon Mask"
                     palceholder="empty"
                     src={teaser0Pic}
-                    className="w-full align-middle rounded shadow-lg max-w-[200px]"
+                    className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
                   />
                   <Image
                     alt="A Demon Mask"
                     palceholder="empty"
                     src={teaser10Pic}
-                    className="w-full align-middle rounded shadow-lg max-w-[200px]"
+                    className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
                   />
                   <Image
                     alt="A Demon Mask"
                     palceholder="empty"
                     src={teaser2Pic}
-                    className="w-full align-middle rounded shadow-lg max-w-[200px]"
+                    className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
                   />                  
                 </div>
-                <div className="flex-col">
+                <div className="flex-col  shadow-red-900 glow-md">
                   <Image
                     alt="A Demon Mask"
                     palceholder="empty"
                     src={teaser3Pic}
-                    className="w-full align-middle rounded shadow-lg max-w-[200px]"
+                    className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
                   />
                   <Image
                     alt="A Demon Mask"
                     palceholder="empty"
                     src={teaser4Pic}
-                    className="w-full align-middle rounded shadow-lg max-w-[200px]"
+                    className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
                   />
                   <Image
                     alt="A Demon Mask"
                     palceholder="empty"
                     src={teaser5Pic}
-                    className="w-full align-middle rounded shadow-lg max-w-[200px] left-[420px] top-[200px]"
+                    className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
                   />
                 </div>
               </div>
@@ -273,37 +273,37 @@ export default function Index() {
                   alt="A Demon Mask"
                   palceholder="empty"
                   src={teaser0Pic}
-                  className="w-full align-middle rounded absolute shadow-lg max-w-100-px left-145-px -top-29-px z-3"
+                  className="w-full align-middle rounded absolute shadow-inner drop-shadow max-w-100-px left-145-px -top-29-px z-3"
                 />
                 <Image
                   alt="A Demon Mask"
                   palceholder="empty"
                   src={teaser10Pic}
-                  className="w-full align-middle rounded-lg absolute shadow-lg max-w-210-px left-60-px lg:left-260-px -top-160-px"
+                  className="w-full align-middle rounded-lg absolute shadow-inner drop-shadow max-w-210-px left-60-px lg:left-260-px -top-160-px"
                 />
                 <Image
                   alt="A Demon Mask"
                   palceholder="empty"
                   src={teaser2Pic}
-                  className="w-full align-middle rounded-lg absolute shadow-lg max-w-180-px left-[-160px] top-[-135px] z-2"
+                  className="w-full align-middle rounded-lg absolute shadow-inner drop-shadow max-w-180-px left-[-160px] top-[-135px] z-2"
                 />
                 <Image
                   alt="A Demon Mask"
                   palceholder="empty"
                   src={teaser3Pic}
-                  className="w-full align-middle rounded-lg absolute shadow-2xl max-w-200-px -left-50-px top-25-px"
+                  className="w-full align-middle rounded-lg absolute shadow-inner drop-shadow max-w-200-px -left-50-px top-25-px"
                 />
                 <Image
                   alt="A Demon Mask"
                   palceholder="empty"
                   src={teaser4Pic}
-                  className="hidden lg:inline w-full align-middle rounded absolute shadow-lg max-w-[380px] -left-20-px top-210-px"
+                  className="hidden lg:inline w-full align-middle rounded absolute shadow-inner drop-shadow max-w-[380px] -left-20-px top-210-px"
                 />
                 <Image
                   alt="A Demon Mask"
                   palceholder="empty"
                   src={teaser5Pic}
-                  className="w-full align-middle rounded absolute shadow-xl max-w-120-px left-195-px top-95-px"
+                  className="w-full align-middle rounded absolute shadow-inner drop-shadow max-w-120-px left-195-px top-95-px"
                 />
               </div>
             </div>
@@ -334,7 +334,7 @@ export default function Index() {
       
       <section className="pb-16 bg-slate-700 relative pt-2">
         <div
-          className="lg:-mt-20 top-0 bottom-auto left-0 right-0 w-full absolute h-20"
+          className="-mt-20 top-0 bottom-auto left-0 right-0 w-full absolute h-20"
           style={{ transform: "translateZ(0)" }}
         >
           <svg
@@ -342,13 +342,13 @@ export default function Index() {
             xmlns="http://www.w3.org/2000/svg"
             preserveAspectRatio="none"
             version="1.1"
-            viewBox="0 0 2560 100"
+            viewBox="0 0 2560 200"
             x="0"
             y="0"
           >
             <polygon
               className="text-slate-700 fill-current"
-              points="2560 0 2560 100 0 100"
+              points="2560 0 2560 200 0 200"
             ></polygon>
           </svg>
         </div>
