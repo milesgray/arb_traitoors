@@ -13,7 +13,7 @@ export default function Navbar({ data, remaining }) {
     <>
       <nav className="top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-zinc-900 shadow">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
-          <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
+          <div className="w-auto static block justify-start">
             <Link href="/">
               <p className="text-md font-bold leading-relaxed inline-block mr-4 py-0 whitespace-nowrap uppercase">
                 <Logo weight={600} />
@@ -23,14 +23,11 @@ export default function Navbar({ data, remaining }) {
 
           </div>
           <div
-            className={
-              "lg:flex flex-grow items-center bg-slate-900 lg:bg-opacity-0 lg:shadow-none" +
-              (navbarOpen ? " block" : " hidden")
-            }
+            className="lg:flex flex-grow items-center bg-slate-900 lg:bg-opacity-0 lg:shadow-none"
             id="example-navbar-warning"
           >
             <ul className="flex flex-row list-none mr-auto">    
-              <li className="flex items-center">
+              <li className="items-center hidden md:flex lg:flex xl:flex">
                 <a
                   className="hover:text-indigo-500 text-slate-300 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                   href="https://github.com/milesgray/arb_traitoors"
@@ -40,7 +37,7 @@ export default function Navbar({ data, remaining }) {
                   Code
                 </a>
               </li>
-              <li className="flex items-center">
+              <li className="items-center hidden md:flex lg:flex xl:flex">
                 <a
                   className="hover:text-red-500 text-slate-300 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                   href={`https://arbiscan.io/address/0x4EEFeFD5fF983C85D5DDDc398366b6Db2fa466F1`}
@@ -51,7 +48,9 @@ export default function Navbar({ data, remaining }) {
                 </a>
               </li>
             </ul>
-            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+          </div>
+          <div>
+            <ul className="flex flex-row list-none lg:ml-auto">
               <li className="flex items-center">
                 <ConnectButton />
               </li>

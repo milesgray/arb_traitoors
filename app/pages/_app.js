@@ -57,6 +57,7 @@ const { chains, provider } = configureChains(
     publicProvider(),
   ]
 );
+console.log("arbitrum wagmi chain", arbitrum, "chains", chains);
 
 const { connectors } = getDefaultWallets({
   appName: "ArbTraitoors",
@@ -86,7 +87,7 @@ export default class MyApp extends App {
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
           />
-          <title>ArbTraitoors Open Mint</title>
+          <title>ArbTraitoors: The Infernal Gallery - Open Mint</title>
         </Head>
         <Layout>
           <WagmiConfig client={wagmiClient}>

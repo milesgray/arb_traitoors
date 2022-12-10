@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
-import { getContract, doMint, getTotalSupply, getStaticData, doBatchMint } from "../../system/chain";
+import { getEnabled, doMint, getTotalSupply, getStaticData, doBatchMint } from "../../system/chain";
 
-export default function useMint ({ 
+export default function useMint({
     onTxSuccess,
     onTxFail,
     onTxSubmit,
@@ -16,6 +16,8 @@ export default function useMint ({
     const [max, setMax] = useState();
     const [maxPerTx, setMaxPerTx] = useState();
 
+    const isEnabled = getEnabled();
+
     getStaticData().then((data) => {
         setPrice(data.price);
         setMax(data.max);
@@ -23,6 +25,10 @@ export default function useMint ({
     })
 
     const onMint = useCallback(async (quantity, signer) => {
+        if (!isEnabled) {
+            console.log("Mint disabled", signer);
+            return;
+        }        
         let tx;
         try {
             setSuccessState(false);
@@ -35,7 +41,7 @@ export default function useMint ({
                 tx = await doBatchMint(quantity, signer);
             } else {
                 tx = await doMint(signer);
-            }            
+            }
             console.log(`[onMint] transaction:`, tx);
             setHash(tx.hash);
             setMintingState(true);
@@ -61,7 +67,7 @@ export default function useMint ({
             });
 
             console.log(`[onMint] receipt: `, receipt);
-            
+
             setMintingState(false);
             setLoadingState(false);
             setSuccessState(true);
@@ -82,6 +88,7 @@ export default function useMint ({
 
     return {
         onMint,
+        isEnabled,
         isSuccess,
         isError,
         isMinting,

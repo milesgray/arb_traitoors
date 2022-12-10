@@ -27,6 +27,28 @@ export function getProvider() {
     return provider;
 }
 
+export function getEnabled(provider) {
+    try {
+        const provider = provider ? provider : getProvider();
+        return (provider.network.chainId === 42161) && (provider.getSigner());
+    } catch(e) {
+        return false;
+    }
+}
+
+export function getAddress(provider) {
+    try {
+        const provider = provider ? provider : getProvider();
+        if (getEnabled(provider)) {
+            return provider.getSigner().address;
+        } else {
+            return null;
+        }
+    } catch (e) {
+        return null;
+    }
+}
+
 export function getContract(provider) {
     return new ethers.Contract(
         ethers.utils.getAddress(ERC721_ADDRESS),

@@ -71,10 +71,10 @@ export default function Index() {
                 In a dark and desolate world, where the skies are choked with smog and the streets are ruled by violence and fear, a group of rebels has arisen. These rebels are known as the <Logo weight={500} />, and they are united by their rejection of the oppressive regime that holds sway over their land.
               </p>
               <p className="mt-4 text-xl leading-relaxed font-mono text-slate-300">
-                Now, the <Logo weight={500} /> have decided to share their masks with the world, and they are offering them as non-fungible tokens on the Arbitrum platform. Each mask is a one-of-a-kind piece of digital art, representing the soul of the ArbTraitor who created it.
+                Now, the <Logo weight={500} /> have decided to share their masks with the world, and they are offering them as non-fungible tokens on the Arbitrum platform. Each mask is a one-of-a-kind piece of digital art, representing the soul of the <Logo weight={500} /> who created it.
               </p>
               <p className="mt-4 text-xl leading-relaxed font-mono text-slate-300">
-                Join the rebellion and claim your own <Logo weight={500} /> demon mask today. Show the world that you stand with the ArbTraitors in their fight for freedom and justice.
+                Join the rebellion and claim your own <Logo weight={500} /> demon mask today. Show the world that you stand with the <Logo weight={500} /> in their fight for freedom and justice.
               </p>
               <p className="mt-2 lg:mt-4 text-lg leading-relaxed text-slate-300">
                 <Remaining /> available, <Balance /> owned
@@ -156,7 +156,7 @@ export default function Index() {
         
       </section>
 
-      <section className="hidden lg:flex md:flex xl:flex mt-8 lg:mt-48 md:mt-40 lg:pb-40 relative bg-slate-800">
+      <section className="flex mt-8 lg:mt-48 md:mt-40 lg:pb-40 relative bg-slate-800">
         <div
           className="-mt-20 top-0 bottom-auto left-0 right-0 w-full absolute h-20"
           style={{ transform: "translateZ(0)" }}
@@ -178,16 +178,19 @@ export default function Index() {
         </div>
 
 
-        <div className="hidden lg:flex  container mx-auto pb-20">
+        <div className="flex container mx-auto pb-20">
           <div className="flex flex-wrap items-center">
-            <div className="w-full md:w-4/12 px-4 lg:px-12 md:px-4 ml-auto mr-auto lg:mt-48">
-              <div className="pt-5 flex flex-row lg:flex-col">
-                <div className="text-red-400 p-3 mr-2 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-slate-800">
-                  <i className="fas fa-wand-sparkles text-xl"></i>
+            <div className="w-full md:w-4/12 px-4 lg:px-12 md:px-4 mb-10 ml-auto mr-auto lg:mt-48">
+              <div className="pt-5 flex flex-row">
+                <div className="text-red-600 mr-2 text-center inline-flex items-center justify-center w-16 h-16 mb-6 border-red-500 border-2 shadow-rose-400 rounded-full bg-slate-600 glow-lg">
+                  <div className="shadow-inner shadow-slate-900 rounded-full p-5 ">
+                    <i className="fas fa-wand-sparkles text-xl"></i>                
+                  </div>                  
+                  
                 </div>
-                <h3 className="text-3xl my-2 font-semibold leading-normal">
+                <span className="text-red-500 text-4xl mt-2 font-bold font-merriweather leading-normal">
                   Traits
-                </h3>
+                </span>
               </div>
               <div className="px-0">
                 <p className="text-xl leading-relaxed mt-0 mb-4 text-slate-300">
@@ -219,7 +222,52 @@ export default function Index() {
               </div>
             </div>
 
-            <div className="w-full md:w-5/12 pt-4 pb-20 mb-32 mr-auto ml-auto mt-12 lg:relative lg:-top-20">
+            <div className="md:hidden lg:block xl:block w-full lg:w-4/12 pt-4 pb-2 mb-12 mr-auto ml-auto z-10">
+              <div className="z-10 relative flex flex-row min-w-0 w-full mb-2 mt-4">
+                <div className="flex-col">
+                  <Image
+                    alt="A Demon Mask"
+                    palceholder="empty"
+                    src={teaser0Pic}
+                    className="w-full align-middle rounded shadow-lg max-w-[200px]"
+                  />
+                  <Image
+                    alt="A Demon Mask"
+                    palceholder="empty"
+                    src={teaser10Pic}
+                    className="w-full align-middle rounded shadow-lg max-w-[200px]"
+                  />
+                  <Image
+                    alt="A Demon Mask"
+                    palceholder="empty"
+                    src={teaser2Pic}
+                    className="w-full align-middle rounded shadow-lg max-w-[200px]"
+                  />                  
+                </div>
+                <div className="flex-col">
+                  <Image
+                    alt="A Demon Mask"
+                    palceholder="empty"
+                    src={teaser3Pic}
+                    className="w-full align-middle rounded shadow-lg max-w-[200px]"
+                  />
+                  <Image
+                    alt="A Demon Mask"
+                    palceholder="empty"
+                    src={teaser4Pic}
+                    className="w-full align-middle rounded shadow-lg max-w-[200px]"
+                  />
+                  <Image
+                    alt="A Demon Mask"
+                    palceholder="empty"
+                    src={teaser5Pic}
+                    className="w-full align-middle rounded shadow-lg max-w-[200px] left-[420px] top-[200px]"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="hidden md:block lg:block xl:block w-full md:w-5/12 pt-4 pb-20 mb-32 mr-auto ml-auto mt-12 lg:relative lg:-top-20">
               <div className="relative flex flex-col min-w-0 w-full mb-6 mt-48 md:mt-0">
                 <Image
                   alt="A Demon Mask"
@@ -259,8 +307,28 @@ export default function Index() {
                 />
               </div>
             </div>
+            <div className="w-full md:w-4/12 ml-auto mr-auto lg:mt-48 bg-zinc-700 drop-shadow-sm glow-sm shadow-red-600 border-1 border-rose-600">
+              <div className="px-4 md:px-6 lg:px-12  shadow-inner shadow-zinc-900">
+              
+                <p className="pt-4 text-xl leading-relaxed font-mono text-slate-400">
+                  <Logo weight={500} /> masks are more than just decorative - they are a sign of their power, and a warning to those who would dare to stand in their way.
+                </p>
+                <p className="mt-4 text-xl leading-relaxed font-mono text-slate-300">
+                  The screams of the fallen echoed through the city, a grim testament to the <Logo weight={500} />' ruthless efficiency. But for those who survived, the fear of the demon masks would be etched into their minds forever...
+                </p>
+                <p className="mt-4 text-2xl leading-relaxed font-merriweather text-slate-200">
+                  And for those who collected the masks, the true power of the <Logo weight={500} /> would be theirs to wield.
+                </p>
+                <p className="mt-2 lg:mt-4 text-lg leading-relaxed text-slate-100">
+                  <Remaining /> available, <Balance /> owned
+                </p>
+                <div className="ml-6 mt-4 pb-4">
+                  <MintButton data={STATIC_DATA} />
+                </div>
+              </div>
+              
+            </div>
           </div>
-
         </div>
       </section>
       

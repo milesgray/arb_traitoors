@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react'
 import { ImportantButton, StyledInput } from '../Common';
+import { toInteger } from 'lodash';
 
 export default function PurchaseModal({ 
     isOpen, 
@@ -73,7 +74,7 @@ export default function PurchaseModal({
                                         value={quantity} 
                                         min={1} 
                                             max={maxPerTx} 
-                                        onChange={(e) => setQuantity(e.target.value)} 
+                                            onChange={(e) => toInteger(e.target.value) > maxPerTx ? setQuantity(maxPerTx) : setQuantity(e.target.value)} 
                                     />
 
                                     <p className={clsx([

@@ -1,13 +1,6 @@
-import { useCallback, useMemo } from 'react';
-import { CRYPTREES_MINT_ABI } from '../config/abi';
-import {
-    OPENSEA_URL,
-    NETWORK_NAME,
-    CRYPTREES_ADDRESS,
-    ALCHEMY_API_KEY,
-    INFURA_API_KEY,
-} from '../config'
+import { useState } from 'react';
 
-const useMaxSupply = () => {
-
+export default function useMaxSupply() {
+    const [max, setMax] = useState();
+    return max;
 }
