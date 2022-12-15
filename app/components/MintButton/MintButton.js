@@ -16,7 +16,7 @@ export default function MintButton({ isText, data, remaining }) {
     const [isNotAvailable, setNotAvailable] = useState(remaining == 0);
     const isButton = !isText;
 
-    const { onMint, isSuccess, isError, isMinting, isLoading, hash } = useMint({ onTxSuccess });
+    const { onMint, isEnabled, isSuccess, isError, isMinting, isLoading, hash } = useMint({ onTxSuccess });
 
     async function onTxSuccess(receipt) {
         console.log(`[onTxSuccess] receipt: `, receipt, `, hash: `, hash);
@@ -43,7 +43,7 @@ export default function MintButton({ isText, data, remaining }) {
                     </ImportantButton>
                 </div>                
             )}
-            {(!isDisconnected && data) && (
+            {(isEnabled && data) && (
                 <PurchaseModal 
                     isOpen={isDialogOpen}
                     setIsOpen={setIsDialogOpen}
