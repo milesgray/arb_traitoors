@@ -1,2 +1,10 @@
-# arb_traitoors
-ArbTRAITOORS - an NFT project on Arbitrum
+# CrypTrees Web Interface
+
+## Run Locally
+
+```bash
+git clone 
+cd cryptrees
+npm install
+npm run dev
+```

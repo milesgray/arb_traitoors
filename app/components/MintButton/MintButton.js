@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react'
 import { useSigner, useAccount } from 'wagmi'
 import { arbitrum } from 'wagmi/chains'
-import { useAccountModal } from '@rainbow-me/rainbowkit';
+import { useConnectModal } from '@rainbow-me/rainbowkit';
 import  useMint from "../../hooks/ERC721/useMint";
 import { getTokensOfOwner } from "../../system/chain";
 
@@ -10,9 +10,8 @@ import { ImportantButton, TextButton } from "../Common";
 import { SuccessModal } from '../SuccessModal';
 import { ErrorModal } from '../ErrorModal';
 
-export default function MintButton({ isText, data, remaining }) {
-    const { openConnectModal, isConnected,  } = useAccountModal();
-    const { address, isConnecting, isDisconnected } = useAccount();
+export default function MintButton({ data }) {
+    const { openConnectModal } = useConnectModal();
     const { data: signer, isError: isSignerError, isLoading: isSignerLoading } = useSigner({
         chainId: arbitrum.id
     });
@@ -23,8 +22,6 @@ export default function MintButton({ isText, data, remaining }) {
     const [isErrorOpen, setIsErrorOpen] = useState();
     const [numberMinted, setNumberMinted] = useState();
     const [tokenIDs, setTokenIDs] = useState();
-
-    const isButton = !isText;
 
     const { onMint, isEnabled, isSuccess, isError, isMinting, isLoading, hash } = useMint({ onTxSuccess, onTxFail });
     
@@ -45,19 +42,14 @@ export default function MintButton({ isText, data, remaining }) {
         setIsErrorOpen(true);
     }
     function handleClick() {
-        console.log("handleClick", signer);
+        console.log("[MintButton] handleClick signer: ", signer);
         onMint(quantity, signer);
     }
     return (
         <Fragment>
-            {(!isDisconnected && data && isText) && (
-                <TextButton onClick={() => handleClick()}>
-                    mint
-                </TextButton>
-            )}
-            {(!isDisconnected && !isNotAvailable && data && isButton) && (
+            {(isEnabled && data) && (
                 <div className={isLoading ? isMinting ? "animate-pulse animate-bounce" : "animate-pulse" : ""}>
-                    <ImportantButton onClick={() => setIsPurchaseOpen(true)}>
+                    <ImportantButton onClick={() => openConnectModal ? openConnectModal() : setIsPurchaseOpen(true)}>
                         {isMinting ? 'Minting...' : 'Mint'}
                     </ImportantButton>
                 </div>                

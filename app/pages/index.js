@@ -31,16 +31,9 @@ import { ToastContainer } from 'react-toastify';
 import { getContract, getStaticData } from "../system/chain";
 import { useAccountModal, } from '@rainbow-me/rainbowkit';
 import 'react-toastify/dist/ReactToastify.min.css';
-import { Inter, Gidugu } from '@next/font/google';
 import clsx from "clsx";
+import { PreviewImage } from "../components/Common";
 
-const inter = Inter({
-  subsets: ['latin']
-});
-const graphik = Gidugu({
-  weight: '400',
-  subsets: ['latin'],
-});
 
 const contextClass = {
   success: "bg-blue-600",
@@ -87,7 +80,7 @@ export default function Index() {
               "font-semibold",              
               "text-gray-400",
               "uppercase",
-              graphik.className
+              "font-gidugu"
             ])}>
               the infernal collection
             </h3>
@@ -95,21 +88,24 @@ export default function Index() {
               "relative",
                "-top-20", 
                "p-2",
-              inter.className
+               "font-intent"
             ])}>
               <p className="mt-4 text-xl leading-relaxed font-mono text-zinc-100">
-                In a dark and desolate world, where the skies are choked with smog and the streets are ruled by violence and fear, a group of rebels has arisen. These rebels are known as the <Logo weight={500} />, and they are united by their rejection of the oppressive regime that holds sway over their land.
+                Now known as validators, <Logo weight={500} /> were a mysterious and feared group that operated within the anicent Arbitrum ecosystem. They were tasked with the sacred duty of hunting down and punishing those who were deemed to be traitors within the Arbitrum community.
               </p>
               <p className="mt-4 text-xl leading-relaxed font-mono text-zinc-100">
-                Now, the <Logo weight={500} /> have decided to share their masks with the world, and they are offering them as non-fungible tokens on the Arbitrum platform. Each mask is a one-of-a-kind piece of digital art, representing the soul of the <Logo weight={500} /> who created it.
+                It was said that the <Logo weight={500} /> were a group of powerful sorcerers who had harnessed the dark arts and rumored to wear demon masks. They were said to be able to see into the hearts and minds of those around them, using their magic to uncover even the most hidden of secrets.
               </p>
               <p className="mt-4 text-xl leading-relaxed font-mono text-zinc-100">
-                Join the rebellion and claim your own <Logo weight={500} /> demon mask today. Show the world that you stand with the <Logo weight={500} /> in their fight for freedom.
+                Now, the <Logo weight={500} /> have decided to pass their masks to the new generation, and they are being offered as non-fungible tokens native to Arbitrum. Each mask is a one-of-a-kind piece of digital art, representing the soul of the <Logo weight={500} /> who created it.
+              </p>
+              <p className="mt-4 text-xl leading-relaxed font-mono text-zinc-100">
+                Honor these heroes of the past and claim your own <Logo weight={500} /> demon mask today. Show the world that you stand with the <Logo weight={500} /> in their fight against malicious transactions.
               </p>
               <p className="mt-4 text-2xl font-mono text-zinc-100">
-                Are you a bad enough dude? Can you accept the hang?
+                Are you a bad enough dude to carry on their legacy?
               </p>
-              <p className="mt-4 text-2xl font-mono text-zinc-100"> 
+              <p className="mt-4 text-2xl font-mono text-zinc-100 p-8"> 
                 <i className="fab fa-l p-2 text-red-600" />
                 <i className="fab fa-f p-2 text-red-700" />
                 <i className="fab fa-g p-2 text-red-600" />
@@ -126,68 +122,18 @@ export default function Index() {
           <div className="w-full lg:w-4/12 pt-4 pb-2 mb-12 mr-auto ml-auto z-10">
             <div className="z-10 relative flex flex-row min-w-0 w-full mb-2 mt-12">
               <div className="flex-col  shadow-zinc-900 glow-md">
-                <Image
-                  alt="A Demon Mask"
-                  palceholder="empty"
-                  src={teaser6Pic}
-                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
-                />
-                <Image
-                  alt="A Demon Mask"
-                  palceholder="empty"
-                  src={teaser7Pic}
-                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
-                />
-                <Image
-                  alt="A Demon Mask"
-                  palceholder="empty"
-                  src={teaser8Pic}
-                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
-                />
-                <Image
-                  alt="A Demon Mask"
-                  palceholder="empty"
-                  src={teaser1Pic}
-                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
-                />
-                <Image
-                  alt="A Demon Mask"
-                  palceholder="empty"
-                  src={teaser13Pic}
-                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
-                />
+                <PreviewImage src={teaser6Pic} />
+                <PreviewImage src={teaser7Pic} />
+                <PreviewImage src={teaser8Pic} />
+                <PreviewImage src={teaser1Pic} />
+                <PreviewImage src={teaser13Pic} />                
               </div>
-              <div className="flex-col  shadow-zinc-900 glow-md">
-                <Image
-                  alt="A Demon Mask"
-                  palceholder="empty"
-                  src={teaser9Pic}
-                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
-                />
-                <Image
-                  alt="A Demon Mask"
-                  palceholder="empty"
-                  src={teaser11Pic}
-                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
-                />
-                <Image
-                  alt="A Demon Mask"
-                  palceholder="empty"
-                  src={teaser12Pic}
-                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
-                />
-                <Image
-                  alt="A Demon Mask"
-                  palceholder="empty"
-                  src={teaser14Pic}
-                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
-                />
-                <Image
-                  alt="A Demon Mask"
-                  palceholder="empty"
-                  src={teaser15Pic}
-                  className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
-                />
+              <div className="flex-col shadow-zinc-900 glow-md">
+                <PreviewImage src={teaser9Pic} />
+                <PreviewImage src={teaser11Pic} />
+                <PreviewImage src={teaser12Pic} />
+                <PreviewImage src={teaser14Pic} />
+                <PreviewImage src={teaser15Pic} />                  
               </div>
             </div>
           </div>
@@ -233,7 +179,7 @@ export default function Index() {
               </div>
               <div className="px-0">
                 <p className="text-xl leading-relaxed mt-0 mb-4 text-zinc-300">
-                  Each <Logo weight={500} /> has their own unique demon mask, crafted with care and infused with their own style and vision. Some are sleek and elegant, while others are grotesque and terrifying. But all of them are powerful symbols of the <Logo weight={500} />' rebellion against the forces of oppression.
+                  Each <Logo weight={500} /> has their own unique demon mask, crafted with care and infused with their own style and vision. Some are sleek and elegant, while others are grotesque and terrifying. But all of them are powerful symbols of the <Logo weight={500} />' commitment to the continued stability of Arbitrum.
                 </p>
                 <div className="block pb-6">
                   <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-white bg-gray-800 uppercase last:mr-0 mr-2 mt-2">
@@ -261,47 +207,15 @@ export default function Index() {
               </div>
             </div>
 
-            <div className="md:hidden lg:block xl:block w-full lg:w-4/12 pt-4 pb-2 mb-12 mr-auto ml-auto z-10">
+            <div className="hidden lg:block xl:block w-full lg:w-4/12 pt-4 pb-2 mb-12 mr-auto ml-auto z-10">
               <div className="z-10 relative flex flex-row min-w-0 w-full mb-2 mt-4">
                 <div className="flex-col  shadow-zinc-900 glow-md">
-                  <Image
-                    alt="A Demon Mask"
-                    palceholder="empty"
-                    src={teaser0Pic}
-                    className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
-                  />
-                  <Image
-                    alt="A Demon Mask"
-                    palceholder="empty"
-                    src={teaser10Pic}
-                    className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
-                  />
-                  <Image
-                    alt="A Demon Mask"
-                    palceholder="empty"
-                    src={teaser2Pic}
-                    className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
-                  />                  
-                </div>
-                <div className="flex-col  shadow-zinc-900 glow-md">
-                  <Image
-                    alt="A Demon Mask"
-                    palceholder="empty"
-                    src={teaser3Pic}
-                    className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
-                  />
-                  <Image
-                    alt="A Demon Mask"
-                    palceholder="empty"
-                    src={teaser4Pic}
-                    className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
-                  />
-                  <Image
-                    alt="A Demon Mask"
-                    palceholder="empty"
-                    src={teaser5Pic}
-                    className="w-full align-middle shadow-inner drop-shadow-md max-w-[200px]"
-                  />
+                  <PreviewImage src={teaser0Pic} />
+                  <PreviewImage src={teaser10Pic} />
+                  <PreviewImage src={teaser2Pic} />
+                  <PreviewImage src={teaser3Pic} />
+                  <PreviewImage src={teaser4Pic} />  
+                  <PreviewImage src={teaser5Pic} />  
                 </div>
               </div>
             </div>
@@ -350,13 +264,13 @@ export default function Index() {
               <div className="px-4 md:px-6 lg:px-12  shadow-inner shadow-zinc-900">
               
                 <p className="pt-4 text-xl leading-relaxed font-mono text-zinc-400">
-                  <Logo weight={500} /> masks are more than just decorative - they are a sign of their power, and a warning to those who would dare to stand in their way.
+                  <Logo weight={500} /> masks are more than just decorative - they are a sign of the power of those who decide the fate of Arbitrum, and a warning to those who would dare to stand in their way.
                 </p>
                 <p className="mt-4 text-xl leading-relaxed font-mono text-zinc-300">
-                  The screams of the fallen echoed through the city, a grim testament to the <Logo weight={500} />' ruthless efficiency. But for those who survived, the fear of the demon masks would be etched into their minds forever...
+                  It was said that the <Logo weight={500} />' took great pleasure in hunting down those they deemed to be traitors, relishing in the opportunity to rid the world of their presence.
                 </p>
                 <p className="mt-4 text-2xl leading-relaxed font-semibold font-mono text-zinc-200">
-                  And for those who collected the masks, the true power of the <Logo weight={500} /> would be theirs to wield.
+                  For those who collect the masks, the true power of the <Logo weight={500} /> would be theirs to wield.
                 </p>
                 <p className="mt-2 lg:mt-4 text-lg leading-relaxed text-zinc-100">
                   <RemainingBalance />

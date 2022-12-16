@@ -38,7 +38,7 @@ export default function Remaining() {
                 Promise.all([max_p, total_p]).then(([max, total]) => {
                     const result = parseInt(max) - parseInt(total);
                     setRemaining(result);
-                    console.log(`[Remaining] result: `, result, remaining, max, total);
+                    console.log(`[Remaining] result: `, result, max, total);
 
                     setTimeout(() => {
                         pull();

@@ -2,7 +2,6 @@ import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
 class MyDocument extends Document {
-
   
   render() {
     return (
@@ -18,7 +17,7 @@ class MyDocument extends Document {
           <link rel="mask-icon" href="/static/favicon.ico" color="#FBFBFB" />
 
           <link
-            href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&family=Merriweather&family=Graphik&family=Zen+Dots&family=Goldman&family=Squada+One&family=Oxanium"
+            href="https://fonts.googleapis.com/css2?family=Gidugu&family=Merriweather&family=Graphik&family=Arsenal&family=Goldman&family=Intent&family=Oxanium"
             rel="stylesheet"
           />
 

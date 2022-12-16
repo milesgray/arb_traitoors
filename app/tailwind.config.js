@@ -58,10 +58,11 @@ module.exports = {
         'charcoal': '#2d3748',
       },
       fontFamily: {
-        sans: ['var(--font-inter)', ...fontFamily.sans],        
-        'saira-stencil-one': ['"Saira Stencil One"', 'cursive'],
-        'goldman': ['"Goldman"', 'cursive'],        
-        'squada-one': ['"Squada One"', 'cursive'],
+        'gidugu': ['"Gidugu"', 'serif'],
+        'intent': ['"Intent"', 'serif'],       
+        'graphik': ['"Graphik"', 'serif'],
+        'arsenal': ['"Arsenal"', 'serif'],        
+        'merriweather': ['"Merriweather"', 'serif'],
         'oxanium': ['"Oxanium"', 'cursive'],
       },
       minHeight: {
