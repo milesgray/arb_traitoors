@@ -83,7 +83,7 @@ export default function useMint({
                 onTxFail(e);
             }
         }
-    });
+    }, []);
 
     return {
         onMint,

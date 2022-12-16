@@ -29,7 +29,7 @@ export function getProvider() {
 
 export function getEnabled(provider) {
     try {
-        const provider = provider ? provider : getProvider();
+        provider = provider ? provider : getProvider();
         return (provider.network.chainId === 42161) && (provider.getSigner());
     } catch(e) {
         return false;
@@ -38,7 +38,7 @@ export function getEnabled(provider) {
 
 export function getAddress(provider) {
     try {
-        const provider = provider ? provider : getProvider();
+        provider = provider ? provider : getProvider();
         if (getEnabled(provider)) {
             return provider.getSigner().address;
         } else {

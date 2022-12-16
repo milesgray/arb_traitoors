@@ -34,7 +34,9 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import { Inter, Gidugu } from '@next/font/google';
 import clsx from "clsx";
 
-const inter = Inter();
+const inter = Inter({
+  subsets: ['latin']
+});
 const graphik = Gidugu({
   weight: '400',
   subsets: ['latin'],
@@ -72,9 +74,8 @@ export default function Index() {
             <Image
               src={headerPic}
               alt="background"
-              className="static overflow-hidden"
-              objectFit="contain"
-              objectPosition="center" />
+              className="static overflow-hidden object-contain object-center"
+               />
             <h2 className="relative top-[-70px] left-4 font-semibold text-4xl lg:text-max pointer-events-none">
               <Logo weight={500} />
             </h2>
@@ -106,7 +107,9 @@ export default function Index() {
                 Join the rebellion and claim your own <Logo weight={500} /> demon mask today. Show the world that you stand with the <Logo weight={500} /> in their fight for freedom.
               </p>
               <p className="mt-4 text-2xl font-mono text-zinc-100">
-                Are you a bad enough dude? Can you accept the hang? 
+                Are you a bad enough dude? Can you accept the hang?
+              </p>
+              <p className="mt-4 text-2xl font-mono text-zinc-100"> 
                 <i className="fab fa-l p-2 text-red-600" />
                 <i className="fab fa-f p-2 text-red-700" />
                 <i className="fab fa-g p-2 text-red-600" />

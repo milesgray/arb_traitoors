@@ -1,5 +1,6 @@
 import { Fragment, useState } from 'react'
 import { useSigner, useAccount } from 'wagmi'
+import { arbitrum } from 'wagmi/chains'
 import { useAccountModal } from '@rainbow-me/rainbowkit';
 import  useMint from "../../hooks/ERC721/useMint";
 import { getTokensOfOwner } from "../../system/chain";
@@ -12,7 +13,9 @@ import { ErrorModal } from '../ErrorModal';
 export default function MintButton({ isText, data, remaining }) {
     const { openConnectModal, isConnected,  } = useAccountModal();
     const { address, isConnecting, isDisconnected } = useAccount();
-    const { data: signer } = useSigner();
+    const { data: signer, isError: isSignerError, isLoading: isSignerLoading } = useSigner({
+        chainId: arbitrum.id
+    });
     const [quantity, setQuantity] = useState(1);
     const [isPurchaseOpen, setIsPurchaseOpen] = useState();
     const [isSuccessOpen, setIsSuccessOpen] = useState();
