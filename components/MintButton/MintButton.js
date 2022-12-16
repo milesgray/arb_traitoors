@@ -17,7 +17,7 @@ export default function MintButton({ data }) {
     });
     const [quantity, setQuantity] = useState(1);
     const [isPurchaseOpen, setIsPurchaseOpen] = useState();
-    conast[isSuccessOpen, setIsSuccessOpen] = useState();
+    const [isSuccessOpen, setIsSuccessOpen] = useState();
     const [isNotAvailable, setNotAvailable] = useState();
     const [isErrorOpen, setIsErrorOpen] = useState();
     const [numberMinted, setNumberMinted] = useState();
