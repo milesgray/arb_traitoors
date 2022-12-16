@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { getEnabled, doMint, getTotalSupply, getStaticData, doBatchMint } from "../../system/chain";
 
@@ -18,17 +18,16 @@ export default function useMint({
 
     const isEnabled = getEnabled();
 
-    getStaticData().then((data) => {
-        setPrice(data.price);
-        setMax(data.max);
-        setMaxPerTx(data.maxPerTx);
-    })
-
     const onMint = useCallback(async (quantity, signer) => {
         if (!isEnabled) {
             console.log("Mint disabled", signer);
             return;
         }        
+        data = await getStaticData();
+        setPrice(data.price);
+        setMax(data.max);
+        setMaxPerTx(data.maxPerTx);
+        
         let tx;
         try {
             setSuccessState(false);
@@ -84,7 +83,7 @@ export default function useMint({
                 onTxFail(e);
             }
         }
-    }, []);
+    });
 
     return {
         onMint,

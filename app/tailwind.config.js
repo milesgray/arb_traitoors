@@ -1,4 +1,5 @@
 const plugin = require("tailwindcss/plugin");
+const { fontFamily } = require('tailwindcss/defaultTheme')
 
 module.exports = {
   content: [
@@ -31,6 +32,17 @@ module.exports = {
         'new-green-700': '#43a047',
         'new-green-800': '#388e3c',
         'new-green-900': '#2e7d32',
+                        
+        "simple-red-100": "#ffcdd2",
+        "simple-red-200": "#ef9a9a",
+        "simple-red-300": "#e57373",
+        "simple-red-400": "#ef5350",
+        "simple-red-500": "#f44336",
+        "simple-red-600": "#e53935",
+        "simple-red-700": "#d32f2f",
+        "simple-red-800": "#c62828",
+        "simple-red-900": "#b71c1c",
+
         'regal-blue': '#243c5a',
         'ruby': '#e53e3e',
         'tangerine': '#dd6b20',
@@ -46,10 +58,9 @@ module.exports = {
         'charcoal': '#2d3748',
       },
       fontFamily: {
+        sans: ['var(--font-inter)', ...fontFamily.sans],        
         'saira-stencil-one': ['"Saira Stencil One"', 'cursive'],
-        'goldman': ['"Goldman"', 'cursive'],
-        'graphik': ['"Graphik"', 'cursive'],
-        'merriweather': ['"Merriweather"', 'cursive'],
+        'goldman': ['"Goldman"', 'cursive'],        
         'squada-one': ['"Squada One"', 'cursive'],
         'oxanium': ['"Oxanium"', 'cursive'],
       },

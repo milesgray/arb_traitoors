@@ -10,15 +10,31 @@ export default function Balance() {
     const provider = useProvider();
     const contract = getContract(); 
     console.log("isError, isSuccess, contract", isError, isSuccess, contract);
-    async function onTransfer() {        
-        getTokensOfOwner(address, contract).then((data) => {
-            const result = parseInt(data.minterNumMinted);
-            setBalance(result);
-            console.log(`[Balance] result: `, result, data, balance);
-        });
-    }
-    const delay = 1000;
+    
+    
     //const { isEnabled, setEnabledState } = useOnTransfer({ onTransfer, delay });
+    const delay = 1000;
+    useEffect(() => {
+        if (!address) return;
+
+        async function pullData() {
+            return getTokensOfOwner(address, contract).then((data) => {
+                const result = parseInt(data.minterNumMinted);
+                setBalance(result);
+                console.log(`[Balance] result: `, result, data, balance);
+                
+                return setTimeout(() => {
+                    pullData();
+                }, delay); 
+            });        
+        }
+
+        const timeout = pullData();
+
+        return () => {
+            timeout.cancel();
+        }
+    }, [address]); 
     
     if (!balance) {
         return <span className="blur text-gray-600 font-bold">?????</span>

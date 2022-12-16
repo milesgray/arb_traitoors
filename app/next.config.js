@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
+const analyzer = require('@next/bundle-analyzer');
+
+const withBundleAnalyzer = analyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
+
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
+  swcMinify: true,
   images: {
     unoptimized: true,
   },
@@ -11,4 +18,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+module.exports = withBundleAnalyzer(nextConfig)

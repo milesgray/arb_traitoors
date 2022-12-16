@@ -1,0 +1,14 @@
+{
+  "name": "ArbiTRAITOORS",
+  "short_name": "TRAITOORS",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "96x96",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#313131",
+  "background_color": "#000000",
+  "display": "standalone"
+}

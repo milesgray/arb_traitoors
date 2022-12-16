@@ -17,10 +17,11 @@ import teaser12Pic from '../public/img/brand/13.png';
 import teaser13Pic from '../public/img/brand/14.png';
 import teaser14Pic from '../public/img/brand/15.png';
 import teaser15Pic from '../public/img/brand/16.png';
+import headerPic from "../public/img/brand/header2.png";
 import { useAccount, useProvider, isAddress } from 'wagmi';
-import { Transition } from '@headlessui/react';
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { MintButton } from "../components/MintButton";
-import { Remaining, Balance } from "../components/Data";
+import { RemainingBalance } from "../components/RemainingBalance";
 import IndexNavbar from "../components/Navbars/IndexNavbar.js";
 import FooterSmall from "../components/Footers/FooterSmall.js";
 import Logo from "../components/Logo/Logo.js";
@@ -30,6 +31,14 @@ import { ToastContainer } from 'react-toastify';
 import { getContract, getStaticData } from "../system/chain";
 import { useAccountModal, } from '@rainbow-me/rainbowkit';
 import 'react-toastify/dist/ReactToastify.min.css';
+import { Inter, Gidugu } from '@next/font/google';
+import clsx from "clsx";
+
+const inter = Inter();
+const graphik = Gidugu({
+  weight: '400',
+  subsets: ['latin'],
+});
 
 const contextClass = {
   success: "bg-blue-600",
@@ -59,14 +68,34 @@ export default function Index() {
       <IndexNavbar fixed data={staticData} />
       <section className="header mt-6 items-center flex ">
         <div className="container mx-auto items-center flex flex-wrap  z-4">
-          <div className="w-full z-2 mt-10 mb-20 bg-black bg-opacity-90 shadow-gray-500 glow-sm rounded-sm md:w-8/12 lg:w-6/12 xl:w-6/12 p-0 m-0">
-            <div className="p-2 shadow-inner shadow-gray-900">
-              <h2 className="font-semibold text-4xl lg:text-max pointer-events-none">
-                <Logo weight={500} />
-              </h2>
-              <h3 className="text-lg font-semibold font-mono text-zinc-600 uppercase">
-                join the rebellion
-              </h3>
+          <div className="w-full z-2 mt-14 mb-20 bg-black bg-opacity-90 shadow-gray-500 glow-sm rounded-sm md:w-8/12 lg:w-6/12 xl:w-6/12 p-0 m-0">
+            <Image
+              src={headerPic}
+              alt="background"
+              className="static overflow-hidden"
+              objectFit="contain"
+              objectPosition="center" />
+            <h2 className="relative top-[-70px] left-4 font-semibold text-4xl lg:text-max pointer-events-none">
+              <Logo weight={500} />
+            </h2>
+            <h3 className={clsx([
+              "relative", 
+              "top-[-70px]",
+              "left-4", 
+              "text-2xl", 
+              "font-semibold",              
+              "text-gray-400",
+              "uppercase",
+              graphik.className
+            ])}>
+              the infernal collection
+            </h3>
+            <div className={clsx([
+              "relative",
+               "-top-20", 
+               "p-2",
+              inter.className
+            ])}>
               <p className="mt-4 text-xl leading-relaxed font-mono text-zinc-100">
                 In a dark and desolate world, where the skies are choked with smog and the streets are ruled by violence and fear, a group of rebels has arisen. These rebels are known as the <Logo weight={500} />, and they are united by their rejection of the oppressive regime that holds sway over their land.
               </p>
@@ -74,18 +103,25 @@ export default function Index() {
                 Now, the <Logo weight={500} /> have decided to share their masks with the world, and they are offering them as non-fungible tokens on the Arbitrum platform. Each mask is a one-of-a-kind piece of digital art, representing the soul of the <Logo weight={500} /> who created it.
               </p>
               <p className="mt-4 text-xl leading-relaxed font-mono text-zinc-100">
-                Join the rebellion and claim your own <Logo weight={500} /> demon mask today. Show the world that you stand with the <Logo weight={500} /> in their fight for freedom and justice.
+                Join the rebellion and claim your own <Logo weight={500} /> demon mask today. Show the world that you stand with the <Logo weight={500} /> in their fight for freedom.
               </p>
-              <p className="mt-2 lg:mt-4 text-lg leading-relaxed text-zinc-100">
-                <Remaining /> available, <Balance /> owned
+              <p className="mt-4 text-2xl font-mono text-zinc-100">
+                Are you a bad enough dude? Can you accept the hang? 
+                <i className="fab fa-l p-2 text-red-600" />
+                <i className="fab fa-f p-2 text-red-700" />
+                <i className="fab fa-g p-2 text-red-600" />
               </p>              
-              <div className="ml-6 mt-4 pb-4">
+              
+              <p className="mt-2 ml-2 lg:mt-8 text-xl leading-relaxed text-zinc-100">
+                <ConnectButton /> <i className="mx-12 pt-4 text-3xl fa fa-arrow-down flex" /> <RemainingBalance />
+              </p>              
+              <div className="left-6 ml-8 mt-4 pb-0">
                 <MintButton data={staticData} />
               </div>
             </div>
           </div>
           <div className="w-full lg:w-4/12 pt-4 pb-2 mb-12 mr-auto ml-auto z-10">
-            <div className="z-10 relative flex flex-row min-w-0 w-full mb-2 mt-4">
+            <div className="z-10 relative flex flex-row min-w-0 w-full mb-2 mt-12">
               <div className="flex-col  shadow-zinc-900 glow-md">
                 <Image
                   alt="A Demon Mask"
@@ -183,12 +219,12 @@ export default function Index() {
             <div className="w-full md:w-4/12 px-4 lg:px-12 md:px-4 mb-10 ml-auto mr-auto lg:mt-48">
               <div className="pt-5 flex flex-row">
                 <div className="text-zinc-600 mr-2 text-center inline-flex items-center justify-center w-16 h-16 mb-6 border-gray-500 border-2 shadow-slate-400 rounded-full bg-black glow-lg">
-                  <div className="shadow-inner shadow-zinc-900 rounded-full p-5 ">
-                    <i className="fas fa-wand-sparkles text-xl"></i>                
+                  <div className="shadow-inner shadow-red-900 rounded-full p-5 ">
+                    <i className="fas fa-star text-xl text-red-500"></i>                
                   </div>                  
                   
                 </div>
-                <span className="text-zinc-500 text-4xl mt-2 font-bold font-merriweather leading-normal">
+                <span className="text-zinc-500 text-4xl mt-2 font-bold font-sans uppercase leading-normal">
                   Traits
                 </span>
               </div>
@@ -316,17 +352,16 @@ export default function Index() {
                 <p className="mt-4 text-xl leading-relaxed font-mono text-zinc-300">
                   The screams of the fallen echoed through the city, a grim testament to the <Logo weight={500} />' ruthless efficiency. But for those who survived, the fear of the demon masks would be etched into their minds forever...
                 </p>
-                <p className="mt-4 text-2xl leading-relaxed font-merriweather text-zinc-200">
+                <p className="mt-4 text-2xl leading-relaxed font-semibold font-mono text-zinc-200">
                   And for those who collected the masks, the true power of the <Logo weight={500} /> would be theirs to wield.
                 </p>
                 <p className="mt-2 lg:mt-4 text-lg leading-relaxed text-zinc-100">
-                  <Remaining /> available, <Balance /> owned
+                  <RemainingBalance />
                 </p>
                 <div className="ml-6 mt-4 pb-4">
                   <MintButton data={staticData} />
                 </div>
               </div>
-              
             </div>
           </div>
         </div>

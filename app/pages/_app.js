@@ -1,10 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { createRoot } from 'react-dom/client';
 import App from "next/app";
 import Head from "next/head";
-import Router from "next/router";
-
 import {
   getDefaultWallets,
   RainbowKitProvider,
@@ -12,26 +8,22 @@ import {
 } from "@rainbow-me/rainbowkit";
 import merge from 'lodash.merge';
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
-import { arbitrumGoerli, arbitrum, mainnet } from '@wagmi/core/chains'
-import { alchemyProvider } from "wagmi/providers/alchemy";
-import { infuraProvider } from 'wagmi/providers/infura';
+import { arbitrumGoerli, arbitrum, mainnet } from '@wagmi/core/chains';
 import { publicProvider } from "wagmi/providers/public";
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
-import {
-  OPENSEA_URL,
-  NETWORK_NAME,
-  ERC721_ADDRESS,
-  ALCHEMY_API_KEY,
-  INFURA_API_KEY,
-  POCKET_API_KEY,
-  ETHERSCAN_API_KEY,
-} from '../config';
 
-import PageChange from "../components/PageChange/PageChange.js";
-
+import { Inter, Merriweather } from '@next/font/google';
 import '../styles/globals.css'
 import "@rainbow-me/rainbowkit/styles.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter', });
+const merriweather = Merriweather({
+  subsets: ['latin'],
+  weight: '300',
+  variable: '--font-merriweather', });
 
 const theme = merge(darkTheme(), {
   colors: {
@@ -48,7 +40,6 @@ const { chains, provider } = configureChains(
     arbitrum,
   ],
   [
-    alchemyProvider({ apiKey: "44wMYVLkygXznIGHzFN8fF8JoPVx1ykc" }),
     jsonRpcProvider({
       rpc: (chain) => ({
         http: `https://arb-mainnet.g.alchemy.com/v2/44wMYVLkygXznIGHzFN8fF8JoPVx1ykc`
@@ -60,7 +51,7 @@ const { chains, provider } = configureChains(
 console.log("arbitrum wagmi chain", arbitrum, "chains", chains);
 
 const { connectors } = getDefaultWallets({
-  appName: "ArbTraitoors",
+  appName: "ArbiTraitoors",
   chains,
 });
 
@@ -87,12 +78,14 @@ export default class MyApp extends App {
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
           />
-          <title>ArbTraitoors: The Infernal Gallery - Open Mint</title>
+          <title>ArbiTraitoors: The Infernal Gallery - Open Mint</title>
         </Head>
         <Layout>
           <WagmiConfig client={wagmiClient}>
             <RainbowKitProvider theme={theme} chains={chains}>
+            
               <Component {...pageProps} />              
+            
             </RainbowKitProvider>
           </WagmiConfig>          
         </Layout>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Logo from "../Logo/Logo";
 
+
 function Nav({ children, ...props }) {
   return (
     <nav {...props}
@@ -28,8 +29,10 @@ function Nav({ children, ...props }) {
         "lg:items-start",
         "xl:items-start"
       ])}>
+        
       <div className={clsx([
         "container",
+        "z-2",
         "px-4",
         "mx-auto",
         "flex",
@@ -143,6 +146,15 @@ export default function Navbar() {
             >
               <NavLinkIcon iconClass={"fa fa-gears"} />              
               Contract
+            </NavLink>
+          </NavListItem>
+          <NavListItem>
+            <NavLink
+              href={`https://opensea.io/collection/arbitraitoors`}
+              target="_blank"
+            >
+              <NavLinkIcon iconClass={"fa fa-globe"} />
+              Collection
             </NavLink>
           </NavListItem>
         </ul>
