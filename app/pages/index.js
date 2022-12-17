@@ -18,6 +18,7 @@ import teaser13Pic from '../public/img/brand/14.png';
 import teaser14Pic from '../public/img/brand/15.png';
 import teaser15Pic from '../public/img/brand/16.png';
 import headerPic from "../public/img/brand/header2.png";
+import header2Pic from "../public/img/brand/header.png";
 import { useAccount, useProvider, isAddress } from 'wagmi';
 import clsx from "clsx";
 import { MintButton } from "../components/MintButton";
@@ -130,11 +131,11 @@ export default function Index() {
           </div>
         </div>
         </section>
-      <section>
-        <div className="container mx-auto">
-          <div className="flex-auto lg:w-8/12 p-0 mb-12 mr-auto ml-auto z-10 bg-black shadow-black glow-xl-long rounded-lg">
-            <div className="relative flex flex-col min-w-0 w-full rounded-lg shadow-black glow-md ">
-              <p className="p-6 text-3xl leading-relaxed font-mono text-zinc-200">
+      <section className="md:hidden lg:hidden xl:hidden">
+        <div className="lg:mb-24 container mx-auto">
+          <div className="lg:mb-24 flex-auto lg:w-8/12 p-0 mb-12 mr-auto ml-auto bg-black shadow-black glow-xl-long rounded-lg">
+            <div className="lg:z-10 relative flex flex-col min-w-0 w-full rounded-lg shadow-black glow-md ">
+              <p className="lg:z-10 p-6 text-3xl leading-relaxed font-mono text-zinc-200">
                 It was said that the <Logo weight={500} /> were a group of powerful sorcerers who had harnessed the dark arts and rumored to wear demon masks. They were said to be able to see into the hearts and minds of those around them, using their magic to uncover even the most hidden of secrets.
               </p>
             </div>
@@ -267,6 +268,11 @@ export default function Index() {
             
             <div className="w-full md:w-4/12 ml-auto mr-auto lg:mt-48 bg-black drop-shadow-sm glow-sm shadow-zinc-600 border-1 border-zinc-600">
               <div className="px-4 md:px-6 lg:px-12  shadow-inner shadow-zinc-900">
+                <Image
+                  src={header2Pic}
+                  alt="background"
+                  className="static overflow-hidden object-contain object-center"
+                />
                 <h1 className="pt-4 text-3xl font-bold text-yellow-400">Open Minting Now</h1>
                 <p className="pt-4 text-xl leading-relaxed font-mono text-zinc-400">
                   <Logo weight={500} /> masks are more than just decorative - they are a sign of the power of those who decide the fate of Arbitrum, and a warning to those who would dare to stand in their way.

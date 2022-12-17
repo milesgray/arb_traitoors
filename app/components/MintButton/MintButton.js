@@ -7,7 +7,7 @@ import { getTokensOfOwner } from "../../system/chain";
 import { PurchaseModal } from "../PurchaseModal";
 import { SuccessModal } from "../SuccessModal";
 import { ErrorModal } from "../ErrorModal";
-import { ImportantButton, TextButton } from "../Common";
+import { ImportantButton, HugeImportantButton } from "../Common";
 
 export default function MintButton({ isText, data, remaining }) {
     const { openConnectModal, isConnected,  } = useAccountModal();
@@ -84,9 +84,9 @@ export default function MintButton({ isText, data, remaining }) {
         <Fragment>
             {(!isDisconnected && data) && (
                 <div className={isLoading ? isMinting ? "animate-pulse animate-bounce" : "animate-pulse" : ""}>
-                    <ImportantButton disabled={isNotAvailable} onClick={onButtonClick}>
+                    <HugeImportantButton disabled={isNotAvailable} onClick={onButtonClick}>
                         {isMinting ? 'Minting...' : 'Mint'}
-                    </ImportantButton>
+                    </HugeImportantButton>
                 </div>                
             )}
             {(isDialogOpen && data) && (

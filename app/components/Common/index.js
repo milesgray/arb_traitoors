@@ -5,9 +5,11 @@ import TeaserPic from "./TeaserPic";
 import Conditional from "./Conditional";
 import ActionModal from "./ActionModal";
 import PreviewImage from "./PreviewImage";
+import HugeImportantButton from "./HugeButton";
 
 export {
     ImportantButton,
+    HugeImportantButton,
     TextButton,
     StyledInput,
     TeaserPic,
