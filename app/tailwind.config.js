@@ -1,5 +1,4 @@
 const plugin = require("tailwindcss/plugin");
-const { fontFamily } = require('tailwindcss/defaultTheme')
 
 module.exports = {
   content: [
@@ -13,56 +12,12 @@ module.exports = {
   theme: {
     
     extend: {
-      colors: {
-        'royal-blue-100': '#e3f2fd',
-        'royal-blue-200': '#bbdefb',
-        'royal-blue-300': '#90caf9',
-        'royal-blue-400': '#64b5f6',
-        'royal-blue-500': '#3182ce',
-        'royal-blue-600': '#2e7dc3',
-        'royal-blue-700': '#2869a6',
-        'royal-blue-800': '#1e5181',
-        'royal-blue-900': '#153964',
-        'new-green-100': '#e8f5e9',
-        'new-green-200': '#c8e6c9',
-        'new-green-300': '#a5d6a7',
-        'new-green-400': '#81c784',
-        'new-green-500': '#66bb6a',
-        'new-green-600': '#4caf50',
-        'new-green-700': '#43a047',
-        'new-green-800': '#388e3c',
-        'new-green-900': '#2e7d32',
-                        
-        "simple-red-100": "#ffcdd2",
-        "simple-red-200": "#ef9a9a",
-        "simple-red-300": "#e57373",
-        "simple-red-400": "#ef5350",
-        "simple-red-500": "#f44336",
-        "simple-red-600": "#e53935",
-        "simple-red-700": "#d32f2f",
-        "simple-red-800": "#c62828",
-        "simple-red-900": "#b71c1c",
-
-        'regal-blue': '#243c5a',
-        'ruby': '#e53e3e',
-        'tangerine': '#dd6b20',
-        'mustard': '#d69e2e',
-        'forest-green': '#38a169',
-        'teal-blue': '#319795',
-        'royal-blue': '#3182ce',
-        'blue-purple': '#6574cd',
-        'light-purple': '#a0aec0',
-        'hot-pink': '#f56565',
-        'light-gray': '#a0aec0',
-        'off-white': '#ffffff',
-        'charcoal': '#2d3748',
-      },
       fontFamily: {
-        'gidugu': ['"Gidugu"', 'serif'],
-        'intent': ['"Intent"', 'serif'],       
-        'graphik': ['"Graphik"', 'serif'],
-        'arsenal': ['"Arsenal"', 'serif'],        
-        'merriweather': ['"Merriweather"', 'serif'],
+        'saira-stencil-one': ['"Saira Stencil One"', 'cursive'],
+        'goldman': ['"Goldman"', 'cursive'],
+        'graphik': ['"Graphik"', 'cursive'],
+        'merriweather': ['"Merriweather"', 'cursive'],
+        'squada-one': ['"Squada One"', 'cursive'],
         'oxanium': ['"Oxanium"', 'cursive'],
       },
       minHeight: {

@@ -1,4 +1,5 @@
 import { BigNumber, ethers } from 'ethers';
+import { arbitrum } from 'wagmi/chains';
 import { ERC721_ABI } from '../config/abi';
 import {
     CHAIN_NAME,
@@ -30,7 +31,18 @@ export function getProvider() {
 export function getEnabled(provider) {
     try {
         provider = provider ? provider : getProvider();
-        return (provider.network.chainId === 42161) && (provider.getSigner());
+        const isCorrectNetwork = provider.network.chainId === arbitrum.id;
+        const isSignerReady = provider.getSigner()._isSigner;       
+        
+        const isEnabled = isCorrectNetwork && isSignerReady;
+        console.log('[getEnabled] isSignerReady: ', isSignerReady, 
+                    'isCorrectNetwork', isCorrectNetwork,
+                    'isEnabled', isEnabled);
+        return {
+            isEnabled,
+            isCorrectNetwork,
+            isSignerReady,
+        }
     } catch(e) {
         return false;
     }
@@ -38,7 +50,7 @@ export function getEnabled(provider) {
 
 export function getAddress(provider) {
     try {
-        provider = provider ? provider : getProvider();
+        const provider = provider ? provider : getProvider();
         if (getEnabled(provider)) {
             return provider.getSigner().address;
         } else {

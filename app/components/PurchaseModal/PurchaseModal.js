@@ -50,7 +50,7 @@ export default function PurchaseModal({
                         "break-words",
                         "bg-zinc-800", 
                         "w-auto mb-8", 
-                        "shadow-red-400",
+                        "shadow-yellow-400",
                         "glow-sm-long", 
                         "rounded-sm"
                     ])}>

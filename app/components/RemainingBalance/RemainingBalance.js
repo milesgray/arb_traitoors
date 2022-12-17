@@ -10,7 +10,6 @@ export default function Remaining() {
     const provider = useProvider();
     const contract = getContract(provider);
 
-    const delay = 10000;
     useEffect(() => {
         async function pull() {
             if (address) {
@@ -27,10 +26,6 @@ export default function Remaining() {
                                 ", remaining: ", remaining,
                                 ", max: ", max,
                                 ", total: ", total);
-
-                    setTimeout(() => {
-                        pull();
-                    }, delay);
                 });
             } else {
                 const max_p = getMaxSupply(contract);
@@ -39,16 +34,20 @@ export default function Remaining() {
                     const result = parseInt(max) - parseInt(total);
                     setRemaining(result);
                     console.log(`[Remaining] result: `, result, max, total);
-
-                    setTimeout(() => {
-                        pull();
-                    }, delay);
                 });
             }  
         }
+        const transferTo = contract.filters.Transfer(null, address);
+        provider.on(transferTo, (from, to, amount, event) => {
+            console.log('Transfer|received', { from, to, amount, event });
+            pull();
+        });
         pull();    
 
-    }, [isDisconnected]);
+        return () => {
+            provider.removeAllListeners(transferTo);
+        }
+    }, [address]);
     
     console.log(`[Remaining] `, remaining);
     return (

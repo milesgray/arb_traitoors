@@ -9,7 +9,7 @@ export default function Balance() {
     const { address, isConnecting, isDisconnected } = useAccount();
     const provider = useProvider();
     const contract = getContract(); 
-    console.log("isError, isSuccess, contract", isError, isSuccess, contract);
+    
     async function onTransfer() {        
         getTokensOfOwner(address, contract).then((data) => {
             const result = parseInt(data.minterNumMinted);
@@ -21,8 +21,8 @@ export default function Balance() {
     //const { isEnabled, setEnabledState } = useOnTransfer({ onTransfer, delay });
     
     if (!balance) {
-        return <span className="blur text-gray-600 font-bold">?????</span>
+        return <span className="blur text-red-600 font-bold">?????</span>
     }
     console.log(`[Balance] `, balance);
-    return <span className="text-gray-600 font-bold">{balance}</span>
+    return <span className="text-red-600 font-bold">{balance}</span>
 }

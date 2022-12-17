@@ -19,21 +19,20 @@ import teaser14Pic from '../public/img/brand/15.png';
 import teaser15Pic from '../public/img/brand/16.png';
 import headerPic from "../public/img/brand/header2.png";
 import { useAccount, useProvider, isAddress } from 'wagmi';
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+import clsx from "clsx";
 import { MintButton } from "../components/MintButton";
+import { Remaining, Balance } from "../components/Data";
 import { RemainingBalance } from "../components/RemainingBalance";
 import IndexNavbar from "../components/Navbars/IndexNavbar.js";
 import FooterSmall from "../components/Footers/FooterSmall.js";
 import Logo from "../components/Logo/Logo.js";
-import { Story } from "../components/Story";
+
 import { ToastContainer } from 'react-toastify';
 
 import { getContract, getStaticData } from "../system/chain";
-import { useAccountModal, } from '@rainbow-me/rainbowkit';
-import 'react-toastify/dist/ReactToastify.min.css';
-import clsx from "clsx";
+import { ConnectButton, useAccountModal, useConnectModal } from '@rainbow-me/rainbowkit';
 import { PreviewImage } from "../components/Common";
-
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const contextClass = {
   success: "bg-blue-600",
@@ -46,7 +45,7 @@ const contextClass = {
 
 export default function Index() {
   const [staticData, setStaticData] = useState();
-  const { isConnected } = useAccountModal();
+  const { openConnectModal, isConnected } = useConnectModal();
   const provider = useProvider();
   const contract = getContract(provider);
 
@@ -55,7 +54,7 @@ export default function Index() {
     getStaticData(contract).then((data) => {
       setStaticData(data);
     });
-  }, [isConnected]);
+  }, [contract]);
   
   
   return (
@@ -68,27 +67,27 @@ export default function Index() {
               src={headerPic}
               alt="background"
               className="static overflow-hidden object-contain object-center"
-               />
+            />
             <h2 className="relative top-[-70px] left-4 font-semibold text-4xl lg:text-max pointer-events-none">
               <Logo weight={500} />
             </h2>
             <h3 className={clsx([
-              "relative", 
+              "relative",
               "top-[-70px]",
-              "left-4", 
-              "text-2xl", 
-              "font-semibold",              
+              "left-4",
+              "text-2xl",
+              "font-semibold",
               "text-gray-400",
               "uppercase",
-              "font-gidugu"
+              "font-intent"
             ])}>
               the infernal collection
             </h3>
             <div className={clsx([
               "relative",
-               "-top-20", 
-               "p-2",
-               "font-intent"
+              "-top-20",
+              "p-2",
+              "font-intent"
             ])}>
               <p className="mt-4 text-xl leading-relaxed font-mono text-zinc-100">
                 Now known as validators, <Logo weight={500} /> were a mysterious and feared group that operated within the anicent Arbitrum ecosystem. They were tasked with the sacred duty of hunting down and punishing those who were deemed to be traitors within the Arbitrum community.
@@ -105,15 +104,15 @@ export default function Index() {
               <p className="mt-4 text-2xl font-mono text-zinc-100">
                 Are you a bad enough dude to carry on their legacy?
               </p>
-              <p className="mt-4 text-2xl font-mono text-zinc-100 p-8"> 
+              <p className="mt-4 text-2xl font-mono text-zinc-100 p-8">
                 <i className="fab fa-l p-2 text-red-600" />
                 <i className="fab fa-f p-2 text-red-700" />
                 <i className="fab fa-g p-2 text-red-600" />
-              </p>              
-              
+              </p>
+
               <p className="mt-2 ml-2 lg:mt-8 text-xl leading-relaxed text-zinc-100">
                 <ConnectButton /> <i className="mx-12 pt-4 text-3xl fa fa-arrow-down flex" /> <RemainingBalance />
-              </p>              
+              </p>
               <div className="left-6 ml-8 mt-4 pb-0">
                 <MintButton data={staticData} />
               </div>
@@ -126,19 +125,19 @@ export default function Index() {
                 <PreviewImage src={teaser7Pic} />
                 <PreviewImage src={teaser8Pic} />
                 <PreviewImage src={teaser1Pic} />
-                <PreviewImage src={teaser13Pic} />                
+                <PreviewImage src={teaser13Pic} />
               </div>
               <div className="flex-col shadow-zinc-900 glow-md">
                 <PreviewImage src={teaser9Pic} />
                 <PreviewImage src={teaser11Pic} />
                 <PreviewImage src={teaser12Pic} />
                 <PreviewImage src={teaser14Pic} />
-                <PreviewImage src={teaser15Pic} />                  
+                <PreviewImage src={teaser15Pic} />
               </div>
             </div>
           </div>
         </div>
-        
+
       </section>
 
       <section className="flex mt-8 lg:mt-48 md:mt-40 lg:pb-40 relative bg-zinc-800">
@@ -169,9 +168,9 @@ export default function Index() {
               <div className="pt-5 flex flex-row">
                 <div className="text-zinc-600 mr-2 text-center inline-flex items-center justify-center w-16 h-16 mb-6 border-gray-500 border-2 shadow-slate-400 rounded-full bg-black glow-lg">
                   <div className="shadow-inner shadow-red-900 rounded-full p-5 ">
-                    <i className="fas fa-star text-xl text-red-500"></i>                
-                  </div>                  
-                  
+                    <i className="fas fa-star text-xl text-red-500"></i>
+                  </div>
+
                 </div>
                 <span className="text-zinc-500 text-4xl mt-2 font-bold font-sans uppercase leading-normal">
                   Traits
@@ -213,9 +212,11 @@ export default function Index() {
                   <PreviewImage src={teaser0Pic} />
                   <PreviewImage src={teaser10Pic} />
                   <PreviewImage src={teaser2Pic} />
+                </div>
+                <div className="flex-col shadow-zinc-900 glow-md">
                   <PreviewImage src={teaser3Pic} />
-                  <PreviewImage src={teaser4Pic} />  
-                  <PreviewImage src={teaser5Pic} />  
+                  <PreviewImage src={teaser4Pic} />
+                  <PreviewImage src={teaser5Pic} />
                 </div>
               </div>
             </div>
@@ -262,7 +263,7 @@ export default function Index() {
             </div>
             <div className="w-full md:w-4/12 ml-auto mr-auto lg:mt-48 bg-black drop-shadow-sm glow-sm shadow-zinc-600 border-1 border-zinc-600">
               <div className="px-4 md:px-6 lg:px-12  shadow-inner shadow-zinc-900">
-              
+
                 <p className="pt-4 text-xl leading-relaxed font-mono text-zinc-400">
                   <Logo weight={500} /> masks are more than just decorative - they are a sign of the power of those who decide the fate of Arbitrum, and a warning to those who would dare to stand in their way.
                 </p>
@@ -283,7 +284,7 @@ export default function Index() {
           </div>
         </div>
       </section>
-      
+
       <section className="pb-16 bg-zinc-700 relative pt-2">
         <div
           className="-mt-20 top-0 bottom-auto left-0 right-0 w-full absolute h-20"
@@ -320,7 +321,7 @@ export default function Index() {
         <span className="text-indigo-800">mask</span>
         <span className="text-indigo-900">ai</span>
       </div>
-      <FooterSmall/>
+      <FooterSmall />
       <ToastContainer
         position="bottom-right"
         theme="dark"

@@ -1,14 +1,13 @@
-import { useCallback, useMemo, useState, useEffect } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
-import { getEnabled, getContract, getProvider, doMint, getTotalSupply, getStaticData, doBatchMint } from "../../system/chain";
+import { getEnabled, doMint, getTotalSupply, getStaticData, doBatchMint } from "../../system/chain";
 
 export default function useMint({
     onTxSuccess,
     onTxFail,
     onTxSubmit,
+    onTxSubmitError,
 }) {
-    const provider = getProvider();
-    const contract = getContract(provider);
     const [isSuccess, setSuccessState] = useState(false);
     const [isError, setErrorState] = useState(false);
     const [isMinting, setMintingState] = useState(false);
@@ -18,33 +17,36 @@ export default function useMint({
     const [price, setPrice] = useState();
     const [max, setMax] = useState();
     const [maxPerTx, setMaxPerTx] = useState();
-    const enabled = getEnabled(provider);
+
+    
 
     useEffect(() => {
-        if (enabled) {
-            const max_p = getMaxSupply(contract);
-            const total_p = getTotalSupply(contract);
+        getStaticData().then((data) => {
+            setPrice(data.price);
+            setMax(data.max);
+            setMaxPerTx(data.maxPerTx);
+        })
+    },[]);
+    
 
-            Promise.all([max_p, total_p]).then(([max, total]) => {
-                const remaining = parseInt(max) - parseInt(total);
-                const result = remaining > 0;
-                setEnabledState(result);
-                console.log(`[useMint] enabled `, result);
-            });
-        } 
-    }, [enabled])
-    
-    
     const onMint = useCallback(async (quantity, signer) => {
-        if (!isEnabled) {
-            console.log("[useMint] Mint disabled", signer);
+        console.log("onMint", quantity, signer);
+        const {
+            isEnabled: enabled,
+            isCorrectNetwork,
+            isSignerReady,
+        } = getEnabled(signer.provider);
+        setEnabledState(enabled);
+        if (!enabled) {
+            if (!isCorrectNetwork) {
+                console.log("Incorrect network");
+            }
+            if (!isSignerReady) {
+                console.log("No signer");
+            }
+            console.log("Mint disabled", signer);
             return;
         }        
-        data = await getStaticData(contract);
-        setPrice(data.price);
-        setMax(data.max);
-        setMaxPerTx(data.maxPerTx);
-        
         let tx;
         try {
             setSuccessState(false);
@@ -70,9 +72,10 @@ export default function useMint({
             setMintingState(false);
             setLoadingState(false);
             setErrorState(true);
-            if (onTxFail) {
-                onTxFail(e);
+            if (onTxSubmitError) {
+                onTxSubmitError(e);
             }
+            return;
         }
 
         try {

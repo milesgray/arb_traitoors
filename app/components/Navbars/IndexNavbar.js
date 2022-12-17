@@ -29,7 +29,7 @@ function Nav({ children, ...props }) {
         "lg:items-start",
         "xl:items-start"
       ])}>
-        
+
       <div className={clsx([
         "container",
         "z-2",
@@ -49,16 +49,16 @@ function Nav({ children, ...props }) {
   )
 }
 
-function NavListItem({children, ...props}) {
-  return (    
-    <li {...props} 
+function NavListItem({ children, ...props }) {
+  return (
+    <li {...props}
       className={clsx([
         "items-center",
         "hidden",
         "md:flex",
         "lg:flex",
         "xl:flex"
-    ])}>
+      ])}>
       {children}
     </li>
   )
@@ -104,13 +104,13 @@ export default function Navbar() {
       <div className="w-auto static block justify-start">
         <Link href="/">
           <p className={clsx([
-            "text-md", 
-            "font-bold", 
-            "leading-relaxed", 
-            "inline-block", 
-            "mr-4", 
-            "py-0", 
-            "whitespace-nowrap", 
+            "text-md",
+            "font-bold",
+            "leading-relaxed",
+            "inline-block",
+            "mr-4",
+            "py-0",
+            "whitespace-nowrap",
             "uppercase",
             "lg:text-lg",
             "xl:text-xl"
@@ -120,16 +120,16 @@ export default function Navbar() {
         </Link>
       </div>
       <div
-        className={clsx([          
-          "flex-grow", 
-          "items-right",  
-          "lg:flex", 
-          "lg:bg-opacity-0", 
+        className={clsx([
+          "flex-grow",
+          "items-right",
+          "lg:flex",
+          "lg:bg-opacity-0",
           "lg:shadow-none"
         ])}
         id="example-navbar-warning"
       >
-        <ul className="flex flex-row list-none mr-auto">    
+        <ul className="flex flex-row list-none mr-auto">
           <NavListItem>
             <NavLink
               href="https://github.com/milesgray/arb_traitoors"
@@ -144,7 +144,7 @@ export default function Navbar() {
               href={`https://arbiscan.io/address/0x4EEFeFD5fF983C85D5DDDc398366b6Db2fa466F1`}
               target="_blank"
             >
-              <NavLinkIcon iconClass={"fa fa-gears"} />              
+              <NavLinkIcon iconClass={"fa fa-gears"} />
               Contract
             </NavLink>
           </NavListItem>
