@@ -4,7 +4,7 @@ import { Fragment } from 'react'
 import { ActionModal, ImportantButton, StyledInput } from '../Common';
 import { toInteger } from 'lodash';
 import { ERC721_ADDRESS } from '../../config';
-import Logo from "../Logo";
+import { Logo } from "../Logo";
 
 export default function SuccessModal({ 
     isOpen, 

@@ -91,7 +91,7 @@ export default function PurchaseModal({
                         </div>
                         <div className="px-8 pb-8 flex-row space-x-10">
                             <span className={isLoading ? isMinting ? "animate-pulse animate-bounce" : "animate-pulse" : ""}>
-                                <ImportantButton onClick={() => onClick()}>
+                                <ImportantButton disabled={isLoading} onClick={() => onClick()}>
                                     {isMinting ? 'Minting' : 'Purchase'}
                                 </ImportantButton>
                             </span>

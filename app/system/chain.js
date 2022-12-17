@@ -32,19 +32,38 @@ export function getEnabled(provider) {
     try {
         provider = provider ? provider : getProvider();
         const isCorrectNetwork = provider.network.chainId === arbitrum.id;
-        const isSignerReady = provider.getSigner()._isSigner;       
-        
+        const isSignerReady = provider.getSigner()._isSigner;
+
         const isEnabled = isCorrectNetwork && isSignerReady;
-        console.log('[getEnabled] isSignerReady: ', isSignerReady, 
-                    'isCorrectNetwork', isCorrectNetwork,
-                    'isEnabled', isEnabled);
+        console.log('[getEnabled] isSignerReady: ', isSignerReady,
+            'isCorrectNetwork', isCorrectNetwork,
+            'isEnabled', isEnabled);
         return {
             isEnabled,
             isCorrectNetwork,
             isSignerReady,
+            isError: false
         }
-    } catch(e) {
-        return false;
+    } catch (e) {
+        return {
+            isEnabled: false,
+            isCorrectNetwork: false,
+            isSignerReady: false,
+            isError: true
+        }
+    }
+}
+
+export async function getRemaining(contract) {
+    try {
+        contract = contract ? contract : getContract();
+        const max = ethers.utils.formatUnits(await contract.maxSupply(), 0);
+        const total = ethers.utils.formatUnits(await contract.totalSupply(), 0);
+        const remaining = max - total;
+        console.log(`[chain] [getRemaining] remaining: `, remaining);
+        return remaining;
+    } catch (e) {
+        return null;
     }
 }
 
@@ -67,7 +86,7 @@ export function getContract(provider) {
         ERC721_ABI,
         provider ? provider : getProvider()
     );
-    
+
 }
 
 export async function doMint(signer, contract) {
@@ -115,7 +134,7 @@ export async function getMintStats(account, contract) {
         minterNumMinted: ethers.utils.formatUnits(stats.minterNumMinted, 0),
         maxSupply: ethers.utils.formatUnits(stats.maxSupply, 0),
         totalSupply: ethers.utils.formatUnits(stats.currentTotalSupply, 0)
-    };        
+    };
     console.log(`[chain] [getMintStats] stats: `, result);
     return result;
 }
@@ -131,15 +150,15 @@ export async function getTokensOfOwner(account, contract) {
         };
         console.log(`[chain] [getTokensOfOwner] result: `, result);
         return result;
-    } catch(e) {
-        console.error("[chain] [getTokensOfOwner] error:",e);
+    } catch (e) {
+        console.error("[chain] [getTokensOfOwner] error:", e);
         return e;
     }
 }
 
-export async function getStaticData(contract) {        
+export async function getStaticData(contract) {
     contract = contract ? contract : getContract();
-    
+
     //const name = await contract.name();
     //const symbol = await contract.symbol();
     const price = ethers.utils.formatEther(await contract.price());

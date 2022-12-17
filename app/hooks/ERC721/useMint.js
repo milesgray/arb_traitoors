@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
-import { getEnabled, doMint, getTotalSupply, getStaticData, doBatchMint } from "../../system/chain";
+import { getEnabled, doMint, getRemaining, getStaticData, doBatchMint } from "../../system/chain";
 
 export default function useMint({
     onTxSuccess,
     onTxFail,
+    onTxValidationFail,
     onTxSubmit,
     onTxSubmitError,
+
 }) {
     const [isSuccess, setSuccessState] = useState(false);
     const [isError, setErrorState] = useState(false);
@@ -18,7 +20,7 @@ export default function useMint({
     const [max, setMax] = useState();
     const [maxPerTx, setMaxPerTx] = useState();
 
-    
+
 
     useEffect(() => {
         getStaticData().then((data) => {
@@ -26,8 +28,8 @@ export default function useMint({
             setMax(data.max);
             setMaxPerTx(data.maxPerTx);
         })
-    },[]);
-    
+    }, []);
+
 
     const onMint = useCallback(async (quantity, signer) => {
         console.log("onMint", quantity, signer);
@@ -40,13 +42,32 @@ export default function useMint({
         if (!enabled) {
             if (!isCorrectNetwork) {
                 console.log("Incorrect network");
-            }
-            if (!isSignerReady) {
+                if (onTxValidationFail)
+                    onTxValidationFail(`Please connect to Arbitrum.`);
+            } else if (!isSignerReady) {
                 console.log("No signer");
+                if (onTxValidationFail)
+                    onTxValidationFail(`Could not find an authorized wallet, make sure it is connected correctly.`);
+            } else {
+                console.log("Mint disabled", signer);
+                if (onTxValidationFail)
+                    onTxValidationFail(`Minting is not currently available.`);
             }
-            console.log("Mint disabled", signer);
-            return;
-        }        
+            return false;
+        }
+        const remaining = await getRemaining();
+        if (remaining <= 0) {
+            console.log("Mint sold out", remaining);
+            if (onTxValidationFail)
+                onTxValidationFail(`Mint over! Sold out.`);
+            return false;
+        }
+        if (quantity > maxPerTx) {
+            console.log("Quantity too high", quantity);
+            if (onTxValidationFail)
+                onTxValidationFail(`Max number of mints per transaction is ${maxPerTx}, but ${quantity} was entered.`);
+            return false;
+        }
         let tx;
         try {
             setSuccessState(false);
@@ -69,13 +90,15 @@ export default function useMint({
             }
         } catch (e) {
             console.error("[onMint]", e);
+            const message = e.message.substr(0, e.message.indexOf("(") - 1);
+            toast.error(message);
             setMintingState(false);
             setLoadingState(false);
             setErrorState(true);
             if (onTxSubmitError) {
-                onTxSubmitError(e);
+                onTxSubmitError(message);
             }
-            return;
+            return false;
         }
 
         try {
@@ -94,14 +117,19 @@ export default function useMint({
             if (onTxSuccess) {
                 onTxSuccess(receipt);
             }
+            return true;
         } catch (e) {
             console.error("[onMint]", e);
+            const message = e.message.substr(0, e.message.indexOf("(") - 1);
+            toast.error(message);
             setMintingState(false);
             setLoadingState(false);
             setErrorState(true);
+
             if (onTxFail) {
-                onTxFail(e);
+                onTxFail(message);
             }
+            return false
         }
     }, []);
 

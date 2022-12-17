@@ -6,7 +6,7 @@ import { Conditional } from '../Common';
 export default function Remaining() {
     const [remaining, setRemaining] = useState();
     const [balance, setBalance] = useState();
-    const { address, isConnecting, isDisconnected } = useAccount();
+    const { address } = useAccount();
     const provider = useProvider();
     const contract = getContract(provider);
 
