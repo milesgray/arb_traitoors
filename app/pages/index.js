@@ -174,7 +174,7 @@ export default function Index() {
                     <i className="fas fa-star text-xl text-red-500"></i>
                   </div>
                 </div>
-                <span className="text-zinc-500 text-4xl mt-2 font-bold font-sans uppercase leading-normal">
+                <span className="text-yellow-500 text-5xl subpixel-antialiased mt-0 font-bold font-sans uppercase leading-normal">
                   Traits
                 </span>
               </div>
@@ -266,23 +266,21 @@ export default function Index() {
               </div>
             </div>
             
-            <div className="w-full md:w-4/12 ml-auto mr-auto lg:mt-48 bg-black drop-shadow-sm glow-sm shadow-zinc-600 border-1 border-zinc-600">
-              <div className="px-4 md:px-6 lg:px-12  shadow-inner shadow-zinc-900">
-                <Image
-                  src={header2Pic}
-                  alt="background"
-                  className="static overflow-hidden object-contain object-center"
-                />
-                <h1 className="pt-4 text-3xl font-bold text-yellow-400">Open Minting Now</h1>
-                <p className="pt-4 text-xl leading-relaxed font-mono text-zinc-400">
-                  <Logo weight={500} /> masks are more than just decorative - they are a sign of the power of those who decide the fate of Arbitrum, and a warning to those who would dare to stand in their way.
-                </p>
-                <p className="mt-4 text-xl leading-relaxed font-mono text-zinc-300">
-                  It was said that the <Logo weight={500} />' took great pleasure in hunting down those they deemed to be traitors, relishing in the opportunity to rid the world of their presence.
-                </p>
-                <p className="mt-4 text-2xl leading-relaxed font-semibold font-mono text-zinc-200">
-                  For those who collect the masks, the true power of the <Logo weight={500} /> would be theirs to wield.
-                </p>
+            <div className="w-full md:w-7/12 ml-auto mr-auto lg:mt-48 bg-black drop-shadow-sm glow-sm shadow-zinc-600 border-1 border-zinc-600">
+              <div className="px-4 md:px-6 lg:px-12  shadow-inner shadow-zinc-900">                
+                <h1 className="pt-4 text-5xl font-bold subpixel-antialiased text-yellow-500">Open Minting Now</h1>
+                <ul className="list-inside list-disc">
+                  <li className="pt-4 text-2xl leading-relaxed font-mono text-zinc-300">
+                    <Logo weight={500} /> masks are more than just decorative - they are a sign of the power of those who decide the fate of Arbitrum, and a warning to those who would dare to stand in their way.
+                  </li>
+                  <li className="mt-4 text-2xl leading-relaxed font-mono text-zinc-300">
+                    It was said that the <Logo weight={500} />' took great pleasure in hunting down those they deemed to be traitors, relishing in the opportunity to rid the world of their presence.
+                  </li>
+                  <li className="mt-4 text-2xl leading-relaxed font-mono text-white">
+                    For those who collect the masks, the true power of the <Logo weight={500} /> would be theirs to wield.
+                  </li>
+                </ul>
+                
                 <p className="mt-2 lg:mt-4 text-lg leading-relaxed text-zinc-100">
                   <RemainingBalance />
                 </p>
@@ -298,6 +296,11 @@ export default function Index() {
         <div className="container mx-auto pb-20 mt-10">
           <div className="z-30 flex-auto lg:w-8/12 p-0 mb-12 mr-auto ml-auto bg-black shadow-black glow-xl rounded-lg">
             <div className="z-30 relative flex flex-col min-w-0 w-full rounded-lg">
+              <Image
+                src={header2Pic}
+                alt="background"
+                className="static overflow-hidden object-scale-down object-center"
+              />
               <p className="z-30 p-6 text-3xl leading-relaxed font-mono text-zinc-200">
                 Honor these heroes of the past and claim your own <Logo weight={500} /> demon mask today. Show the world that you stand with the <Logo weight={500} /> in their fight against malicious transactions.
               </p>
