@@ -1,5 +1,7 @@
 import { BigNumber, ethers } from 'ethers';
 import axios from 'axios';
+import useEtherSWR, { EtherSWRConfig  } from 'ether-swr';
+import { roundEth, toInt, toEth, truncateAddress } from "./formatting";
 import { ERC721_ABI } from '../config/abi';
 import {
     CHAIN_ID,
@@ -19,6 +21,12 @@ const fetcher = (library, abi) => (...args) => {
     // it's a eth call
     const method = arg1
     return library[method](arg2, ...params)
+}
+
+function getLibrary(provider) {
+    const library = provider ? provider : getProvider();
+    library.pollingInterval = 12000
+    return library
 }
 
 
@@ -106,11 +114,35 @@ export async function doBatchMint(quantity, signer, contract) {
     return response;
 }
 
-export async function getMaxSupply(contract) {
-    contract = contract ? contract : getContract();
-    const data = ethers.utils.formatUnits(await contract.maxSupply(), 0);
+export async function getMaxSupply() {
+    const { data } = useEtherSWR(
+        ['maxSupply', account, 'latest'],
+        {}
+    );
     console.log(`[chain] [getMaxSupply] data: `, data);
-    return data;
+    return {
+        data: toInt(data),        
+    };
+}
+export async function getMaxPerTx() {
+    const { data } = useEtherSWR(
+        ['maxPerTX', null, 'latest'],
+        {}
+    );
+    console.log(`[chain] [getMaxPerTx] data: `, data);
+    return {
+        data: toInt(data),        
+    };
+}
+export async function getPrice() {
+    const { data } = useEtherSWR(
+        ['maxPerTX', null, 'latest'],
+        {}
+    );
+    console.log(`[chain] [getMaxPerTx] data: `, data);
+    return {
+        data: toInt(data),    
+    };
 }
 
 export async function getMintStats(account, contract) {
@@ -126,11 +158,49 @@ export async function getMintStats(account, contract) {
     return result;
 }
 
-export async function getTokensOfOwner(account, contract) {
+export async function getTokensOfOwner(account) {
     try {
+        const { data: tokens, mutate } = useEtherSWR(
+            ['tokensOfOwner', account, 'latest'],
+            {
+                subscribe: [
+                    // A filter from anyone to me
+                    {
+                        name: 'Transfer',
+                        topics: [null, account],
+                        on: (
+                            state,
+                            fromAddress,
+                            toAddress,
+                            amount,
+                            event
+                        ) => {
+                            console.log('receive', { event })
+                            const update = state.add(amount)
+                            mutate(update, false) // optimistic update skip re-fetch
+                        }
+                    },
+                    // A filter from me to anyone
+                    {
+                        name: 'Transfer',
+                        topics: [account, null],
+                        on: (
+                            state,
+                            fromAddress,
+                            toAddress,
+                            amount,
+                            event
+                        ) => {
+                            console.log('send', { event })
+                            const update = state.sub(amount)
+                            mutate(update, false) // optimistic update skip re-fetch
+                        }
+                    }
+                ]
+            }
+        )
         console.log(`[chain] [getTokensOfOwner] account: `, account);
-        contract = contract ? contract : getContract();
-        const tokens = await contract.tokensOfOwner(account);
+        
         const result = {
             minterNumMinted: tokens?.length ? tokens.length : 0,
             tokenIds: tokens,
@@ -143,19 +213,22 @@ export async function getTokensOfOwner(account, contract) {
     }
 }
 
-export async function getStaticData(contract) {
-    contract = contract ? contract : getContract();
-
-    const price = ethers.utils.formatEther(await contract.price());
-    const maxPerTx = ethers.utils.formatUnits(await contract.maxPerTX(), 0);
-    const maxSupply = ethers.utils.formatUnits(await contract.maxSupply(), 0);
-    const data = {
-        price: price,
-        max: maxSupply,
-        maxPerTx: maxPerTx,
+export async function getStaticData() {
+    try {
+        const { price } = getPrice();
+        const { maxPerTx } = getMaxPerTx();
+        const { maxSupply } = getMaxSupply();
+        const data = {
+            price: price,
+            max: maxSupply,
+            maxPerTx: maxPerTx,
+        }
+        console.log(`[chain] [getStaticData] data: `, data);
+        return data;
+    } catch(e) {
+        console.error("[getStaticData]\t",e);
     }
-    console.log(`[chain] [getStaticData] data: `, data);
-    return data
+    
 }
 
 export async function getNextTokenId(contract) {
@@ -167,13 +240,91 @@ export async function getNextTokenId(contract) {
 
 export async function getTotalSupply(contract) {
     contract = contract ? contract : getContract();
-    const data = ethers.utils.formatUnits(await contract.totalSupply(), 0);
+    const { data, mutate } = useEtherSWR(
+        ['totalSupply', account, 'latest'],
+        {
+            subscribe: [
+                // A filter from anyone to me
+                {
+                    name: 'Transfer',
+                    topics: [null, account],
+                    on: (
+                        state,
+                        fromAddress,
+                        toAddress,
+                        amount,
+                        event
+                    ) => {
+                        console.log('receive', { event })
+                        const update = state.add(amount)
+                        mutate(update, false) // optimistic update skip re-fetch
+                    }
+                },
+                // A filter from me to anyone
+                {
+                    name: 'Transfer',
+                    topics: [account, null],
+                    on: (
+                        state,
+                        fromAddress,
+                        toAddress,
+                        amount,
+                        event
+                    ) => {
+                        console.log('send', { event })
+                        const update = state.sub(amount)
+                        mutate(update, false) // optimistic update skip re-fetch
+                    }
+                }
+            ]
+        }
+    )
+    //const data = ethers.utils.formatUnits(await contract.totalSupply(), 0);
     console.log(`[chain] [getTotalSupply] data: `, data);
-    return data;
+    return toInt(data);
 }
 export async function getBalanceOf(address, contract) {
-    contract = contract ? contract : getContract();
-    const data = ethers.utils.formatUnits(await contract.balanceOf(address), 0);
+    const { data, mutate } = useEtherSWR(
+        [address, 'balanceOf', account],
+        {
+            subscribe: [
+                // A filter from anyone to me
+                {
+                    name: 'Transfer',
+                    topics: [null, account],
+                    on: (
+                        state,
+                        fromAddress,
+                        toAddress,
+                        amount,
+                        event
+                    ) => {
+                        console.log('receive', { event })
+                        const update = state.add(amount)
+                        mutate(update, false) // optimistic update skip re-fetch
+                    }
+                },
+                // A filter from me to anyone
+                {
+                    name: 'Transfer',
+                    topics: [account, null],
+                    on: (
+                        state,
+                        fromAddress,
+                        toAddress,
+                        amount,
+                        event
+                    ) => {
+                        console.log('send', { event })
+                        const update = state.sub(amount)
+                        mutate(update, false) // optimistic update skip re-fetch
+                    }
+                }
+            ]
+        }
+    )
+    //contract = contract ? contract : getContract();
+    //const data = ethers.utils.formatUnits(await contract.balanceOf(address), 0);
     console.log(`[chain] [getBalanceOf] data: `, data);
     return data;
 }

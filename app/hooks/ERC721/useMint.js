@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
+import { useNetwork, useSwitchNetwork } from 'wagmi';
 import { getEnabled, doMint, getRemaining, getStaticData, doBatchMint } from "../../system/chain";
+import {
+    CHAIN_ID,
+    CHAIN_NAME,
+} from '../../config'
 
 export default function useMint({
     onTxSuccess,
@@ -19,6 +24,8 @@ export default function useMint({
     const [price, setPrice] = useState();
     const [max, setMax] = useState();
     const [maxPerTx, setMaxPerTx] = useState();
+    const { chain } = useNetwork();
+    const { chains, error, isLoading: isNetworkLoading, pendingChainId, switchNetwork } = useSwitchNetwork();
 
 
 
@@ -33,23 +40,25 @@ export default function useMint({
 
     const onMint = useCallback(async (quantity, signer) => {
         console.log("onMint", quantity, signer);
+        if (chain.id !== CHAIN_ID) {
+            toast.warn("Incorrect network");
+            switchNetwork(CHAIN_ID);
+            if (onTxValidationFail)
+                onTxValidationFail(`Please connect to Arbitrum.`);
+            return false;
+        }
         const {
             isEnabled: enabled,
-            isCorrectNetwork,
             isSignerReady,
         } = getEnabled(signer.provider);
         setEnabledState(enabled);
         if (!enabled) {
-            if (!isCorrectNetwork) {
-                console.log("Incorrect network");
-                if (onTxValidationFail)
-                    onTxValidationFail(`Please connect to Arbitrum.`);
-            } else if (!isSignerReady) {
-                console.log("No signer");
+            if (!isSignerReady) {
+                toast.warn("No signer");
                 if (onTxValidationFail)
                     onTxValidationFail(`Could not find an authorized wallet, make sure it is connected correctly.`);
             } else {
-                console.log("Mint disabled", signer);
+                toast.warn("Mint disabled", signer);
                 if (onTxValidationFail)
                     onTxValidationFail(`Minting is not currently available.`);
             }
@@ -57,13 +66,13 @@ export default function useMint({
         }
         const remaining = await getRemaining();
         if (remaining <= 0) {
-            console.log("Mint sold out", remaining);
+            toast.warn("Mint sold out", remaining, "remaining");
             if (onTxValidationFail)
                 onTxValidationFail(`Mint over! Sold out.`);
             return false;
         }
         if (quantity > maxPerTx) {
-            console.log("Quantity too high", quantity);
+            toast.warn("Quantity too high", quantity, 'is higher than ', maxPerTx);
             if (onTxValidationFail)
                 onTxValidationFail(`Max number of mints per transaction is ${maxPerTx}, but ${quantity} was entered.`);
             return false;
@@ -81,7 +90,7 @@ export default function useMint({
             } else {
                 tx = await doMint(signer);
             }
-            console.log(`[onMint] transaction:`, tx);
+            toast.info(`transaction:`, tx);
             setHash(tx.hash);
             setMintingState(true);
 
@@ -131,7 +140,7 @@ export default function useMint({
             }
             return false
         }
-    }, []);
+    }, [maxPerTx, chain, switchNetwork]);
 
     return {
         onMint,

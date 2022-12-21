@@ -15,7 +15,7 @@ class MyDocument extends Document {
             href="/img/brand/apple-icon.png"
           />
           <link
-            href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&family=Merriweather&family=Graphik&family=Zen+Dots&family=Goldman&family=Squada+One&family=Oxanium"
+            href="https://fonts.googleapis.com/css2?family=Intent&family=Merriweather&family=Graphik&family=Zen+Dots&family=Goldman&family=Squada+One&family=Oxanium"
             rel="stylesheet"
           />
         </Head>

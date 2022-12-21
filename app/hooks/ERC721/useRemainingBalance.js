@@ -1,9 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import { useProvider, useAccount } from 'wagmi';
-import { getContract, getRemaining, getTokensOfOwner } from '../../system/chain';
-import { Conditional } from '../Common';
+import { useState } from 'react';
 
-export default function RemainingBalance() {
+export default function useRemainingBalance({ isEventUpdating }) {
     const [remaining, setRemaining] = useState();
     const [balance, setBalance] = useState();
     const { address } = useAccount();
@@ -12,7 +9,7 @@ export default function RemainingBalance() {
 
     useEffect(() => {
         async function pull() {
-            try{
+            try {
                 if (address) {
                     const owned_p = getTokensOfOwner(address, contract);
                     const remaining_p = getRemaining(contract);
@@ -24,10 +21,10 @@ export default function RemainingBalance() {
                             setRemaining(remain);
                             console.log(`[RemainingBalance] remaining calc: `, remain,
                                 ", remaining: ", remaining);
-                        } catch(e) {
+                        } catch (e) {
                             console.warn("[RemainingBalance] Error: ", e)
                         }
-                        
+
                     });
                 } else {
                     const remaining_p = getRemaining(contract);
@@ -36,38 +33,37 @@ export default function RemainingBalance() {
                             setRemaining(remain);
                             console.log(`[RemainingBalance] remaining calc: `, remain,
                                 ", remaining: ", remaining);
-                        } catch(e) {
+                        } catch (e) {
                             console.warn("[RemainingBalance] Error: ", e)
                         }
-                        
+
                     });
                 }      
-            } catch(e) {
+            } catch (e) {
                 console.warn("[RemainingBalance] Error: ", e)
             }
-            
-        }        
-        const transferTo = contract.filters.Transfer(null, address);
-        provider.removeAllListeners(transferTo);
-        provider.on(transferTo, (from, to, amount, event) => {
-            try {
-                console.log('Transfer|received', { from, to, amount, event });
-                pull();
-            } catch(e) {
-                console.warn("[RemainingBalance] Error: ", e)
-            }  
-        });
-        pull();    
 
-        return () => {
-            provider.removeAllListeners(transferTo);
         }
-    }, [address]);
-    
-    console.log(`[Remaining] `, remaining);
-    return (
-        <>
-            <Conditional value={remaining} /> available, <Conditional value={balance} /> owned.
-        </>        
-    )
+        pull();
+        if (isEventUpdating) {
+            const transferTo = contract.filters.Transfer(null, address);
+            provider.on(transferTo, (from, to, amount, event) => {
+                try {
+                    console.log('Transfer|received', { from, to, amount, event });
+                    pull();
+                } catch (e) {
+                    console.warn("[RemainingBalance] Error: ", e)
+                }
+            });
+
+            return () => {
+                provider.removeAllListeners(transferTo);
+            }
+        }
+    }, [isEventUpdating]);
+
+    return {
+        remaining,
+        balance
+    };
 }

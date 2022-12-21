@@ -12,11 +12,11 @@ export default function ImportantButton({ children, ...props }) {
                 "font-mono",
                 "text-black",
                 "bg-gradient-to-b",
-                "from-yellow-400",
+                "from-aurora-400",
                 "to-amber-400",
                 "hover:from-amber-400",
-                "hover:to-yellow-400",
-                "shadow-yellow-400",
+                "hover:to-aurora-400",
+                "shadow-aurora-400",
                 "glow-sm",
                 "hover:glow-lg"
             ])}>

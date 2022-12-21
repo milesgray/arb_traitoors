@@ -14,4 +14,12 @@ const truncateAddress = (address) => {
     return `${address.slice(0, 6)}...${address.slice(-4)}`;
 };
 
-export { roundEth, truncateAddress };
+const toInt = (value) => {
+    return ethers.utils.formatUnits(value, 0);
+}
+
+const toEth = (value) => {
+    return parseFloat(formatEther(balance)).toPrecision(4);
+}
+
+export { roundEth, toInt, toEth, truncateAddress };

@@ -37,8 +37,8 @@ export default function FlipCard({ children }) {
                 style={{
                     position: 'relative',
                     transformStyle: 'preserve-3d',
-                    width: 300,
-                    height: 300,
+                    width: 128,
+                    height: 128,
                 }}
             >
                 {children}

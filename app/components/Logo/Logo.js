@@ -1,27 +1,24 @@
 import clsx from 'clsx';
 import React from "react";
 
-export default function Logo({ weight, short, sub }) {
+export default function Logo({ weight, short, sub, plural }) {
     return (
         <span className={clsx([
-            `text-fuchsia-${weight + 100}`,
-            "subpixel-antialiased",
-            "font-arsenal",
-            `hover:text-indigo-${weight - 100}`
+            "subpixel-antialiased"
         ])}>
             {!short && (
                 <span className={clsx([
-                    "subpixel-antialiased",
                     "text-white",
+                    "font-oxanium", 
+                    "uppercase",                                       
                     sub ? "align-sub" : "align-middle"
                 ])}>Arbi</span>
             )}<span className={clsx([
                 `text-red-${weight}`,
-                "subpixel-antialiased",
+                "font-graphik",
                 "font-bold",
-                "uppercase",
-                "font-graphik"
-            ])}>traitoors</span>
+                "lowercase",                
+            ])}>traitor{plural && (<span>s</span>)}</span>
         </span>
     )
 }

@@ -50,7 +50,7 @@ export default function PurchaseModal({
                         "break-words",
                         "bg-zinc-800", 
                         "w-auto mb-8", 
-                        "shadow-yellow-400",
+                        "shadow-aurora-400",
                         "glow-sm-long", 
                         "rounded-sm"
                     ])}>
@@ -80,7 +80,7 @@ export default function PurchaseModal({
                                     <p className={clsx([
                                         'relative', 
                                         'top-6',
-                                        'text-yellow-400',
+                                        'text-aurora-400',
                                         'w-8/12', 
                                         'block'
                                     ])}>

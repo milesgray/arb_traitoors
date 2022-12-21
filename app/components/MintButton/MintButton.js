@@ -2,12 +2,18 @@ import { Fragment, useState } from 'react'
 import { useSigner, useAccount } from 'wagmi'
 import { useAccountModal } from '@rainbow-me/rainbowkit';
 import  useMint from "../../hooks/ERC721/useMint";
-import { getTokensOfOwner } from "../../system/chain";
+import { getTokensOfOwner, getOwnedMetadata } from "../../system/chain";
+import { toast } from 'react-toastify';
 
 import { PurchaseModal } from "../PurchaseModal";
 import { SuccessModal } from "../SuccessModal";
 import { ErrorModal } from "../ErrorModal";
-import { ImportantButton, HugeImportantButton } from "../Common";
+import { HugeImportantDisabledButton, HugeImportantButton } from "../Common";
+import { useNetwork, useSwitchNetwork } from 'wagmi';
+import {
+    CHAIN_ID,
+    CHAIN_NAME,
+} from '../../config'
 
 export default function MintButton({ isText, data, remaining }) {
     const { openConnectModal, isConnected,  } = useAccountModal();
@@ -17,11 +23,15 @@ export default function MintButton({ isText, data, remaining }) {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isNotAvailable, setNotAvailable] = useState(remaining == 0);    
     const [isPurchaseOpen, setIsPurchaseOpen] = useState();
+    const [isSuccessLoading, setSuccessLoadingState] = useState();
     const [isSuccessOpen, setIsSuccessOpen] = useState();
     const [isErrorOpen, setIsErrorOpen] = useState();
     const [errorMessage, setErrorMessage] = useState();
     const [numberMinted, setNumberMinted] = useState();
-    const [tokenIDs, setTokenIDs] = useState();
+    const [ownedMetadata, setOwnedMetadata] = useState();
+    const { chain } = useNetwork();
+    const { switchNetwork } = useSwitchNetwork();
+
 
     const { onMint, isSuccess, isError, isMinting, isLoading, hash } = useMint({
         onTxSuccess,
@@ -31,16 +41,23 @@ export default function MintButton({ isText, data, remaining }) {
         onTxSubmitError
     });
     async function onTxSuccess(receipt) {
-        console.log(`[onTxSuccess] receipt: `, receipt, `, hash: `, hash);
+        toast.info(`[onTxSuccess] receipt: `, receipt, `, hash: `, hash);
         setIsPurchaseOpen(false);
-        const result = await getTokensOfOwner(receipt.from);
-        setNumberMinted(result.minterNumMinted);
-        setTokenIDs(result.tokenIds);
-        console.log(`Mint Stats: ${numberMinted}, owned IDs:`, tokens);
+        setSuccessLoadingState(true);
         setIsSuccessOpen(true);
+        toast.promise(getOwnedMetadata(receipt.from), {
+            pending: "Loading your purchase, please wait...",
+            success: "Purchase results Loaded!",
+            error: `Could not load purchase results. Check etherscan for tx ${hash}`
+        }).then((result) => {
+            setNumberMinted(result.length);
+            setOwnedMetadata(result);
+            toast.info(`Mint Stats: ${numberMinted}, owned metadata:`, ownedMetadata);
+            setSuccessLoadingState(false);
+        });
     }
     async function onTxValidationFail(e) {
-        console.log('[onTxValidationFail]');
+        toast.warn('[onTxValidationFail]');
         setErrorMessage(e.message);
         setIsDialogOpen(false);
         setIsSuccessOpen(false);
@@ -54,7 +71,7 @@ export default function MintButton({ isText, data, remaining }) {
         setIsErrorOpen(true);
     }
     async function onTxSubmit(tx) {
-        console.log('[onTxSubmit]', x);
+        console.log('[onTxSubmit]', tx);
     }
     async function onTxSubmitError(message) {
         console.log('[onTxSubmitError]', message);
@@ -65,14 +82,25 @@ export default function MintButton({ isText, data, remaining }) {
     }
     function handleClick() {
         console.log("[handleClick]");
+        
         onMint(quantity, signer);
+           
     }
     function onButtonClick() {
         console.log("[onButtonClick]");
-        setIsDialogOpen(true);
-        setIsPurchaseOpen(true);
-        setIsSuccessOpen(false);
-        setIsErrorOpen(false);
+        if (chain.id !== CHAIN_ID) {
+            toast.warning("Incorrect network!");
+            switchNetwork(CHAIN_ID);
+            if (onTxValidationFail)
+                onTxValidationFail(`Please connect to Arbitrum.`);
+            return false;
+        } else {
+            setIsDialogOpen(true);
+            setIsPurchaseOpen(true);
+            setIsSuccessOpen(false);
+            setIsErrorOpen(false);
+        }
+        
     }
     function endDialog() {
         setIsDialogOpen(false);
@@ -82,11 +110,18 @@ export default function MintButton({ isText, data, remaining }) {
     }
     return (
         <Fragment>
-            {(!isDisconnected && data) && (
+            {(!isDisconnected && data) ? (
                 <div className={isLoading ? isMinting ? "animate-pulse animate-bounce" : "animate-pulse" : ""}>
                     <HugeImportantButton disabled={isNotAvailable} onClick={onButtonClick}>
                         {isMinting ? 'Minting...' : 'Mint'}
                     </HugeImportantButton>
+                </div>                
+            ) : 
+            (
+                <div>
+                    <HugeImportantDisabledButton>
+                    {'Mint'}
+                    </HugeImportantDisabledButton>
                 </div>                
             )}
             {(isDialogOpen && data) && (
@@ -102,12 +137,13 @@ export default function MintButton({ isText, data, remaining }) {
                     onClick={handleClick}
                 />
                 )}
-            {(isSuccess && hash && tokenIDs) && (
+            {(isSuccess && hash && ownedMetadata) && (
                 <SuccessModal
                     isOpen={isSuccessOpen}
                     setIsOpen={setIsSuccessOpen}
+                    isLoading={isSuccessLoading}
                     hash={hash}
-                    tokenIDs={tokenIDs}
+                    metadata={ownedMetadata}
                     onEnd={endDialog}
                 />
             )}
