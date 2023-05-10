@@ -1,8 +1,5 @@
 import React from "react";
 import Logo from "../Logo/Logo";
-import {
-  OPENSEA_URL
-} from '../../config';
 
 export default function FooterSmall(props) {
   return (

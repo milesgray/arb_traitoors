@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react'
 import { useSigner, useAccount } from 'wagmi'
 import { useAccountModal } from '@rainbow-me/rainbowkit';
 import  useMint from "../../hooks/ERC721/useMint";
-import { getTokensOfOwner, getOwnedMetadata } from "../../system/chain";
+import { getTokensOfOwner, getOwnedMetadata } from "../../lib/chain";
 import { toast } from 'react-toastify';
 
 import { PurchaseModal } from "../PurchaseModal";
@@ -12,8 +12,7 @@ import { HugeImportantDisabledButton, HugeImportantButton } from "../Common";
 import { useNetwork, useSwitchNetwork } from 'wagmi';
 import {
     CHAIN_ID,
-    CHAIN_NAME,
-} from '../../config'
+} from '../../config/vars'
 
 export default function MintButton({ isText, data, remaining }) {
     const { openConnectModal, isConnected,  } = useAccountModal();
@@ -40,8 +39,7 @@ export default function MintButton({ isText, data, remaining }) {
         onTxSubmit,
         onTxSubmitError
     });
-    async function onTxSuccess(receipt) {
-        toast.info(`[onTxSuccess] receipt: `, receipt, `, hash: `, hash);
+    async function onTxSuccess(receipt) {        
         setIsPurchaseOpen(false);
         setSuccessLoadingState(true);
         setIsSuccessOpen(true);
@@ -52,12 +50,13 @@ export default function MintButton({ isText, data, remaining }) {
         }).then((result) => {
             setNumberMinted(result.length);
             setOwnedMetadata(result);
-            toast.info(`Mint Stats: ${numberMinted}, owned metadata:`, ownedMetadata);
+            toast.info(`Number Minted: ${numberMinted}`);
             setSuccessLoadingState(false);
         });
     }
     async function onTxValidationFail(e) {
-        toast.warn('[onTxValidationFail]');
+        toast.warn(`Transaction Validation Failed: ${e.message}`);
+        console.log('[onTxValidationFail]', e.message);
         setErrorMessage(e.message);
         setIsDialogOpen(false);
         setIsSuccessOpen(false);
@@ -84,7 +83,6 @@ export default function MintButton({ isText, data, remaining }) {
         console.log("[handleClick]");
         
         onMint(quantity, signer);
-           
     }
     function onButtonClick() {
         console.log("[onButtonClick]");
@@ -100,7 +98,6 @@ export default function MintButton({ isText, data, remaining }) {
             setIsSuccessOpen(false);
             setIsErrorOpen(false);
         }
-        
     }
     function endDialog() {
         setIsDialogOpen(false);

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAddress, getContract, getProvider } from "../../system/chain";
+import { getAddress, getContract, getProvider } from "../../lib/chain";
 
 export default function useOnTransfer({
     onEvent,

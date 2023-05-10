@@ -1,10 +1,10 @@
-# CrypTrees Web Interface
+# ARBItraitors Web Interface
 
 ## Run Locally
 
 ```bash
 git clone 
-cd cryptrees
+cd arb_traitoors
 npm install
 npm run dev
 ```

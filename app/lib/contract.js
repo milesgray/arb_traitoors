@@ -7,7 +7,7 @@ import {
     CHAIN_ID,
     ERC721_ADDRESS,
     ALCHEMY_API_KEY,
-} from '../config'
+} from '../config/vars'
 
 const fetcher = (library, abi) => (...args) => {
     const [arg1, arg2, ...params] = args
@@ -24,25 +24,25 @@ const fetcher = (library, abi) => (...args) => {
 }
 
 function getLibrary(provider) {
-    const library = provider ? provider : getProvider();
+    const library = provider ? provider : useProvider();
     library.pollingInterval = 12000
     return library
 }
 
 
-export function getProvider() {
+export function useProvider() {
     const provider = new ethers.providers.AlchemyProvider(CHAIN_ID, ALCHEMY_API_KEY);
     return provider;
 }
 
-export function getEnabled(provider) {
+export function useEnabled(provider) {
     try {
-        provider = provider ? provider : getProvider();
+        provider = provider ? provider : useProvider();
         const isCorrectNetwork = provider.network.chainId === CHAIN_ID;
         const isSignerReady = provider.getSigner()._isSigner;
 
         const isEnabled = isCorrectNetwork && isSignerReady;
-        console.log('[getEnabled] isSignerReady: ', isSignerReady,
+        console.debug('[useEnabled] isSignerReady: ', isSignerReady,
             'isCorrectNetwork', isCorrectNetwork,
             'isEnabled', isEnabled);
         return {
@@ -61,31 +61,26 @@ export function getEnabled(provider) {
     }
 }
 
-
-export function getAddress(provider) {
-    try {
-        const provider = provider ? provider : getProvider();
-        if (getEnabled(provider)) {
-            return provider.getSigner().address;
-        } else {
-            return null;
-        }
-    } catch (e) {
+export function useAddress(provider) {
+    provider = provider ? provider : useProvider();
+    if (useEnabled(provider)) {
+        return provider.getSigner().address;
+    } else {
         return null;
     }
 }
 
-export function getContract(provider) {
+export function useContract(provider) {
     return new ethers.Contract(
         ethers.utils.getAddress(ERC721_ADDRESS),
         ERC721_ABI,
-        provider ? provider : getProvider()
+        provider ? provider : useProvider()
     );
 
 }
 
 export async function doMint(signer, contract) {
-    contract = contract ? contract : getContract();
+    contract = contract ? contract : useContract();
     const price = await contract.price();
     const tx = {
         gasLimit: '0x55555',
@@ -100,7 +95,7 @@ export async function doMint(signer, contract) {
 }
 
 export async function doBatchMint(quantity, signer, contract) {
-    contract = contract ? contract : getContract();
+    contract = contract ? contract : useContract();
     const price = await contract.price();
     const tx = {
         gasLimit: '0x55555',
@@ -114,48 +109,68 @@ export async function doBatchMint(quantity, signer, contract) {
     return response;
 }
 
-export async function getMaxSupply() {
-    const { data } = useEtherSWR(
-        ['maxSupply', account, 'latest'],
-        {}
-    );
-    console.log(`[chain] [getMaxSupply] data: `, data);
-    return {
-        data: toInt(data),        
-    };
+export async function useMaxSupply(contract) {
+    try {
+        contract = contract ? contract : useContract();
+        const data = await contract.useMaxSupply();
+        console.debug(`[lib] [contract] [useMaxSupply] data: `, data);
+        return {
+            data: toInt(data),        
+        };
+    } catch(e) {
+        return {
+            data: 0
+        }
+    }
 }
-export async function getMaxPerTx() {
-    const { data } = useEtherSWR(
-        ['maxPerTX', null, 'latest'],
-        {}
-    );
-    console.log(`[chain] [getMaxPerTx] data: `, data);
-    return {
-        data: toInt(data),        
-    };
+export async function useMaxPerTx(contract) {
+    try {
+        contract = contract ? contract : useContract();
+        const data = await contract.getMaxPerTx();
+        console.debug(`[lib] [contract] [useMaxPerTx] data: `, data);
+        return {
+            data: toInt(data),        
+        };
+    } catch (e) {
+        return {
+            data: 0
+        }
+    }
 }
-export async function getPrice() {
-    const { data } = useEtherSWR(
-        ['maxPerTX', null, 'latest'],
-        {}
-    );
-    console.log(`[chain] [getMaxPerTx] data: `, data);
-    return {
-        data: toInt(data),    
-    };
+export async function usePrice(contract) {
+    try {
+        contract = contract ? contract : useContract();
+        const data = await contract.getPrice();
+        console.debug(`[lib] [contract] [usePrice] data: `, data);
+        return {
+            data: toInt(data),    
+        };
+    } catch (e) {
+        return {
+            data: 0
+        }
+    }
 }
 
 export async function getMintStats(account, contract) {
-    console.log(`[chain] [getMintStats] account: `, account);
-    contract = contract ? contract : getContract();
-    const stats = await contract.getMintStats(account);
-    const result = {
-        minterNumMinted: ethers.utils.formatUnits(stats.minterNumMinted, 0),
-        maxSupply: ethers.utils.formatUnits(stats.maxSupply, 0),
-        totalSupply: ethers.utils.formatUnits(stats.currentTotalSupply, 0)
-    };
-    console.log(`[chain] [getMintStats] stats: `, result);
-    return result;
+    try {
+        console.debug(`[lib] [contract] [getMintStats] account: `, account);
+        contract = contract ? contract : useContract();
+        const stats = await contract.getMintStats(account);
+        const result = {
+            minterNumMinted: ethers.utils.formatUnits(stats.minterNumMinted, 0),
+            maxSupply: ethers.utils.formatUnits(stats.maxSupply, 0),
+            totalSupply: ethers.utils.formatUnits(stats.currentTotalSupply, 0)
+        };
+        console.debug(`[lib] [contract] [getMintStats] stats: `, result);
+        return result;
+    } catch (e) {
+        return {
+            minterNumMinted: 0,
+            maxSupply: 0,
+            totalSupply: 0
+        }
+    }
 }
 
 export async function getTokensOfOwner(account) {
@@ -175,7 +190,7 @@ export async function getTokensOfOwner(account) {
                             amount,
                             event
                         ) => {
-                            console.log('receive', { event })
+                            console.debug('receive', { event })
                             const update = state.add(amount)
                             mutate(update, false) // optimistic update skip re-fetch
                         }
@@ -191,7 +206,7 @@ export async function getTokensOfOwner(account) {
                             amount,
                             event
                         ) => {
-                            console.log('send', { event })
+                            console.debug('send', { event })
                             const update = state.sub(amount)
                             mutate(update, false) // optimistic update skip re-fetch
                         }
@@ -199,148 +214,113 @@ export async function getTokensOfOwner(account) {
                 ]
             }
         )
-        console.log(`[chain] [getTokensOfOwner] account: `, account);
+        console.debug(`[lib] [contract] [getTokensOfOwner] account: `, account);
         
         const result = {
             minterNumMinted: tokens?.length ? tokens.length : 0,
             tokenIds: tokens,
         };
-        console.log(`[chain] [getTokensOfOwner] result: `, result);
+        console.debug(`[lib] [contract] [getTokensOfOwner] result: `, result);
         return result;
     } catch (e) {
-        console.error("[chain] [getTokensOfOwner] error:", e);
+        console.error("[lib] [contract] [getTokensOfOwner] error:", e);
         return e;
     }
 }
 
-export async function getStaticData() {
+export async function useStaticData(contract) {
     try {
-        const { price } = getPrice();
-        const { maxPerTx } = getMaxPerTx();
-        const { maxSupply } = getMaxSupply();
+        const { price } = usePrice(contract);
+        const { maxPerTx } = useMaxPerTx(contract);
+        const { maxSupply } = useMaxSupply(contract);
         const data = {
             price: price,
             max: maxSupply,
             maxPerTx: maxPerTx,
         }
-        console.log(`[chain] [getStaticData] data: `, data);
+        console.debug(`[lib] [contract] [useStaticData] data: `, data);
         return data;
     } catch(e) {
-        console.error("[getStaticData]\t",e);
+        console.error("[useStaticData]\t",e);
     }
     
 }
 
-export async function getNextTokenId(contract) {
-    contract = contract ? contract : getContract();
-    const data = await contract.nextTokenId();
-    console.log(`[chain] [getNextTokenId] data: `, data);
+export async function getNextTokenId(contract) {    
+    contract = contract ? contract : useContract();
+    const { data, mutate } = useEtherSWR(
+        [contract.address, 'nextTokenId', 'latest'],
+        {
+            subscribe: [
+                {
+                    name: 'block',
+                    on: (event) => {
+                        console.debug(`[lib] [contract] [nextTokenId] data: `, data, 'event: ', { event });
+                        // on every block we check if Ether balance has changed by re-fetching
+                        mutate(undefined, true)
+                    }
+                }
+            ]
+        }
+    )
+    console.debug(`[lib] [contract] [getNextTokenId] data: `, data);
     return data.toNumber();
 }
 
 export async function getTotalSupply(contract) {
-    contract = contract ? contract : getContract();
+    contract = contract ? contract : useContract();
     const { data, mutate } = useEtherSWR(
-        ['totalSupply', account, 'latest'],
+        [contract.address, 'totalSupply', 'latest'],
         {
             subscribe: [
-                // A filter from anyone to me
                 {
-                    name: 'Transfer',
-                    topics: [null, account],
-                    on: (
-                        state,
-                        fromAddress,
-                        toAddress,
-                        amount,
-                        event
-                    ) => {
-                        console.log('receive', { event })
-                        const update = state.add(amount)
-                        mutate(update, false) // optimistic update skip re-fetch
-                    }
-                },
-                // A filter from me to anyone
-                {
-                    name: 'Transfer',
-                    topics: [account, null],
-                    on: (
-                        state,
-                        fromAddress,
-                        toAddress,
-                        amount,
-                        event
-                    ) => {
-                        console.log('send', { event })
-                        const update = state.sub(amount)
-                        mutate(update, false) // optimistic update skip re-fetch
+                    name: 'block',
+                    on: (event) => {
+                        console.debug(`[lib] [contract] [getTotalSupply] data: `, data, 'event: ', {event});                        
+                        // on every block we check if Ether balance has changed by re-fetching
+                        mutate(undefined, true)
                     }
                 }
             ]
         }
     )
     //const data = ethers.utils.formatUnits(await contract.totalSupply(), 0);
-    console.log(`[chain] [getTotalSupply] data: `, data);
+    
     return toInt(data);
 }
-export async function getBalanceOf(address, contract) {
-    const { data, mutate } = useEtherSWR(
-        [address, 'balanceOf', account],
-        {
-            subscribe: [
-                // A filter from anyone to me
-                {
-                    name: 'Transfer',
-                    topics: [null, account],
-                    on: (
-                        state,
-                        fromAddress,
-                        toAddress,
-                        amount,
-                        event
-                    ) => {
-                        console.log('receive', { event })
-                        const update = state.add(amount)
-                        mutate(update, false) // optimistic update skip re-fetch
-                    }
-                },
-                // A filter from me to anyone
-                {
-                    name: 'Transfer',
-                    topics: [account, null],
-                    on: (
-                        state,
-                        fromAddress,
-                        toAddress,
-                        amount,
-                        event
-                    ) => {
-                        console.log('send', { event })
-                        const update = state.sub(amount)
-                        mutate(update, false) // optimistic update skip re-fetch
-                    }
-                }
-            ]
-        }
-    )
+export async function getBalanceOf(account, contract) {
+    const { data, mutate } = useEtherSWR([contract.address, 'balanceOf', account], {
+        subscribe: [
+            // A filter from anyone to me
+            {
+                name: 'Transfer',
+                topics: [null, account]
+            },
+            // A filter from me to anyone
+            {
+                name: 'Transfer',
+                topics: [account, null]
+            }
+        ]
+    })
     //contract = contract ? contract : getContract();
     //const data = ethers.utils.formatUnits(await contract.balanceOf(address), 0);
-    console.log(`[chain] [getBalanceOf] data: `, data);
+    console.debug(`[lib] [contract] [getBalanceOf] data: `, data);
     return data;
 }
 
 export async function getRemaining(contract) {
-    contract = contract ? contract : getContract();
+    contract = contract ? contract : useContract();
     const max = ethers.utils.formatUnits(await contract.maxSupply(), 0);
     const total = ethers.utils.formatUnits(await contract.totalSupply(), 0);
     const remaining = parseInt(max) - parseInt(total);
-    console.log(`[chain] [getRemaining] remaining: `, remaining);
+    console.debug(`[lib] [contract] [getRemaining] remaining: `, remaining);
     return remaining;
     
 }
 
 export async function getOwnedMetadata(address, contract) {
-    contract = contract ? contract : getContract();
+    contract = contract ? contract : useContract();
     const baseUri = await contract.baseURI();
     const tokens = await contract.tokensOfOwner(address);
     const items = await Promise.all(tokens.map(async i => {
@@ -356,7 +336,7 @@ export async function getOwnedMetadata(address, contract) {
         }
         const meta = await axios.get(baseUri.replace("ipfs://", "https://") + ".ipfs.nftstorage.link/" + i + ".json");
         const img_url = "https://" + meta.data.image.replace("ipfs://", "").replace("/", ".ipfs.nftstorage.link/");
-        console.log(i, meta);        
+        console.debug(i, meta);        
         let item = {
             tokenId: i.toNumber(),
             owned: true,

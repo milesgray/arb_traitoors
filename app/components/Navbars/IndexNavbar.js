@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import Link from "next/link";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Logo from "../Logo/Logo";
-
+import OwnedModal from "../OwnedModal/OwnedModal";
+import { useProvider, useAccount } from 'wagmi';
+import { useContract } from '../../lib/contract';
+import { getOwnedMetadata } from '../../lib/chain';
+import { toast } from 'react-toastify';
 
 function Nav({ children, ...props }) {
   return (
@@ -99,7 +103,40 @@ function NavLinkIcon({ iconClass }) {
 }
 
 export default function Navbar() {
+  const [quantity, setOwnedQuantity] = useState(0);
+  const [metadata, setOwnedMetadata] = useState();
+  const [isOwnedOpen, setIsOwnedOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState();
+  const { address } = useAccount();
+  const provider = useProvider();
+  const contract = useContract(provider);
+
+  useEffect(() => {
+    async function fetch() {
+      if (address) {
+        const tokens = await contract.tokensOfOwner(address);                
+        if (tokens?.length) {
+          setOwnedQuantity(tokens.length);
+          setIsLoading(true);
+          toast.promise(getOwnedMetadata(address), {
+            pending: "Loading your purchases, please wait...",
+            success: "Purchase results Loaded!",
+            error: `Could not load purchase results.`
+          }).then((result) => {
+            setOwnedMetadata(result);   
+            setIsLoading(false);         
+          });
+        }
+      }
+    }
+    fetch();
+  }, [address]);
+
+  function handleClick() {
+    setIsOwnedOpen(true);
+  }
   return (
+    <>
     <Nav>
       <div className="w-auto static block justify-start">
         <Link href="/">
@@ -157,6 +194,16 @@ export default function Navbar() {
               Collection
             </NavLink>
           </NavListItem>
+          {(metadata) && (
+              <NavListItem>
+                <NavLink                  
+                  onClick={handleClick}
+                >
+                  <NavLinkIcon iconClass={"fa fa-star"} />
+                  Owned
+                </NavLink>
+              </NavListItem>
+          )}
         </ul>
       </div>
       <div className="flex">
@@ -167,5 +214,15 @@ export default function Navbar() {
         </ul>
       </div>
     </Nav>
+      {(metadata) && (
+        <OwnedModal
+          isOpen={isOwnedOpen}
+          setIsOpen={setIsOwnedOpen}
+          isLoading={isLoading}
+          quantity={quantity}
+          metadata={metadata}          
+        />
+      )}
+    </>
   );
 }

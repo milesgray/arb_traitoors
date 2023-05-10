@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { useProvider, useAccount } from 'wagmi';
-import { getContract, getMaxSupply, getTotalSupply } from '../../system/chain';
+import { getContract, getMaxSupply, getTotalSupply } from '../../lib/chain';
 
 
 export default function Remaining() {

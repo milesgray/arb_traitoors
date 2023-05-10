@@ -5,7 +5,7 @@ import {
     CHAIN_ID,
     ERC721_ADDRESS,
     ALCHEMY_API_KEY,
-} from '../config'
+} from '../config/vars'
 
 const fetcher = (library, abi) => (...args) => {
     const [arg1, arg2, ...params] = args
@@ -184,8 +184,7 @@ export async function getRemaining(contract) {
     const total = ethers.utils.formatUnits(await contract.totalSupply(), 0);
     const remaining = parseInt(max) - parseInt(total);
     console.log(`[chain] [getRemaining] remaining: `, remaining);
-    return remaining;
-    
+    return remaining;    
 }
 
 export async function getOwnedMetadata(address, contract) {

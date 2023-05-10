@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useProvider, useAccount, useConnect } from 'wagmi';
-import { getContract, getTokensOfOwner } from '../../system/chain';
+import { getContract, getTokensOfOwner } from '../../lib/chain';
 import useOnTransfer from '../../hooks/ERC721/useOnTransfer';
 
 

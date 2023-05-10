@@ -26,14 +26,12 @@ import bgSm2Pic from "../public/img/brand/bg_sm2.png";
 import symbolWidePic from "../public/img/brand/symbol_wide.png";
 import { useAccount, useProvider, isAddress } from 'wagmi';
 import clsx from "clsx";
-import { MintButton } from "../components/MintButton";
-import { Remaining, Balance } from "../components/Data";
-import { RemainingBalance } from "../components/RemainingBalance";
 import IndexNavbar from "../components/Navbars/IndexNavbar.js";
 import FooterSmall from "../components/Footers/FooterSmall.js";
-import Logo from "../components/Logo/Logo.js";
+import { Logo } from "../components/Text";
 import { ToastContainer } from 'react-toastify';
-import { getContract, getStaticData } from "../system/chain";
+import { getContract, getStaticData } from "../lib/chain";
+import { useContract, useStaticData } from "../lib/contract";
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 import { PreviewImage, PositionableImage } from "../components/Common";
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -151,15 +149,49 @@ function BlackGlowParagraph({children, ...props}) {
 function Paragraph({ children, ...props }) {
   return (
     <p className={clsx([
+      "uppercase",
+      "text-mono",
+      "text-bold",
       "text-xl",
       "leading-relaxed",
       "p-1",
       "mt-0",
       "mb-4",
-      "text-zinc-300",      
+      "text-san-felix-600",  
     ])} {...props}>
       {children}
     </p>
+  )
+}
+
+function LgParagraph({ children, ...props }) {
+  return (
+    <p className={clsx([
+      "uppercase",
+      "text-mono",
+      "text-bold",
+      "text-3xl",
+      "leading-relaxed",
+      "p-6",
+      "text-san-felix-600",
+    ])} {...props}>
+      {children}
+    </p>
+  )
+}
+
+function BulletPoint({ children, ...props }) {
+  return (
+    <li className={clsx([
+      "text-2xl",
+      "text-mono",
+      "text-bold",
+      "leading-relaxed",
+      "mt-4",
+      "text-san-felix-600",
+    ])} {...props}>
+      {children}
+    </li>
   )
 }
 
@@ -200,17 +232,11 @@ function TraitItem({children}) {
 
 export default function Index() {
   const [staticData, setStaticData] = useState();
-  const { openConnectModal, isConnected } = useConnectModal();
-  const provider = useProvider();
-  const contract = getContract(provider);
-
-  useEffect(() => {
-    if (!contract) return;
-    getStaticData(contract).then((data) => {
-      setStaticData(data);
-    });
-  }, [contract]);
   
+  useEffect(() => {
+    setStaticData(getStaticData());
+  }, []);
+
   
   return (
     <>
@@ -224,7 +250,7 @@ export default function Index() {
               className="static overflow-hidden object-contain object-center"
             />
             <h2 className="relative top-[-80px] left-4 font-semibold text-4xl lg:text-max pointer-events-none">
-              <Logo weight={500} plural />
+              <Logo weight={600} plural />
             </h2>
             <h3 className={clsx([
               "relative",
@@ -244,46 +270,24 @@ export default function Index() {
               "p-2",
               "font-intent"
             ])}>
-              <p className="mt-4 text-xl leading-relaxed font-mono text-zinc-100">
-                Now known as <span className="text-white uppercase antialiased font-oxanium">validators</span>, <Logo weight={500} plural  /> were a mysterious and feared group that operated within the anicent Arbitrum proto-system.
-              </p>
-              
-              
-              <p className="mt-4 text-xl leading-relaxed font-mono text-zinc-100">
-                <Logo weight={500} /> were tasked with the sacred duty of hunting down and punishing those who were deemed to be traitors within the Arbitrum community.
-              </p>
-              
-              <p className="mt-4 text-2xl font-mono text-zinc-100">
-                Are you a bad enough dude to carry on their legacy?
-              </p>
-              <p className="mt-4 text-2xl font-mono text-zinc-100 p-8">
-                <i className="fab fa-l p-2 text-red-600" />
-                <i className="fab fa-f p-2 text-ruby-magma-600" />
-                <i className="fab fa-g p-2 text-crimson-tide-600" />
-                <i className="fa fa-bolt p-2 text-aurora-500" />
-                <i className="fab fa-l p-2 text-red-600" />
-                <i className="fab fa-f p-2 text-ruby-magma-600" />
-                <i className="fab fa-g p-2 text-crimson-tide-600" />
-                <i className="fa fa-bolt p-2 text-aurora-500" />
-                <i className="fab fa-l p-2 text-red-600" />
-                <i className="fab fa-f p-2 text-ruby-magma-600" />
-                <i className="fab fa-g p-2 text-crimson-tide-600" />
-                <i className="fa fa-bolt p-2 text-aurora-500" />
-                <i className="fab fa-l p-2 text-red-600" />
-                <i className="fab fa-f p-2 text-ruby-magma-600" />
-                <i className="fab fa-g p-2 text-crimson-tide-600" />
-                <i className="fa fa-bolt p-2 text-aurora-500" />
-                <i className="fab fa-l p-2 text-red-600" />
-                <i className="fab fa-f p-2 text-ruby-magma-600" />
-                <i className="fab fa-g p-2 text-crimson-tide-600" />
-              </p>
+              <Paragraph>
+                A mysterious and feared group that operated within the anicent Arbitrum proto-system...
+              </Paragraph>
+              <Paragraph>
+                <Logo weight={600} plural /> were tasked with the sacred duty of hunting down and punishing transactions deemed to be traitors to the underlying chain. 
+              </Paragraph>
+              <Paragraph>
+                Now they are known as <span className="text-white uppercase antialiased font-oxanium">validators</span>.
+              </Paragraph>
+              <Paragraph>
+                Honor their legacy and sacrifice by minting their spirit back into existance!
+              </Paragraph>
               <ActionPanel data={staticData} className="container mx-auto items-center justify-center" />
-              
             </div>
           </div>
           <div className="w-full lg:w-4/12 pt-4 pb-2 mb-12 mx-auto z-3">
             <div className="z-10 relative flex flex-row min-w-0 w-full mb-2 mt-12">
-              <div className="flex-col  shadow-zinc-900 glow-md">
+              <div className="flex-col shadow-zinc-900 glow-md">
                 <PreviewImage src={teaser6Pic} />
                 <PreviewImage src={teaser7Pic} />
                 <PreviewImage src={teaser8Pic} />
@@ -305,9 +309,9 @@ export default function Index() {
         <div className="lg:mb-24 container mx-auto">
           <div className="lg:mb-24 flex-auto lg:w-8/12 p-0 mb-12 mr-auto ml-auto bg-black shadow-black glow-xl-long rounded-lg">
             <div className="lg:z-10 relative flex flex-col min-w-0 w-full rounded-lg shadow-black glow-md ">
-              <p className="lg:z-10 p-6 text-3xl leading-relaxed font-mono text-zinc-200">
-                It was said that the <Logo weight={500} plural  /> were a group of powerful sorcerers who had harnessed the dark arts and rumored to wear demon masks. They were said to be able to see into the hearts and minds of those around them, using their magic to uncover even the most hidden of secrets.
-              </p>
+              <LgParagraph>
+                It was said that the <Logo weight={600} plural  /> were a group of powerful sorcerers who had harnessed the dark arts and rumored to wear frightening masks. They were said to be able to see into the hearts and minds of each transaction, using their magic to uncover even the most hidden of secrets.
+              </LgParagraph>
             </div>
           </div>
         </div>
@@ -340,16 +344,16 @@ export default function Index() {
         <div className="flex container mx-auto px-8 lg:px-20">
           <div className="flex flex-wrap items-center" >
             <MidContent>
-              <IconTitledHeading text="Traits" iconClasses={"fab fa-star"} />
+              <IconTitledHeading text="Traits" iconClasses={"fa fa-star"} />
               <BlackOpacityContentArea>
                 <Paragraph>
-                  Each <Logo weight={500} /> has their own unique demon mask, crafted with care and infused with their own style and vision.
+                  Each <Logo weight={600} /> has their own unique mask, gifted to them from the overlords of their time and infused with their own style and vision.
                 </Paragraph>
                 <Paragraph>
                   Some are sleek and elegant, while others are grotesque and terrifying.
                 </Paragraph>
                 <Paragraph>
-                  All are powerful symbols of the <Logo weight={500} plural  />' commitment to the continued stability of Arbitrum.
+                  All are powerful symbols of the <Logo weight={600} plural  />' commitment to the continued stability of Arbitrum.
                 </Paragraph>
                 <TraitList />
               </BlackOpacityContentArea>  
@@ -375,9 +379,9 @@ export default function Index() {
             <div className="z-3 container mx-auto">
               <div className="z-2 flex-auto lg:w-8/12 p-0 mb-12 mr-auto ml-auto bg-black shadow-black glow-xl-long rounded-lg">
                 <div className="z-2 relative flex flex-col min-w-0 w-full rounded-lg shadow-black glow-md ">
-                  <p className="p-6 text-3xl leading-relaxed font-mono text-zinc-200">
-                    Now, the <Logo weight={500} plural /> have decided to pass their masks to the new generation, and they are being offered as non-fungible tokens native to Arbitrum. Each mask is a one-of-a-kind piece of digital art, representing the soul of the <Logo weight={500} /> who created it.
-                  </p>
+                  <LgParagraph>
+                    Now, the <Logo weight={600} plural /> have decided to pass their masks to the new generation, and they are being offered as non-fungible tokens native to Arbitrum. Each mask represents the soul of the <Logo weight={600} /> who created it.
+                  </LgParagraph>
                 </div>
               </div>
             </div>
@@ -414,15 +418,15 @@ export default function Index() {
               <div className="px-4 md:px-6 lg:px-12  shadow-inner shadow-zinc-900">                
                 <h1 className="pt-4 text-5xl font-bold subpixel-antialiased text-aurora-500">Open Minting Now</h1>
                 <ul className="list-inside list-disc">
-                  <li className="pt-4 text-2xl leading-relaxed font-mono text-zinc-300">
-                    <Logo weight={500} /> masks are more than just decorative - they are a sign of the power of those who decide the fate of Arbitrum, and a warning to those who would dare to stand in their way.
-                  </li>
-                  <li className="mt-4 text-2xl leading-relaxed font-mono text-zinc-300">
-                    It was said that the <Logo weight={500} plural />' took great pleasure in hunting down those they deemed to be traitors, relishing in the opportunity to rid the world of their presence.
-                  </li>
-                  <li className="mt-4 text-2xl leading-relaxed font-mono text-white">
-                    For those who collect the masks, the true power of the <Logo weight={500} plural /> would be theirs to wield.
-                  </li>
+                  <BulletPoint>
+                    <Logo weight={600} /> masks are more than just decorative - they are a sign of the power of those who decide the fate of Arbitrum, and a warning to those who would dare to stand in their way.
+                  </BulletPoint>
+                  <BulletPoint>
+                    It was said that the <Logo weight={600} plural />' took great pleasure in hunting down transactions they deemed to be traitors, relishing in the opportunity to rid the world of their presence.
+                  </BulletPoint>
+                  <BulletPoint>
+                    For those who collect the masks, the true power of the <Logo weight={600} plural /> would be theirs to wield.
+                  </BulletPoint>
                 </ul>
                 
                 <ActionPanel data={staticData} className="mb-4"/>
@@ -432,7 +436,7 @@ export default function Index() {
         </div> 
         
       </section>
-      <section className="overflow-hidden">
+      <section className="overflow-hidden relative">
         <div className="z-2 container mx-auto pb-20 mt-10">
           <div className="z-2 flex-auto lg:w-8/12 p-0 mb-12 mr-auto ml-auto bg-black shadow-black glow-xl rounded-lg">
             <div className="z-2 relative flex flex-col min-w-0 w-full rounded-lg">
@@ -441,15 +445,15 @@ export default function Index() {
                 alt="background"
                 className="static overflow-hidden object-scale-down object-center"
               />
-              <p className="z-2 p-6 text-3xl leading-relaxed font-mono text-zinc-200">
-                Honor these heroes of the past and claim your own <Logo weight={500} /> demon mask today. Show the world that you stand with the <Logo weight={500} /> in their fight against malicious transactions.
-              </p>
+              <LgParagraph>
+                Honor these heroes of the past and claim your own <Logo weight={600} /> demon mask today. Show the world that you stand with the <Logo weight={600} /> in their fight against malicious transactions.
+              </LgParagraph>
             </div>
           </div>
         </div>
-        <div className="z-[-1] absolute right-0 top-[3532px]  w-full h-[70vh] overflow-hidden">
+        <div className="z-[-1] absolute right-0 top-0  w-full h-[75vh]">
           <Image src={bgPic} alt="background"
-            className="z-0 w-full object-fill object-bottom align-middle shadow-neutral-900 shadow-inner overflow-hidden" />
+            className="z-0 w-full object-fill object-bottom align-middle shadow-neutral-900 shadow-inner" />
         </div>        
       </section>      
       <section className="z-2 pb-16 bg-zinc-700 relative pt-2">
@@ -481,12 +485,18 @@ export default function Index() {
         <span className="text-red-700">demon</span>
         <span className="text-red-800">mask</span>
         <span className="text-red-900">ai</span>
-        <span className="text-indigo-400">arbitrum</span>
-        <span className="text-indigo-500">nft</span>
-        <span className="text-indigo-600">ethereum</span>
-        <span className="text-indigo-700">demon</span>
-        <span className="text-indigo-800">mask</span>
-        <span className="text-indigo-900">ai</span>
+        <span className="text-red-ribbon-400">arbitrum</span>
+        <span className="text-red-ribbon-500">nft</span>
+        <span className="text-red-ribbon-600">ethereum</span>
+        <span className="text-red-ribbon-700">demon</span>
+        <span className="text-red-ribbon-800">mask</span>
+        <span className="text-red-ribbon-900">ai</span>
+        <span className="text-yellow-400">arbitrum</span>
+        <span className="text-yellow-500">nft</span>
+        <span className="text-yellow-600">ethereum</span>
+        <span className="text-yellow-700">demon</span>
+        <span className="text-yellow-800">mask</span>
+        <span className="text-yellow-900">ai</span>
       </div>
       <FooterSmall />
       <ToastContainer

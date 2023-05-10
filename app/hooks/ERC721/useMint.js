@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNetwork, useSwitchNetwork } from 'wagmi';
-import { getEnabled, doMint, getRemaining, getStaticData, doBatchMint } from "../../system/chain";
+import { getEnabled, doMint, getRemaining, getStaticData, doBatchMint } from "../../lib/chain";
 import {
     CHAIN_ID,
     CHAIN_NAME,
-} from '../../config'
+} from '../../config/vars'
 
 export default function useMint({
     onTxSuccess,
@@ -26,8 +26,6 @@ export default function useMint({
     const [maxPerTx, setMaxPerTx] = useState();
     const { chain } = useNetwork();
     const { chains, error, isLoading: isNetworkLoading, pendingChainId, switchNetwork } = useSwitchNetwork();
-
-
 
     useEffect(() => {
         getStaticData().then((data) => {

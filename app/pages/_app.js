@@ -15,7 +15,7 @@ import {
   CHAIN,
   ALCHEMY_API_KEY,
   RPC_URL,
-} from '../config';
+} from '../config/vars';
 
 import '../styles/globals.css'
 import "@rainbow-me/rainbowkit/styles.css";
@@ -48,7 +48,7 @@ const { chains, provider } = configureChains(
 console.log("arbitrum wagmi chain", CHAIN, "chains", chains);
 
 const { connectors } = getDefaultWallets({
-  appName: "ArbTraitoors",
+  appName: "ARBItraitors",
   chains,
 });
 
@@ -75,7 +75,7 @@ export default class MyApp extends App {
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
           />
-          <title>ArbiTRAITOORS: The Infernal Gallery - Open Mint</title>
+          <title>ARBItraitors: The Infernal Gallery - Open Mint</title>
         </Head>
         <Layout>
           <WagmiConfig client={wagmiClient}>

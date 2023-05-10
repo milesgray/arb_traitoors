@@ -13,6 +13,31 @@ module.exports = {
     
     extend: {
       colors: {
+        'red-ribbon': {
+          '50': '#fff0f1',
+          '100': '#ffe2e4',
+          '200': '#ffc9d0',
+          '300': '#ff9daa',
+          '400': '#ff667c',
+          '500': '#ff3154',
+          '600': '#f10e3f',
+          '700': '#cb0534',
+          '800': '#aa0733',
+          '900': '#910a34',
+        },
+        'san-felix': {
+          '50': '#e9ffe4',
+          '100': '#cdffc5',
+          '200': '#9fff92',
+          '300': '#62ff52',
+          '400': '#2cfc1f',
+          '500': '#09e300',
+          '600': '#02b600',
+          '700': '#028a01',
+          '800': '#086b08',
+          '900': '#0c5b0d',
+        },
+
         "aurora-100": "#FFF8E1",
         "aurora-200": "#FFECB3",
         "aurora-300": "#FFE082",
@@ -80,9 +105,9 @@ module.exports = {
         "jungle-green-200": "#B9DDB9",
         "jungle-green-300": "#A0D1A0",
         "jungle-green-400": "#86C586",
-        "jungle-green-500": "#006400",
-        "jungle-green-600": "#005200",
-        "jungle-green-700": "#004600",
+        "jungle-green-500": "#65B665",
+        "jungle-green-600": "#44A744",
+        "jungle-green-700": "#236923",
         "jungle-green-800": "#003B00",
 
         "midnight-blue-50": "#EBF5FF",
