@@ -211,7 +211,7 @@ export async function getOwnedMetadata(address, contract) {
             image: img_url,
             name: meta.data.name,
             description: meta.data.description,
-            buyLink: "https://opensea.io/assets/arbitrum/" + ERC721_ADDRESS + "/" + i.toNumber(),
+            buyLink: "https://testnets.opensea.io/assets/arbitrum/" + ERC721_ADDRESS + "/" + i.toNumber(),
         }
         return item
     }));

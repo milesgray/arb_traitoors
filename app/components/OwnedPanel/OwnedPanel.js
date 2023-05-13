@@ -11,11 +11,14 @@ export default function OwnedPanel({
             "grid-cols-2",
             "md:grid-cols-4",
             "lg:grid-cols-6",
+            "xl:grid-cols-8",
             "gap-4px",
             "p-4",
             "overflow-y-scroll",
             "h-[148px]",
-            "md:h-[300px]"
+            "md:h-[300px]",
+            "lg:h-[600px]",
+            "xl:h-[800px]"
         ])}>
             {metadata.map((m) => {
                 if (m.tokenId === 0) return
