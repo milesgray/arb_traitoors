@@ -1,0 +1,54 @@
+{
+  "name": "arbitraitors",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/milesgray/arb_traitoors.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/milesgray/arb_traitoors/issues"
+  },
+  "homepage": "https://github.com/milesgray/arb_traitoors#readme",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^1.0.4",
+    "@nomiclabs/hardhat-ethers": "^2.2.1",
+    "@nomiclabs/hardhat-etherscan": "^3.1.2",
+    "@nomiclabs/hardhat-truffle5": "^2.0.7",
+    "@nomiclabs/hardhat-web3": "^2.0.0",
+    "@openzeppelin/test-helpers": "^0.5.16",
+    "@uniswap/v2-core": "^1.0.1",
+    "@uniswap/v2-periphery": "^1.1.0-beta.0",
+    "chai": "^4.3.7",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.12.5",
+    "hardhat-abi-exporter": "^2.10.1",
+    "hardhat-contract-sizer": "^2.6.1",
+    "hardhat-exposed": "^0.2.15",
+    "hardhat-gas-reporter": "^1.0.9",
+    "solidity-coverage": "^0.8.2",
+    "web3": "^1.8.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.0",
+    "chalk": "^4.1.0",
+    "cids": "^1.1.6",
+    "commander": "^7.1.0",
+    "concurrently": "^6.0.0",
+    "getconfig": "^4.5.0",
+    "go-ipfs": "^0.8.0",
+    "inquirer": "^8.0.0",
+    "ipfs-http-client": "^59.0.0",
+    "it-all": "^1.0.5",
+    "json-colorizer": "^2.2.2",
+    "multiaddr": "^8.1.2",
+    "truffle": "^5.6.6"
+  }
+}

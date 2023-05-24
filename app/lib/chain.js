@@ -202,18 +202,30 @@ export async function getOwnedMetadata(address, contract) {
                 buyLink: "http://"
             }
         }
-        const meta = await axios.get(baseUri.replace("ipfs://", "https://") + ".ipfs.nftstorage.link/" + i + ".json");
-        const img_url = "https://" + meta.data.image.replace("ipfs://", "").replace("/", ".ipfs.nftstorage.link/");
-        console.log(i, meta);        
-        let item = {
-            tokenId: i.toNumber(),
-            owned: true,
-            image: img_url,
-            name: meta.data.name,
-            description: meta.data.description,
-            buyLink: "https://testnets.opensea.io/assets/arbitrum/" + ERC721_ADDRESS + "/" + i.toNumber(),
+        try {
+            const meta = await axios.get(baseUri.replace("ipfs://", "https://") + ".ipfs.nftstorage.link/" + i + ".json");
+            const img_url = "https://" + meta.data.image.replace("ipfs://", "").replace("/", ".ipfs.nftstorage.link/");
+            console.log(i, meta);
+            let item = {
+                tokenId: i.toNumber(),
+                owned: true,
+                image: img_url,
+                name: meta.data.name,
+                description: meta.data.description,
+                buyLink: "https://testnets.opensea.io/assets/arbitrum/" + ERC721_ADDRESS + "/" + i.toNumber(),
+            }
+            return item
+        } catch(e) {
+            return {
+                tokenId: 0,
+                owned: true,
+                image: "http://",
+                name: 0,
+                description: "",
+                buyLink: "http://"
+            }
         }
-        return item
+        
     }));
     return items;
 }

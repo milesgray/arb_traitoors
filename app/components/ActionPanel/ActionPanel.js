@@ -3,7 +3,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { MintButton } from '../MintButton';
 import { RemainingBalance } from '../RemainingBalance';
 
-export default function ActionPanel({data, ...props}) {
+export default function ActionPanel({data, remaining, balance, ...props}) {
     return (
         <div {...props}>
             <div className={clsx([
@@ -22,7 +22,7 @@ export default function ActionPanel({data, ...props}) {
                     "fa-arrow-down", 
                     "flex",
                     data ? "animate-bounce" : ""
-                 ])} /> <RemainingBalance />
+                 ])} /> <RemainingBalance remaining={remaining} balance={balance} />
             </div>
             <div className="left-6 ml-8 mt-4 pb-0">
                 <MintButton data={data} />

@@ -15,6 +15,7 @@ export default function PurchaseModal({
     price, 
     onClick 
 }) {    
+    console.log("[PurchaseModal]", quantity, price, maxPerTx);
     return (  
         <Transition
             show={isOpen}
@@ -84,7 +85,7 @@ export default function PurchaseModal({
                                         'w-8/12', 
                                         'block'
                                     ])}>
-                                        {quantity * price} ETH total
+                                        {parseFloat(quantity) * parseFloat(price)} ETH total
                                     </p>
                                 </div>
                             </div>

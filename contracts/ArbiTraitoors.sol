@@ -5,7 +5,9 @@ import {Paid} from "./access/Paid.sol";
 import {ReentrancyGuard} from "./utils/ReentrancyGuard.sol";
 import {TwoStepOwnable} from "./access/TwoStepOwnable.sol";
 
-contract ArbTraitoors is 
+// traitoors.on.fleek.co
+
+contract ArbiTraitoors is 
     ERC721AQueryableEnumerableMetadata, 
     ReentrancyGuard,
     Paid 
@@ -20,7 +22,7 @@ contract ArbTraitoors is
 
     uint256 public constant price = 0.005 ether;
 
-    uint256 public constant maxPerTX = 10;
+    uint256 public constant maxPerTX = 50;
 
     constructor(
         string memory name_, 
@@ -42,6 +44,18 @@ contract ArbTraitoors is
 
     function nextTokenId() external view returns(uint) {
         return _currentIndex;
+    }
+
+    function startTokenId() external pure returns(uint) {
+        return 0;
+    }
+
+    function endTokenId() external view returns(uint) {
+        return _maxSupply;
+    }
+
+    function supplyCap() external view returns(uint) {
+        return _maxSupply;
     }
 
     /**
@@ -85,6 +99,19 @@ contract ArbTraitoors is
 
     /**
      * @dev Use this if you are code, so we can talk
+     * - be sure to send `price` eth 
+     */
+    function safeMint(
+        address to_
+    )
+        external payable 
+        onlyPaid(price)
+    {
+        _safeMintGuard(to_, 1, "");
+    }
+
+    /**
+     * @dev Use this if you are code, so we can talk
      * - second parameter is QUANTITY not TOKENID
      * - be sure to send `price` * quantity eth 
      * - max of `maxPerTX` quantity per transaction
@@ -97,6 +124,37 @@ contract ArbTraitoors is
         onlyPaid(price * quantity_)
     {
         _safeMintGuard(to_, quantity_, "");
+    }
+
+    /**
+     * @dev Use this if you are code, so we can talk     
+     * - be sure to send `price` eth 
+     */
+    function safeMint(
+        address to_, 
+        bytes memory data_
+    )
+        external payable 
+        onlyPaid(price)
+    {
+        _safeMintGuard(to_, 1, data_);
+    }
+
+    /**
+     * @dev Use this if you are code, so we can talk
+     * - second parameter is QUANTITY not TOKENID
+     * - be sure to send `price` * quantity eth 
+     * - max of `maxPerTX` quantity per transaction
+     */
+    function safeMint(
+        address to_, 
+        uint quantity_,
+        bytes memory data_
+    )
+        external payable 
+        onlyPaid(price * quantity_)
+    {
+        _safeMintGuard(to_, quantity_, data_);
     }
     
     /**
@@ -114,6 +172,25 @@ contract ArbTraitoors is
         onlyPaid(price * quantity_)
     {
         _safeMintGuard(to_, quantity_, data_);
+    }
+
+    function mintTo(
+        address to_    
+    )
+        external payable 
+        onlyPaid(price)
+    {
+        _mintGuard(to_, 1);
+    }
+
+    function mintTo(
+        address to_, 
+        uint quantity_        
+    )
+        external payable 
+        onlyPaid(price * quantity_)
+    {
+        _mintGuard(to_, quantity_);
     }
 
 

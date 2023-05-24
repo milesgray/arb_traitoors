@@ -7,7 +7,7 @@ const { AddressZero } = ethers.constants;
 const CONTRACTS = {
   [ARBITRUM_TESTNET]: {
     // arbitrum testnet
-    NFT: "0xA49c87366488B7B50184AF595a8Bdd75b07c4d0e",
+    NFT: "0x7754956d37AD20c321B196523179b0Bb43EadA22",
   },
   [ARBITRUM]: {
     // arbitrum mainnet

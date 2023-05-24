@@ -5,8 +5,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Logo from "../Logo/Logo";
 import OwnedModal from "../OwnedModal/OwnedModal";
 import { useProvider, useAccount } from 'wagmi';
-import { useContract } from '../../lib/contract';
-import { getOwnedMetadata } from '../../lib/chain';
+import { getContract, getOwnedMetadata } from '../../lib/chain';
 import { toast } from 'react-toastify';
 
 function Nav({ children, ...props }) {
@@ -109,24 +108,33 @@ export default function Navbar() {
   const [isLoading, setIsLoading] = useState();
   const { address } = useAccount();
   const provider = useProvider();
-  const contract = useContract(provider);
+  const contract = getContract(provider);
 
   useEffect(() => {
     async function fetch() {
       if (address) {
-        const tokens = await contract.tokensOfOwner(address);                
-        if (tokens?.length) {
-          setOwnedQuantity(tokens.length);
-          setIsLoading(true);
-          toast.promise(getOwnedMetadata(address), {
-            pending: "Loading your purchases, please wait...",
-            success: "Purchase results Loaded!",
-            error: `Could not load purchase results.`
-          }).then((result) => {
-            setOwnedMetadata(result);   
-            setIsLoading(false);         
-          });
+        try {
+          const tokens = await contract.tokensOfOwner(address);
+          if (tokens?.length) {
+            setOwnedQuantity(tokens.length);
+            setIsLoading(true);
+            try {
+              toast.promise(getOwnedMetadata(address), {
+                pending: "Loading your purchases, please wait...",
+                success: "Purchase results Loaded!",
+                error: `Could not load purchase results.`
+              }).then((result) => {
+                setOwnedMetadata(result);
+                setIsLoading(false);
+              });
+            } catch (e) {
+              console.error("[Owned] Error", e);
+            }
+          }
+        } catch(e) {
+          console.error("[Owned]", e);
         }
+        
       }
     }
     fetch();

@@ -7,7 +7,7 @@ const { parseEther } = ethers.utils;
 
 export const ETH_MAINNET = 1;
 export const ARBITRUM = 42161;
-export const ARBITRUM_TESTNET = 421611;
+export const ARBITRUM_TESTNET = 421613;
 
 // TODO take it from web3
 export const DEFAULT_CHAIN_ID = ARBITRUM;
@@ -24,7 +24,7 @@ export const IS_NETWORK_DISABLED = {
 };
 
 export const CHAIN_NAMES_MAP = {
-    [ARBITRUM_TESTNET]: "ArbRinkeby",
+    [ARBITRUM_TESTNET]: "ArbGoerli",
     [ARBITRUM]: "Arbitrum",
 };
 
@@ -40,29 +40,11 @@ export const HIGH_EXECUTION_FEES_MAP = {
 const constants = {
     [ARBITRUM_TESTNET]: {
         nativeTokenSymbol: "ETH",
-        defaultCollateralSymbol: "USDC",
-        defaultFlagOrdersEnabled: false,
-        positionReaderPropsLength: 9,
-        v2: true,
-
-        SWAP_ORDER_EXECUTION_GAS_FEE: parseEther("0.0003"),
-        INCREASE_ORDER_EXECUTION_GAS_FEE: parseEther("0.0003"),
-        // contract requires that execution fee be strictly greater than instead of gte
-        DECREASE_ORDER_EXECUTION_GAS_FEE: parseEther("0.000300001"),
     },
 
     [ARBITRUM]: {
         nativeTokenSymbol: "ETH",
         wrappedTokenSymbol: "WETH",
-        defaultCollateralSymbol: "USDC",
-        defaultFlagOrdersEnabled: false,
-        positionReaderPropsLength: 9,
-        v2: true,
-
-        SWAP_ORDER_EXECUTION_GAS_FEE: parseEther("0.0003"),
-        INCREASE_ORDER_EXECUTION_GAS_FEE: parseEther("0.0003"),
-        // contract requires that execution fee be strictly greater than instead of gte
-        DECREASE_ORDER_EXECUTION_GAS_FEE: parseEther("0.000300001"),
     },
 };
 

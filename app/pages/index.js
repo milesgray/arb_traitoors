@@ -24,18 +24,16 @@ import bgPic from "../public/img/brand/bg1.png";
 import bgSmPic from "../public/img/brand/bg_sm.png";
 import bgSm2Pic from "../public/img/brand/bg_sm2.png";
 import symbolWidePic from "../public/img/brand/symbol_wide.png";
-import { useAccount, useProvider, isAddress } from 'wagmi';
+
 import clsx from "clsx";
 import IndexNavbar from "../components/Navbars/IndexNavbar.js";
 import FooterSmall from "../components/Footers/FooterSmall.js";
 import { Logo } from "../components/Text";
 import { ToastContainer } from 'react-toastify';
-import { getContract, getStaticData } from "../lib/chain";
-import { useContract, useStaticData } from "../lib/contract";
-import { useConnectModal } from '@rainbow-me/rainbowkit';
+import { getContract, getRemaining, getStaticData } from '../lib/chain';
+import useRemainingBalance from '../hooks/ERC721/useRemainingBalance';
 import { PreviewImage, PositionableImage } from "../components/Common";
 import 'react-toastify/dist/ReactToastify.min.css';
-import ColorGrid from "../components/ColorGrid/ColorGrid";
 import ActionPanel from "../components/ActionPanel/ActionPanel";
 
 const contextClass = {
@@ -232,11 +230,19 @@ function TraitItem({children}) {
 
 export default function Index() {
   const [staticData, setStaticData] = useState();
-  
+
+  const {remaining, balance} = useRemainingBalance();
+
   useEffect(() => {
-    setStaticData(getStaticData());
+    async function fetch() {
+      setStaticData(await getStaticData());
+    }
+    fetch();
   }, []);
 
+  
+
+  console.log("[index]", staticData);
   
   return (
     <>
@@ -282,7 +288,7 @@ export default function Index() {
               <Paragraph>
                 Honor their legacy and sacrifice by minting their spirit back into existance!
               </Paragraph>
-              <ActionPanel data={staticData} className="container mx-auto items-center justify-center" />
+              <ActionPanel data={staticData} remaining={remaining} balance={balance} className="container mx-auto items-center justify-center" />
             </div>
           </div>
           <div className="w-full lg:w-4/12 pt-4 pb-2 mb-12 mx-auto z-3">
@@ -429,7 +435,7 @@ export default function Index() {
                   </BulletPoint>
                 </ul>
                 
-                <ActionPanel data={staticData} className="mb-4"/>
+                <ActionPanel data={staticData} remaining={remaining} balance={balance} className="mb-4"/>
               </div>
             </div>            
           </div>

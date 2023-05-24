@@ -7,6 +7,7 @@ import {
     CHAIN_ID,
     ERC721_ADDRESS,
     ALCHEMY_API_KEY,
+    OPENSEA_URL,
 } from '../config/vars'
 
 const fetcher = (library, abi) => (...args) => {
@@ -343,7 +344,7 @@ export async function getOwnedMetadata(address, contract) {
             image: img_url,
             name: meta.data.name,
             description: meta.data.description,
-            buyLink: "https://opensea.io/assets/arbitrum/" + ERC721_ADDRESS + "/" + i.toNumber(),
+            buyLink: OPENSEA_URL + "/assets/arbitrum/" + ERC721_ADDRESS + "/" + i.toNumber(),
         }
         return item
     }));

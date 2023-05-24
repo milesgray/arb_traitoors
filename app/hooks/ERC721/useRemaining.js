@@ -7,32 +7,16 @@ export default function useRemaining({isEventUpdating}) {
     const contract = getContract(provider);
 
     useEffect(() => {
-        async function pull() {
-            try {
-                const remaining_p = getRemaining(contract);
-                Promise.all([remaining_p]).then(([remain]) => {
-                    try {
-                        setRemaining(remain);
-                        console.log(`[RemainingBalance] remaining calc: `, remain,
-                            ", remaining: ", remaining);
-                    } catch (e) {
-                        console.warn("[RemainingBalance] Error: ", e)
-                    }
-
-                });
-            
-            } catch (e) {
-                console.warn("[RemainingBalance] Error: ", e)
-            }
-
+        async function fetch() {
+            setRemaining(await getRemaining());
         }
-        pull();
+        fetch();
         if (isEventUpdating) {
             const transferTo = contract.filters.Transfer(null, address);
             provider.on(transferTo, (from, to, amount, event) => {
                 try {
                     console.log('Transfer|received', { from, to, amount, event });
-                    pull();
+                    fetch();
                 } catch (e) {
                     console.warn("[RemainingBalance] Error: ", e)
                 }
