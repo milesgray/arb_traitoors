@@ -17,8 +17,8 @@ export default function OwnedPanel({
             "overflow-y-scroll",
             "h-[148px]",
             "md:h-[300px]",
-            "lg:h-[600px]",
-            "xl:h-[800px]"
+            "lg:h-[350px]",
+            "xl:h-[400px]"
         ])}>
             {metadata.map((m) => {
                 if (m.tokenId === 0) return

@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useProvider, useAccount, useConnect } from 'wagmi';
+import { useProvider, useAccount } from 'wagmi';
 import { getContract, getTokensOfOwner } from '../../lib/chain';
-import useOnTransfer from '../../hooks/ERC721/useOnTransfer';
-
 
 export default function Balance() {
     const [balance, setBalance] = useState();
-    const { address, isConnecting, isDisconnected } = useAccount();
-    const provider = useProvider();
+    const { address } = useAccount();
     const contract = getContract(); 
     console.log("isError, isSuccess, contract", isError, isSuccess, contract);
     

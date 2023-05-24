@@ -30,7 +30,7 @@ import IndexNavbar from "../components/Navbars/IndexNavbar.js";
 import FooterSmall from "../components/Footers/FooterSmall.js";
 import { Logo } from "../components/Text";
 import { ToastContainer } from 'react-toastify';
-import { getContract, getRemaining, getStaticData } from '../lib/chain';
+import { getStaticData } from '../lib/chain';
 import useRemainingBalance from '../hooks/ERC721/useRemainingBalance';
 import { PreviewImage, PositionableImage } from "../components/Common";
 import 'react-toastify/dist/ReactToastify.min.css';

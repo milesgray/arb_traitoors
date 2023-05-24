@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAccount, useProvider } from 'wagmi';
 import { getContract, getRemaining } from '../../lib/chain';
+
 export default function useRemainingBalance() {
     const [remaining, setRemaining] = useState();
     const [balance, setBalance] = useState();

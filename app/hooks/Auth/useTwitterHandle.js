@@ -1,6 +1,6 @@
-import { useCallback, useMemo, useEffect, useState } from 'react';
-import { useAccount, useProvider, isAddress } from 'wagmi';
-import { IdrissCrypto, Authorization } from "idriss-crypto";
+import { useEffect, useState } from 'react';
+import { useAccount } from 'wagmi';
+import { IdrissCrypto } from "idriss-crypto";
 
 export default function useTwitterHandle({
     onFound,
@@ -17,7 +17,6 @@ export default function useTwitterHandle({
             const obj = new IdrissCrypto();
 
             const reverse = await obj.reverseResolve(address);
-            
             
             if (reverse !== "") {
                 console.log("[useTwitterHandle] Success: ", reverse);

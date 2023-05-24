@@ -1,23 +1,17 @@
-import { ethers } from "ethers";
 import { sample } from "lodash";
-import { isDevelopment } from "./env";
-import { ALCHEMY_API_KEY, ALCHEMY_PUB_API_KEY } from ".";
+import { ALCHEMY_API_KEY, ALCHEMY_PUB_API_KEY } from "./vars";
 
-const { parseEther } = ethers.utils;
 
 export const ETH_MAINNET = 1;
 export const ARBITRUM = 42161;
 export const ARBITRUM_TESTNET = 421613;
 
 // TODO take it from web3
-export const DEFAULT_CHAIN_ID = ARBITRUM;
+export const DEFAULT_CHAIN_ID = ARBITRUM_TESTNET;
 export const CHAIN_ID = DEFAULT_CHAIN_ID;
 
 export const SUPPORTED_CHAIN_IDS = [ARBITRUM];
 
-if (isDevelopment()) {
-    SUPPORTED_CHAIN_IDS.push(ARBITRUM_TESTNET);
-}
 
 export const IS_NETWORK_DISABLED = {
     [ARBITRUM]: false,
@@ -131,16 +125,10 @@ export function getFallbackRpcUrl(chainId) {
 }
 
 export function getAlchemyHttpUrl() {
-    if (ALCHEMY_WHITELISTED_DOMAINS.includes(window.location.host)) {
-        return `https://arb-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`;
-    }
     return `https://arb-mainnet.g.alchemy.com/v2/${ALCHEMY_PUB_API_KEY}`;
 }
 
 export function getAlchemyWsUrl() {
-    if (ALCHEMY_WHITELISTED_DOMAINS.includes(window.location.host)) {
-        return `wss://arb-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`;
-    }
     return `wss://arb-mainnet.g.alchemy.com/v2/${ALCHEMY_PUB_API_KEY}`;
 }
 

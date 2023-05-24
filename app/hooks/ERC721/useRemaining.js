@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useAccount, useProvider } from 'wagmi';
+import { getContract, getRemaining } from '../../lib/chain';
 
 export default function useRemaining({isEventUpdating}) {
     const [remaining, setRemaining] = useState();

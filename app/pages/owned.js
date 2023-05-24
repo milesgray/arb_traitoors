@@ -1,41 +1,16 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React, { useEffect, useState } from "react";
 import Image from 'next/image';
-import teaser0Pic from '../public/img/brand/01.png';
-import teaser1Pic from '../public/img/brand/02.png';
-import teaser2Pic from '../public/img/brand/03.png';
-import teaser3Pic from '../public/img/brand/04.png';
-import teaser4Pic from '../public/img/brand/05.png';
-import teaser5Pic from '../public/img/brand/06.png';
-import teaser6Pic from '../public/img/brand/07.png';
-import teaser7Pic from '../public/img/brand/08.png';
-import teaser8Pic from '../public/img/brand/09.png';
-import teaser9Pic from '../public/img/brand/10.png';
-import teaser10Pic from '../public/img/brand/11.png';
-import teaser11Pic from '../public/img/brand/12.png';
-import teaser12Pic from '../public/img/brand/13.png';
-import teaser13Pic from '../public/img/brand/14.png';
-import teaser14Pic from '../public/img/brand/15.png';
-import teaser15Pic from '../public/img/brand/16.png';
 import headerPic from "../public/img/brand/header2.png";
-import header2Pic from "../public/img/brand/header.png";
-import headerLargePic from "../public/img/brand/header_lg.png";
 import bgPic from "../public/img/brand/bg1.png";
-import bgSmPic from "../public/img/brand/bg_sm.png";
-import bgSm2Pic from "../public/img/brand/bg_sm2.png";
 import symbolWidePic from "../public/img/brand/symbol_wide.png";
-import { useAccount, useProvider, isAddress } from 'wagmi';
 import clsx from "clsx";
 import IndexNavbar from "../components/Navbars/IndexNavbar.js";
 import FooterSmall from "../components/Footers/FooterSmall.js";
 import { Logo } from "../components/Text";
 import { ToastContainer } from 'react-toastify';
-import { getContract, getStaticData } from "../lib/chain";
-import { useContract, useStaticData } from "../lib/contract";
-import { useConnectModal } from '@rainbow-me/rainbowkit';
-import { PreviewImage, PositionableImage } from "../components/Common";
+import {  getStaticData } from "../lib/chain";
 import 'react-toastify/dist/ReactToastify.min.css';
-import ColorGrid from "../components/ColorGrid/ColorGrid";
 import ActionPanel from "../components/ActionPanel/ActionPanel";
 
 const contextClass = {
@@ -230,7 +205,7 @@ function TraitItem({ children }) {
     )
 }
 
-export default function Index() {
+export default function Owned() {
     const [staticData, setStaticData] = useState();
 
     useEffect(() => {

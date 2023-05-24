@@ -1,14 +1,18 @@
 import clsx from 'clsx';
+import Image from 'next/image';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react'
 import { ActionModal, ImportantButton, StyledInput } from '../Common';
 import { toInteger } from 'lodash';
 import { ERC721_ADDRESS } from '../../config/vars';
+import { DEFAULT_CHAIN_ID, getExplorerUrl } from '../../config/chains';
 import { Logo } from "../Logo";
 import OwnedPanel from "../OwnedPanel/OwnedPanel";
 import { Tab } from '@headlessui/react'
 import FlipCard from '../Cards/FlipCard';
 import { Flip } from 'react-toastify';
+import approvePic from "../../public/img/brand/approve.png";
+
 
 function ImageCarousel({
     metadata
@@ -53,6 +57,7 @@ export default function SuccessModal({
     metadata,
 }) {    
     console.log(metadata);
+    
     return (  
         <Transition
             show={isOpen}
@@ -98,9 +103,9 @@ export default function SuccessModal({
                             "flex",
                             "flex-col",
                             "min-w-0",
-                            "max-h-[500px]",
-                            "md:max-h-[600px]",
-                            "lg:max-h-[800px]",
+                            "max-h-[400px]",
+                            "md:max-h-[500px]",
+                            "lg:max-h-[600px]",
                             "break-words",
                             "bg-zinc-800",
                             "w-auto mb-8",
@@ -122,6 +127,10 @@ export default function SuccessModal({
                                     The {quantity} <Logo weight={500} /> belong to you now
                                 </Dialog.Description>
                                 <div className="p-2">
+                                    <div className="z-[-1] absolute right-0 top-0  w-full h-[75vh]">
+                                        <Image src={approvePic} alt="background"
+                                            className="z-0 w-full object-fill object-bottom align-middle shadow-neutral-900 shadow-inner" />
+                                    </div>
                                     <Transition
                                         show={isOpen}
                                         className="font-mono font-bold"
@@ -144,7 +153,7 @@ export default function SuccessModal({
                                             leaveFrom="opacity-100"
                                             leaveTo="opacity-0"
                                         >
-                                            Check out the <a href={`https://arbiscan.io/tx/${hash}`} className="text-red-600 font-bold">
+                                            Check out the <a href={`${getExplorerUrl(DEFAULT_CHAIN_ID)}tx/${hash}`} target="_blank" className="text-red-600 font-bold">
                                                 transaction
                                             </a> or the listings:
                                         </Transition.Child>

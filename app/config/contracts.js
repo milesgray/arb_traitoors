@@ -1,8 +1,4 @@
-import { ethers } from "ethers";
 import { ARBITRUM, ARBITRUM_TESTNET  } from "./chains";
-
-const { AddressZero } = ethers.constants;
-
 
 const CONTRACTS = {
   [ARBITRUM_TESTNET]: {

@@ -1,8 +1,7 @@
 import { Fragment, useState } from 'react'
 import { useSigner, useAccount } from 'wagmi'
-import { useAccountModal } from '@rainbow-me/rainbowkit';
 import  useMint from "../../hooks/ERC721/useMint";
-import { getTokensOfOwner, getOwnedMetadata } from "../../lib/chain";
+import { getOwnedMetadata } from "../../lib/chain";
 import { toast } from 'react-toastify';
 
 import { PurchaseModal } from "../PurchaseModal";
@@ -15,8 +14,7 @@ import {
 } from '../../config/vars'
 
 export default function MintButton({ isText, data, remaining }) {
-    const { openConnectModal, isConnected,  } = useAccountModal();
-    const { address, isConnecting, isDisconnected } = useAccount();
+    const { isDisconnected } = useAccount();
     const { data: signer } = useSigner();
     const [quantity, setQuantity] = useState(1);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
