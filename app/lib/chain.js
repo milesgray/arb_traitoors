@@ -176,7 +176,9 @@ export async function getOwnedMetadata(address, contract) {
     const baseUri = await contract.baseURI();
     const tokens = await contract.tokensOfOwner(address);
     const items = await Promise.all(tokens.map(async i => {
+        console.log(`[getOwnedMetadata]\tToken ${i}`);
         if (i.toNumber() === 0) {
+            console.warn("[getOwnedMetadata]\t0 detected, returning default object");
             return {
                 tokenId: 0,
                 owned: true,
@@ -187,7 +189,9 @@ export async function getOwnedMetadata(address, contract) {
             }
         }
         try {
-            const meta = await axios.get(baseUri.replace("ipfs://", "https://") + ".ipfs.nftstorage.link/" + i + ".json");
+            const metadata_url = baseUri.replaceAll("/","").replace("ipfs:", "https://") + ".ipfs.nftstorage.link/" + i + ".json";
+            console.log(`[getOwnedMetadata]\t${baseUri} -> ${metadata_url} baseUri`);
+            const meta = await axios.get(metadata_url);
             const img_url = "https://" + meta.data.image.replace("ipfs://", "").replace("/", ".ipfs.nftstorage.link/");
             console.log(i, meta);
             let item = {
@@ -200,6 +204,7 @@ export async function getOwnedMetadata(address, contract) {
             }
             return item
         } catch(e) {
+            console.error(e);
             return {
                 tokenId: 0,
                 owned: true,

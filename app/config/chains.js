@@ -22,15 +22,6 @@ export const CHAIN_NAMES_MAP = {
     [ARBITRUM]: "Arbitrum",
 };
 
-export const GAS_PRICE_ADJUSTMENT_MAP = {
-    [ARBITRUM]: "0",
-};
-
-
-export const HIGH_EXECUTION_FEES_MAP = {
-    [ARBITRUM]: 3, // 3 USD
-};
-
 const constants = {
     [ARBITRUM_TESTNET]: {
         nativeTokenSymbol: "ETH",
@@ -43,6 +34,11 @@ const constants = {
 };
 
 const ALCHEMY_WHITELISTED_DOMAINS = ["traitoors.on.fleek.co"];
+
+export const OPENSEA_URL = {
+    [ARBITRUM]: "https://opensea.io/",
+    [ARBITRUM_TESTNET]: "https://testnets.opensea.io/"
+};
 
 export const RPC_PROVIDERS = {
     [ETH_MAINNET]: ["https://rpc.ankr.com/eth"],
@@ -141,10 +137,6 @@ export function getExplorerUrl(chainId) {
     return "https://etherscan.io/";
 }
 
-export function getHighExecutionFee(chainId) {
-    return HIGH_EXECUTION_FEES_MAP[chainId] || 3;
-}
-
-export function isSupportedChain(chainId) {
-    return SUPPORTED_CHAIN_IDS.includes(chainId);
+export function getOpenseaUrl(chainId) {
+    return OPENSEA_URL[chainId];
 }

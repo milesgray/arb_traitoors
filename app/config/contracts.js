@@ -11,7 +11,7 @@ const CONTRACTS = {
   },
 };
 
-export function getContract(chainId, name) {
+export function getContractAddress(chainId, name) {
   if (!CONTRACTS[chainId]) {
     throw new Error(`Unknown chainId ${chainId}`);
   }

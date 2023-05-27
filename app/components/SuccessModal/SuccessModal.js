@@ -2,15 +2,11 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react'
-import { ActionModal, ImportantButton, StyledInput } from '../Common';
-import { toInteger } from 'lodash';
-import { ERC721_ADDRESS } from '../../config/vars';
+import { ImportantButton } from '../Common';
 import { DEFAULT_CHAIN_ID, getExplorerUrl } from '../../config/chains';
 import { Logo } from "../Logo";
 import OwnedPanel from "../OwnedPanel/OwnedPanel";
-import { Tab } from '@headlessui/react'
-import FlipCard from '../Cards/FlipCard';
-import { Flip } from 'react-toastify';
+import { Tab } from '@headlessui/react';
 import approvePic from "../../public/img/brand/approve.png";
 
 

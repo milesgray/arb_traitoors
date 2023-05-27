@@ -35,10 +35,9 @@ contract('ArbiTraitoors', function (accounts) {
             contractURI);        
     });
 
-    //shouldBehaveLikeERC721(...accounts);
+    shouldBehaveLikeERC721(...accounts);
     shouldBehaveLikeERC721Batch(maxSupply, one, ...accounts);
     shouldBehaveLikeERC721Metadata(name, symbol, ...accounts);
-    shouldBehaveLikeERC721Sequential(maxSupply, one, ...accounts);
-    //shouldBehaveLikeERC721CloneMintGame(supplyCap, baseTokenId, ...accounts);
+    shouldBehaveLikeERC721Sequential(maxSupply, one, ...accounts);    
     
 });                 

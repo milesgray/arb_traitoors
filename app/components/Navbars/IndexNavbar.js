@@ -7,6 +7,8 @@ import OwnedModal from "../OwnedModal/OwnedModal";
 import { useProvider, useAccount } from 'wagmi';
 import { getContract, getOwnedMetadata } from '../../lib/chain';
 import { toast } from 'react-toastify';
+import { getExplorerUrl, getOpenseaUrl, DEFAULT_CHAIN_ID } from '../../config/chains';
+import { getContractAddress } from '../../config/contracts';
 
 function Nav({ children, ...props }) {
   return (
@@ -186,7 +188,7 @@ export default function Navbar() {
           </NavListItem>
           <NavListItem>
             <NavLink
-              href={`https://arbiscan.io/address/0x4EEFeFD5fF983C85D5DDDc398366b6Db2fa466F1`}
+                href={`${getExplorerUrl(DEFAULT_CHAIN_ID)}address/${getContractAddress(DEFAULT_CHAIN_ID, "NFT")}`}
               target="_blank"
             >
               <NavLinkIcon iconClass={"fa fa-gears"} />
@@ -195,8 +197,8 @@ export default function Navbar() {
           </NavListItem>
           <NavListItem>
             <NavLink
-              href={`https://opensea.io/collection/arbitraitoors`}
-              target="_blank"
+                href={`${getOpenseaUrl(DEFAULT_CHAIN_ID)}collection/arbitraitoors`}
+                target="_blank"
             >
               <NavLinkIcon iconClass={"fa fa-globe"} />
               Collection

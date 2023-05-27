@@ -40,7 +40,7 @@ export default function OwnedPanel({
                         <FlipCard>
                             <img src={m.image} className="object-contain h-32" />
                         </FlipCard>
-                        <a href={m.buyLink}>
+                        <a href={m.buyLink} target="_blank">
                             {m.name}
                         </a>
                     </li>
