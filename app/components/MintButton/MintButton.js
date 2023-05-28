@@ -7,13 +7,13 @@ import { toast } from 'react-toastify';
 import { PurchaseModal } from "../PurchaseModal";
 import { SuccessModal } from "../SuccessModal";
 import { ErrorModal } from "../ErrorModal";
-import { HugeImportantDisabledButton, HugeImportantButton } from "../Common";
+import { HugeImportantDisabledButton, HugeImportantButton, SmallImportantButton, SmallImportantDisabledButton } from "../Common";
 import { useNetwork, useSwitchNetwork } from 'wagmi';
 import {
     CHAIN_ID,
 } from '../../config/vars'
 
-export default function MintButton({ isText, data, remaining }) {
+export default function MintButton({ isText, data, remaining, size="huge" }) {
     const { isDisconnected } = useAccount();
     const { data: signer } = useSigner();
     const [quantity, setQuantity] = useState(1);
@@ -107,16 +107,28 @@ export default function MintButton({ isText, data, remaining }) {
         <Fragment>
             {(!isDisconnected && data) ? (
                 <div className={isLoading ? isMinting ? "animate-pulse animate-bounce" : "animate-pulse" : ""}>
-                    <HugeImportantButton disabled={isNotAvailable} onClick={onButtonClick}>
-                        {isMinting ? 'Minting...' : 'Mint'}
-                    </HugeImportantButton>
+                    {(size === "huge") ? (
+                        <HugeImportantButton disabled={isNotAvailable} onClick={onButtonClick}>
+                            {isMinting ? 'Minting...' : 'Mint'}
+                        </HugeImportantButton>
+                    ) : (
+                        <SmallImportantButton disabled={isNotAvailable} onClick={onButtonClick}>
+                            {isMinting ? 'Minting...' : 'Mint'}
+                        </SmallImportantButton>
+                    )}
                 </div>                
             ) : 
             (
                 <div>
-                    <HugeImportantDisabledButton>
-                    {'Mint'}
-                    </HugeImportantDisabledButton>
+                    {(size === "huge") ? (
+                        <HugeImportantDisabledButton>
+                        {'Mint'}
+                        </HugeImportantDisabledButton>
+                    ) : (
+                        <SmallImportantDisabledButton>
+                            {'Mint'}
+                        </SmallImportantDisabledButton>
+                    )}
                 </div>                
             )}
             {(isDialogOpen && data) && (

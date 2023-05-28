@@ -23,7 +23,7 @@ const openMintPrice = new BN('5000000000000000');
 
 const RECEIVER_MAGIC_VALUE = '0x150b7a02';
 
-function shouldBehaveLikeERC721(owner, newOwner, approved, anotherApproved, operator, other) {
+function shouldBehaveLikeERC721A(owner, newOwner, approved, anotherApproved, operator, other) {
     shouldSupportInterfaces([
         'ERC165',
         'ERC721',

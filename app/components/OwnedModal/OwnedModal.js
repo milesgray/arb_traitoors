@@ -61,6 +61,7 @@ export default function OwnedModal({
                             "max-h-[400px]",
                             "md:max-h-[500px]",
                             "lg:max-h-[600px]",
+                            "xl:max-h-[700px]",
                             "break-words",
                             "bg-zinc-800",
                             "w-auto mb-8",

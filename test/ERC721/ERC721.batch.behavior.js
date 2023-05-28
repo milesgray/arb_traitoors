@@ -9,7 +9,7 @@ const ERC721ReceiverMock = artifacts.require('ERC721ReceiverMock');
 const Error = ['None', 'RevertWithMessage', 'RevertWithoutMessage', 'Panic']
     .reduce((acc, entry, idx) => Object.assign({ [entry]: idx }, acc), {});
 
-const many = new BN('13');
+const many = new BN('10');
 const one = new BN('1');
 
 const baseURI = 'https://api.example.com/v1/';

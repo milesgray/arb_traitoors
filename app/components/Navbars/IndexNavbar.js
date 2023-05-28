@@ -9,6 +9,7 @@ import { getContract, getOwnedMetadata } from '../../lib/chain';
 import { toast } from 'react-toastify';
 import { getExplorerUrl, getOpenseaUrl, DEFAULT_CHAIN_ID } from '../../config/chains';
 import { getContractAddress } from '../../config/contracts';
+import MintButton from '../MintButton/MintButton';
 
 function Nav({ children, ...props }) {
   return (
@@ -103,7 +104,7 @@ function NavLinkIcon({ iconClass }) {
   )
 }
 
-export default function Navbar() {
+export default function Navbar({ data}) {
   const [quantity, setOwnedQuantity] = useState(0);
   const [metadata, setOwnedMetadata] = useState();
   const [isOwnedOpen, setIsOwnedOpen] = useState(false);
@@ -177,6 +178,9 @@ export default function Navbar() {
         id="example-navbar-warning"
       >
         <ul className="flex flex-row list-none mr-auto">
+          <NavListItem>
+              <MintButton data={data} size="small" />
+          </NavListItem>
           <NavListItem>
             <NavLink
               href="https://github.com/milesgray/arb_traitoors"
