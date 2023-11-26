@@ -358,6 +358,7 @@ abstract contract ERC721AQueryableEnumerableMetadata is
     /**
      * @dev Returns a token ID at a given `index` of all the tokens stored by the contract.
      * Use along with {totalSupply} to enumerate all tokens.
+     * @note For interface support, simply returns index if less than total supply.
      */
     function tokenByIndex(uint256 index) public view returns (uint256) {
         uint totalSupply_ = totalSupply();
